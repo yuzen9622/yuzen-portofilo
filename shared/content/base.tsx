@@ -1,0 +1,23 @@
+import { SiGithub, SiInstagram } from "@icons-pack/react-simple-icons";
+import { LinkedinIcon } from "lucide-react";
+import { NavLink, Profile, SocialLink } from "./types";
+
+export const NAVIGATION_LINKS: NavLink[] = [
+  { name: "Yuzen", href: "/" },
+  { name: "Projects", href: "/#projects" },
+  { name: "Blog", href: "blog" },
+  { name: "Contact", href: "/#contact" },
+];
+
+export const ProfileBase: Profile = {
+  name: "Yuzen",
+  email: "oscar48079@gmail.com",
+  avatar: "/avatar.webp",
+  phone: "+886965303635",
+};
+
+export const SocialBase: Record<string, SocialLink> = {
+  github: { url: "", icon: <SiGithub /> },
+  linkedin: { url: "", icon: <LinkedinIcon /> },
+  instagram: { url: "", icon: <SiInstagram /> },
+};
