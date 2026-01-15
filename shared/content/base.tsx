@@ -4,9 +4,10 @@ import { NavLink, Profile, SocialLink } from "./types";
 
 export const NAVIGATION_LINKS: NavLink[] = [
   { name: "Yuzen", href: "/" },
-  { name: "Projects", href: "/#projects" },
+  { name: "About", href: "about" },
+  { name: "Projects", href: "projects" },
   { name: "Blog", href: "blog" },
-  { name: "Contact", href: "/#contact" },
+  { name: "Contact", href: "contact" },
 ];
 
 export const ProfileBase: Profile = {

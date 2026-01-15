@@ -8,7 +8,7 @@ export default function useMobile() {
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         const width = entry.contentRect.width;
-        setIsMobile(width <= 768);
+        setIsMobile(width < 768);
       }
     });
 

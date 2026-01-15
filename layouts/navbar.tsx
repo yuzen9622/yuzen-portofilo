@@ -39,13 +39,13 @@ export default function Navbar() {
     <>
       <div
         className={cn(
-          "top-2 sticky z-20 flex items-center transition-all duration-300 justify-center",
-          isTop && "top-0 w-full "
+          "top-2 sticky z-20 flex items-center transition-[width] duration-300 justify-center",
+          isTop && "top-0 w-full  transition-all"
         )}
       >
         <NavigationMenu
           className={cn(
-            "outline p-3 hover:shadow-xs transition-all rounded-full duration-300  h-fit hidden sm:block flex-none  bg-background/80  backdrop-blur-xs",
+            "outline p-3 hover:shadow-xs transition-[width] rounded-full duration-300  h-fit hidden sm:block flex-none  bg-background/80  backdrop-blur-xs",
             isTop && " rounded-none outline-none"
           )}
         >
@@ -58,7 +58,6 @@ export default function Navbar() {
                   className="overflow-hidden  "
                 >
                   <Link
-                    locale={locale}
                     className={cn(
                       "rounded-3xl  px-4  py-2 z-0 transition  hover:text-background relative hover:before:scale-100 before:transition-all before:absolute before:scale-50 before:opacity-0  hover:before:opacity-100 before:rounded-3xl before:inset-0 before:w-full before:h-full  before:-z-20 before:bg-primary "
                     )}
@@ -81,11 +80,7 @@ export default function Navbar() {
           isTop && "w-full top-0 rounded-none"
         )}
       >
-        <Link
-          locale={locale}
-          href={`/`}
-          className="relative font-bold text-xl  text-primary"
-        >
+        <Link href={`/`} className="relative font-bold text-xl  text-primary">
           <Avatar className="  pointer-events-none  w-10 h-10     aspect-square">
             <AvatarImage
               className=" rounded-full"

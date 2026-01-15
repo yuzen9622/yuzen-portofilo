@@ -7,7 +7,7 @@ import {
   useMotionValue,
   useReducedMotion,
 } from "framer-motion";
-import { Fragment, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   SiReact,
   SiReactHex,
@@ -28,7 +28,6 @@ import {
   SiPythonHex,
   SiGit,
   SiGitHex,
-  IconType,
   SiNextdotjsHex,
 } from "@icons-pack/react-simple-icons";
 

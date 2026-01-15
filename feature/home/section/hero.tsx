@@ -6,6 +6,7 @@ import { ProfileBase, SocialBase } from "@/shared/content/base";
 import Marquee from "@/feature/home/components/marquee";
 import {
   motion,
+  useMotionTemplate,
   useScroll,
   useSpring,
   useTransform,
@@ -15,38 +16,49 @@ import {
 import Link from "next/link";
 import { useRef } from "react";
 import useMobile from "@/shared/hooks/use-mobile";
+import { cn } from "@/shared/lib/utils";
 export default function Hero() {
   const marqueeRef = useRef(null);
+  const imageRef = useRef(null);
   const isMobile = useMobile();
   const { scrollYProgress } = useScroll({
     target: marqueeRef,
     offset: ["start center", "end start"],
   });
+  const { scrollYProgress: imageScrollYProgress } = useScroll({
+    target: imageRef,
+    offset: ["0.4 center", "end start"],
+  });
   const springProgress = useSpring(scrollYProgress, {
-    stiffness: 200,
+    stiffness: 100,
+    damping: 30,
+    mass: 0.2,
+  });
+  const imageSpringProgress = useSpring(imageScrollYProgress, {
+    stiffness: 100,
     damping: 30,
     mass: 0.2,
   });
   const rotate = useTransform(springProgress, [0, 1], [0, 3]);
-  const translateY = useTransform(springProgress, [0, 1], [50, 0]);
+  const translateY = useTransform(springProgress, [0, 1], [0, 100]);
+  const rounded = useTransform(imageSpringProgress, [0, 1], [15, 300]);
+  const roundedTemplate = useMotionTemplate`${rounded}px`;
   const headline: Variants = {
     initial: {
-      x: "40%",
-      y: "30%",
-      scale: 1.2,
+      scale: 1.5,
       opacity: 0,
     },
     animate: {
-      position: ["fixed", "fixed", "fixed", "relative"],
-      scale: [1.2, 1.2, 1.2, 1],
-      x: isMobile ? ["0", "0", "0", 0] : ["40%", "40%", "40%", 0],
-      y: isMobile ? ["40%", "40%", "40%", 0] : ["20%", "30%", "30%", 0],
+      position: ["absolute", "absolute", "absolute", "relative"],
+      scale: [1.5, 1.5, 1.5, 1],
+      left: isMobile ? ["0", "0", "0", 0] : ["60%", "60%", "60%", 0],
+      y: isMobile ? ["100%", "100%", "100%", 0] : ["10%", "30%", "30%", 0],
 
       opacity: [0, 1, 1, 1],
       transition: {
-        times: [0, 0.2, 0.5, 1],
+        times: [0, 0.3, 0.7, 1],
         duration: 2.5,
-        ease: "easeInOut",
+        ease: [0.22, 1, 0.36, 1],
       },
     },
   };
@@ -65,12 +77,21 @@ export default function Hero() {
       },
     },
   };
+  const line: Variants = {
+    initial: {
+      width: 0,
+    },
+    animate: {
+      width: "100%",
+      transition: { duration: 2, ease: [0.22, 1, 0.36, 1] },
+    },
+  };
 
   const revealDelayed: Variants = {
     ...reveal,
     animate: {
       ...reveal.animate,
-      transition: { delay: 3 },
+      transition: { delay: 2.5 },
     },
   };
 
@@ -78,7 +99,7 @@ export default function Hero() {
     initial: {},
     animate: {
       transition: {
-        delayChildren: 3,
+        delayChildren: 2.5,
         staggerChildren: 0.08,
       },
     },
@@ -88,7 +109,7 @@ export default function Hero() {
     initial: {},
     animate: {
       transition: {
-        delayChildren: 3,
+        delayChildren: 2.5,
         staggerChildren: 0.1,
       },
     },
@@ -102,29 +123,41 @@ export default function Hero() {
     >
       <div className=" w-11/12 max-w-6xl  mx-auto  space-y-3">
         <div className="flex  justify-between sm:flex-row flex-col  items-center  md:space-y-0 space-y-6">
-          <motion.div
-            variants={headline}
-            className="lg:text-6xl uppercase w-full h-full flex flex-col max-sm:items-center md:text-4xl text-3xl  space-y-2  "
-          >
-            <h1>Designing Systems</h1>
-            <h1>Not Just Code</h1>
-            <RotatingText
-              staggerFrom={"last"}
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "-120%" }}
-              staggerDuration={0.05}
-              splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1 "
-              transition={{ type: "spring", damping: 30, stiffness: 400 }}
-              rotationInterval={2500}
-              texts={["Build.", "Measure.", "Refine."]}
-            />
-          </motion.div>
+          <div className="lg:text-6xl uppercase w-full h-full flex flex-col max-sm:items-center md:text-4xl text-3xl  space-y-2  ">
+            <motion.h1 className="w-fit" variants={revealDelayed}>
+              Designing Systems
+            </motion.h1>
+            <motion.h1 className="w-fit" variants={revealDelayed}>
+              Not Just Code
+            </motion.h1>
+            <motion.div
+              variants={headline}
+              className="flex flex-col space-y-2 w-fit"
+            >
+              <RotatingText
+                staggerFrom={"last"}
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "-120%" }}
+                staggerDuration={0.05}
+                splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1 "
+                transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                rotationInterval={2500}
+                texts={["Yuzen", "Build.", "Measure.", "Refine."]}
+              />
+              <motion.div variants={line} className="border"></motion.div>
+            </motion.div>
+          </div>
 
-          <motion.div variants={revealDelayed}>
-            <Avatar className="w-80 h-80 rounded-3xl">
+          <motion.div ref={imageRef} variants={revealDelayed}>
+            <Avatar className={cn("w-80 h-80 rounded-none")}>
               <AvatarFallback>{ProfileBase.name}</AvatarFallback>
-              <AvatarImage src={ProfileBase.avatar} />
+              <motion.div
+                className="overflow-hidden"
+                style={{ borderRadius: roundedTemplate }}
+              >
+                <AvatarImage src={ProfileBase.avatar} />
+              </motion.div>
             </Avatar>
           </motion.div>
         </div>
@@ -141,12 +174,11 @@ export default function Hero() {
           ))}
         </motion.div>
       </div>
-
       <motion.div variants={below}>
-        <motion.div variants={reveal} className=" border"></motion.div>
+        <motion.div variants={line} className=" border"></motion.div>
         <motion.div
           variants={reveal}
-          style={{ rotate, translateY }}
+          style={{ rotate, translateY: isMobile ? 0 : translateY }}
           ref={marqueeRef}
           className="flex-1"
         >
