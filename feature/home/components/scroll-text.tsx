@@ -1,17 +1,14 @@
 "use client";
 
-import { cn } from "@/shared/lib/utils";
 import {
   motion,
   useMotionTemplate,
-  useMotionValueEvent,
-  useReducedMotion,
   useScroll,
   useSpring,
   useTransform,
 } from "framer-motion";
-import { div } from "framer-motion/client";
-import React, { useMemo, useRef, useState } from "react";
+
+import React, { useRef } from "react";
 
 type ScrollTextProps = {
   text?: string;

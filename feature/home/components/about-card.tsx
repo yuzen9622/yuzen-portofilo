@@ -24,6 +24,7 @@ export default function AboutCard({ title, href }: AboutCardProps) {
       variants={card}
       initial="initial"
       whileInView="animate"
+      viewport={{ once: true, amount: 0.8 }}
       transition={{
         duration: 2.5,
         ease: [0.22, 1, 0.36, 1],

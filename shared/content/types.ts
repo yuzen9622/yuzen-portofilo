@@ -15,3 +15,11 @@ export interface NavLink {
   name: string;
   href: string;
 }
+
+export interface Project {
+  slug: string;
+  title: string;
+  description: string;
+  picture: string;
+  datetime: string;
+}

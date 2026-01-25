@@ -17,8 +17,8 @@ export const SectionLayout = forwardRef<HTMLElement, SectionLayoutProps>(
         ref={ref}
         id={id}
         className={cn(
-          " flex flex-col min-h-dvh space-y-3 max-w-dvw overflow-hidden",
-          className
+          " flex flex-col  py-5  max-w-dvw overflow-hidden",
+          className,
         )}
       >
         <motion.div className="flex text-muted-foreground uppercase justify-between w-11/12 mx-auto">
@@ -29,7 +29,7 @@ export const SectionLayout = forwardRef<HTMLElement, SectionLayoutProps>(
         {children}
       </section>
     );
-  }
+  },
 );
 
 SectionLayout.displayName = "SectionLayout";

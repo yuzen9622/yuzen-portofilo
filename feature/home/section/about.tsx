@@ -28,7 +28,7 @@ export default function About() {
     >
       <motion.div
         style={{ translateY, opacity }}
-        className="w-full    mx-auto max-w-7xl flex-1 flex space-y-3 flex-col md:flex-row  justify-between items-center"
+        className="w-full  py-10  mx-auto max-w-7xl flex-1 flex space-y-10 flex-col md:flex-row  justify-between items-center"
       >
         <div className="flex-1  w-full">
           {NAVIGATION_LINKS.map((link, index) => (
@@ -37,8 +37,8 @@ export default function About() {
         </div>
         <div className="flex-1 w-11/12 mx-auto   ">
           <ScrollText
-            text={`A forth-year student in the five-year program at National Taichung University of Science and Technology, majoring in Information Management.\nBuilt a solid foundation in programming at this school through coursework and projects, which sparked my long-term interest in software engineering and applied research.`}
-          />{" "}
+            text={`A forth-year student in the five-year program at National Taichung University of Science and Technology, majoring in Information Management.\n\nBuilt a solid foundation in programming at this school through coursework and projects, which sparked my long-term interest in software engineering and applied research.`}
+          />
         </div>
       </motion.div>
     </SectionLayout>

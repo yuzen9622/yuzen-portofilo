@@ -109,7 +109,7 @@ export default function Marquee({
 
   return (
     <section className={cn("max-w-full overflow-y-hidden  ", className)}>
-      <div className="w-11/12 mx-auto ">
+      <div className="w-11/12 max-w-7xl mx-auto ">
         <div
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}

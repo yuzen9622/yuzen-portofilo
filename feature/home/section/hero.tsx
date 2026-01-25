@@ -119,7 +119,7 @@ export default function Hero() {
     <motion.section
       initial="initial"
       animate="animate"
-      className=" flex flex-col min-h-dvh space-y-3 mt-10 max-w-dvw overflow-hidden"
+      className=" flex flex-col min-h-0 font-inter space-y-3 mt-10 max-w-dvw overflow-hidden"
     >
       <div className=" w-11/12 max-w-6xl  mx-auto  space-y-3">
         <div className="flex  justify-between sm:flex-row flex-col  items-center  md:space-y-0 space-y-6">
@@ -180,7 +180,7 @@ export default function Hero() {
           variants={reveal}
           style={{ rotate, translateY: isMobile ? 0 : translateY }}
           ref={marqueeRef}
-          className="flex-1"
+          className="flex-1 py-10"
         >
           <Marquee />
         </motion.div>
