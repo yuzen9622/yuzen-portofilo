@@ -25,17 +25,17 @@ export default function Footer() {
             ))}
           </span>
         </div>
-        <div className=" text-end space-y-3">
-          <p className="text-lg font-semibold">Social Links</p>
+        <div className=" text-end space-y-2">
           <span className="flex gap-2 w-full items-center justify-between">
             {Object.entries(SocialBase).map(([key, value]) => (
-              <motion.div className="hover:rotate-6 " key={key}>
-                <Link className=" transition-all" href={value.url}>
-                  {value.icon}
+              <motion.div className=" uppercase" key={key}>
+                <Link className=" " href={value.url}>
+                  {key}
                 </Link>
               </motion.div>
             ))}
           </span>
+          <p className="text-lg font-semibold">Social Links</p>
         </div>
       </div>
       <h1 className="w-full mt-10 text-center font-bold font-inter leading-[0.9] text-[clamp(3rem,13vw,22rem)] whitespace-nowrap">
