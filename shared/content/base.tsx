@@ -18,7 +18,13 @@ export const ProfileBase: Profile = {
 };
 
 export const SocialBase: Record<string, SocialLink> = {
-  github: { url: "", icon: <SiGithub /> },
-  linkedin: { url: "", icon: <LinkedinIcon /> },
-  instagram: { url: "", icon: <SiInstagram /> },
+  github: { url: "https://github.com/yuzen9622", icon: <SiGithub /> },
+  linkedin: {
+    url: "https://www.linkedin.com/in/yu-zen-tsao-52824233b/",
+    icon: <LinkedinIcon />,
+  },
+  instagram: {
+    url: "https://www.instagram.com/zn._.622/",
+    icon: <SiInstagram />,
+  },
 };
