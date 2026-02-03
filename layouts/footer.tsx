@@ -15,7 +15,7 @@ export default function Footer() {
         <ArrowUp size={30} />
       </button>
       <div className="flex px-4 items-center justify-between  md:flex-row flex-col">
-        <div className="space-y-2  md:text-start ">
+        <div className="space-y-2  text-start ">
           <p className="text-lg font-semibold">Quick Links</p>
           <span className="flex gap-2">
             {NAVIGATION_LINKS.map((link) => (

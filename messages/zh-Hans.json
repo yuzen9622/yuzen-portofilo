@@ -1,3 +1,15 @@
 {
-    "HomePage": {}
+    "HomePage": {},
+    "BlogPage": {
+        "readMore": "閱讀更多",
+        "noPosts": "暫無文章",
+        "search": {
+            "filters": "篩選",
+            "searchPlaceholder": "搜尋文章...",
+            "publishedOnly": "僅顯示已發布文章",
+            "sortBy": "排序方式",
+            "newest": "最新",
+            "oldest": "最舊"
+        }
+    }
 }

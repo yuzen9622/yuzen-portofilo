@@ -40,13 +40,13 @@ export default function Navbar() {
       <div
         className={cn(
           "top-2 sticky z-20 flex items-center transition-[width] duration-300 justify-center",
-          isTop && "top-0 w-full  transition-all"
+          isTop && "top-0 w-full  transition-all",
         )}
       >
         <NavigationMenu
           className={cn(
             "outline p-3 hover:shadow-xs transition-[width] rounded-full duration-300  h-fit hidden sm:block flex-none  bg-background/80  backdrop-blur-xs",
-            isTop && " rounded-none outline-none"
+            isTop && " rounded-none outline-none",
           )}
         >
           <NavigationMenuList className="transition-all">
@@ -59,7 +59,7 @@ export default function Navbar() {
                 >
                   <Link
                     className={cn(
-                      "rounded-3xl  px-4  py-2 z-0 transition  hover:text-background relative hover:before:scale-100 before:transition-all before:absolute before:scale-50 before:opacity-0  hover:before:opacity-100 before:rounded-3xl before:inset-0 before:w-full before:h-full  before:-z-20 before:bg-primary "
+                      "rounded-3xl  px-4  py-2 z-0 transition  hover:text-background relative hover:before:scale-100 before:transition-all before:absolute before:scale-50 before:opacity-0  hover:before:opacity-100 before:rounded-3xl before:inset-0 before:w-full before:h-full  before:-z-20 before:bg-primary ",
                     )}
                     href={`/${item.href}`}
                   >
@@ -75,9 +75,9 @@ export default function Navbar() {
       {/** RWD navbar */}
       <NavigationMenu
         className={cn(
-          "p-3  w-11/12 max-w-none  h-fit  hidden max-sm:flex rounded-2xl transition-all justify-between flex-none top-2 sticky  z-30  backdrop-blur-xs bg-background/80",
+          "p-3  w-11/12 max-w-none mx-auto  h-fit  hidden max-sm:flex rounded-2xl transition-all justify-between flex-none top-2 sticky  z-30  backdrop-blur-xs bg-background/80",
           isOpen && "max-sm:backdrop-blur-none bg-transparent",
-          isTop && "w-full top-0 rounded-none"
+          isTop && "w-full top-0 rounded-none",
         )}
       >
         <Link href={`/`} className="relative font-bold text-xl  text-primary">
@@ -113,7 +113,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className=" fixed z-20  bg-background/80  sm:hidden w-dvw h-dvh backdrop-blur-3xl flex justify-center flex-col items-center gap-10 "
+            className=" fixed z-20  inset-0 bg-background/80  sm:hidden w-dvw h-dvh backdrop-blur-3xl flex justify-center flex-col items-center gap-10 "
           >
             <AnimatePresence mode="wait">
               {isOpen &&
