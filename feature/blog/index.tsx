@@ -68,7 +68,7 @@ export default function BlogHome() {
       {!loading && filteredPosts && filteredPosts.length === 0 && <BlogEmpty />}
 
       {filteredPosts && filteredPosts.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-l-2 w-full max-w-7xl mx-auto ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-l-2 max-w-11/12  w-7xl mx-auto ">
           {filteredPosts.map((post) => (
             <BlogCard
               post={post}

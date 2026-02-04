@@ -120,7 +120,6 @@ export default function Navbar() {
                 NAVIGATION_LINKS.map((item, index) => (
                   <MotionLink
                     key={item.name}
-                    layout
                     initial={{ y: 40, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{

@@ -4,6 +4,8 @@ import Image from "next/image";
 import { Article, ImgResponse } from "../types/blog";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export default function BlogCard({
   post,
@@ -12,12 +14,18 @@ export default function BlogCard({
   post: Article;
   getFallbackSrc: (formats?: ImgResponse) => string;
 }) {
+  const router = useRouter();
   return (
     <Link
+      onMouseEnter={() => router.prefetch(`blog/${post.slug}`)}
       href={`blog/${post.slug}`}
+      prefetch={true}
       className="space-y-2 group flex flex-col border-r-2 border-b-2"
     >
-      <div className="w-full h-auto  ">
+      <motion.div
+        layoutId={`blog-image-${post.slug}`}
+        className="w-full h-auto  "
+      >
         <Image
           width={1000}
           height={1000}
@@ -25,7 +33,7 @@ export default function BlogCard({
           src={getFallbackSrc(post.cover?.formats)}
           alt={post.title}
         />
-      </div>
+      </motion.div>
       <h2 className="text-2xl font-bold mb-2  px-2  line-clamp-1">
         {post.title}
       </h2>

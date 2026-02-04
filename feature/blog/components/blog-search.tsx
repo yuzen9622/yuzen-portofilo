@@ -1,6 +1,6 @@
 "use client";
 import { ArrowDownWideNarrow, Search, SlidersHorizontal } from "lucide-react";
-import React, { useMemo, useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
+
 type BlogSearchProps = {
   search: string;
   setSearch: (value: string) => void;
@@ -26,6 +27,7 @@ type BlogSearchProps = {
   setSelectedTag: (value: string | null) => void;
   allTags: string[];
 };
+
 export default function BlogSearch({
   search,
   setSearch,

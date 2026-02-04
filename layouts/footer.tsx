@@ -14,8 +14,8 @@ export default function Footer() {
       >
         <ArrowUp size={30} />
       </button>
-      <div className="flex px-4 items-center justify-between  md:flex-row flex-col">
-        <div className="space-y-2  text-start ">
+      <div className="flex px-4 items-center  justify-between  md:flex-row flex-col">
+        <div className="space-y-2 self-start text-start ">
           <p className="text-lg font-semibold">Quick Links</p>
           <span className="flex gap-2">
             {NAVIGATION_LINKS.map((link) => (
@@ -25,7 +25,7 @@ export default function Footer() {
             ))}
           </span>
         </div>
-        <div className=" text-end space-y-2">
+        <div className=" text-end self-end space-y-2">
           <span className="flex gap-2 w-full items-center justify-between">
             {Object.entries(SocialBase).map(([key, value]) => (
               <motion.div className=" uppercase" key={key}>

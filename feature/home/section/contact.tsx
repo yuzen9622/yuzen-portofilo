@@ -57,7 +57,7 @@ export default function Contact() {
   return (
     <SectionLayout
       leftContent="Contact Me"
-      rightContent="Collaboration.Together."
+      rightContent="Collaboration."
       id="contact"
     >
       <motion.div
@@ -66,10 +66,10 @@ export default function Contact() {
         viewport={{ once: true, amount: 0.3 }}
         className="w-11/12 py-10 gap-4 items-center   flex-col md:flex-row  mx-auto  flex-1 flex "
       >
-        <div className="flex flex-col  gap-10 flex-1">
+        <div className="flex flex-col  gap-10 flex-1 w-full">
           <motion.span
             variants={titleStagger}
-            className=" uppercase max-sm:text-6xl text-7xl font-infer  font-semibold space-y-5"
+            className=" uppercase max-sm:text-5xl text-7xl font-infer  font-semibold space-y-5"
           >
             <motion.div variants={reveal} className="overflow-hidden">
               <h1>Together.</h1>
