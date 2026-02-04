@@ -1,3 +1,15 @@
 {
-    "HomePage": {}
+    "HomePage": {},
+    "BlogPage": {
+        "readMore": "Read More",
+        "noPosts": "No Posts",
+        "search": {
+            "filters": "Filters",
+            "searchPlaceholder": "Search articles...",
+            "publishedOnly": "Published only",
+            "sortBy": "Sort by",
+            "newest": "Newest",
+            "oldest": "Oldest"
+        }
+    }
 }
