@@ -8,7 +8,10 @@ export async function generateMetadata({
   params: Promise<{ slug: string; locale: string }>;
 }): Promise<Metadata> {
   const { slug, locale } = await params;
-  const res = await fetch(`/api/article\\${slug}?lng=${locale}`);
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  const res = await fetch(`${baseUrl}/api/articles/${slug}?lng=${locale}`, {
+    next: { revalidate: 60 },
+  });
   const data: Article = await res.json();
 
   return {

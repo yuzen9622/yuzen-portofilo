@@ -1,4 +1,4 @@
-import { ImgResponse } from "../types/blog";
+import type { ImgResponse } from "../types/blog";
 
 export function getFallbackSrc(data?: ImgResponse): string {
   if (data?.large) return data.large.url;

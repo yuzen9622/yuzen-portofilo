@@ -11,7 +11,7 @@ export async function GET(
 
     const locale = searchParams.get("lng");
     const slug = (await params).slug;
-    console.log("Fetching article with slug:", slug, "and locale:", locale);
+
     const response = await fetch(
       `${ARTICLES_QUERY}?filters[slug][$eqi]=${slug}&locale=${locale}&populate=*`,
       {
