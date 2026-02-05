@@ -3,8 +3,10 @@ import React from "react";
 import { SectionLayout } from "../components/section-layout";
 import Link from "next/link";
 import { motion, Variants } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 export default function Contact() {
+  const t = useTranslations("HomePage");
   const reveal: Variants = {
     initial: {
       opacity: 0,
@@ -56,8 +58,8 @@ export default function Contact() {
 
   return (
     <SectionLayout
-      leftContent="Contact Me"
-      rightContent="Collaboration."
+      leftContent={t("contact.title.leftContent")}
+      rightContent={t("contact.title.rightContent")}
       id="contact"
     >
       <motion.div
@@ -114,7 +116,7 @@ export default function Contact() {
             <motion.button
               variants={slideUp}
               type="submit"
-              className="bg-primary text-background p-4 rounded-lg font-inter hover:scale-105 transition-all"
+              className="bg-primary text-background p-4 rounded-lg font-inter  transition-all"
             >
               Send Message
             </motion.button>

@@ -1,5 +1,25 @@
 {
-    "HomePage": {},
+    "HomePage": {
+        "about": {
+            "title": {
+                "leftContent": "About me",
+                "rightContent": "Think.Create."
+            },
+            "description": "Hello, my name is Yuzen. I am currently a fourth-year student in the Information Management program at National Taichung University of Science and Technology. My primary expertise lies in programming (C++, TS) and front-end web development.\n\nMy hobbies include swimming, running, and fitness, and I am currently focusing on the field of machine learning.\n\nThrough my coursework and project experience at university, I have built a solid foundation in programming, which has ignited my long-term passion for software engineering and applied research."
+        },
+        "project": {
+            "title": {
+                "leftContent": "my projects",
+                "rightContent": "Build.Future."
+            }
+        },
+        "contact": {
+            "title": {
+                "leftContent": "Contact me",
+                "rightContent": "Collaborate."
+            }
+        }
+    },
     "BlogPage": {
         "readMore": "Read More",
         "noPosts": "No Posts",

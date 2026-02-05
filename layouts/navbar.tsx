@@ -45,7 +45,7 @@ export default function Navbar() {
       >
         <NavigationMenu
           className={cn(
-            "outline p-3 hover:shadow-xs transition-[width] rounded-full duration-300  h-fit hidden sm:block flex-none  bg-background/80  backdrop-blur-xs",
+            "outline p-3 transition-[width] rounded-full duration-300  h-fit hidden sm:block flex-none  bg-background/80  backdrop-blur-xs",
             isTop && " rounded-none outline-none",
           )}
         >

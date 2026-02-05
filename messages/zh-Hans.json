@@ -1,5 +1,25 @@
 {
-    "HomePage": {},
+    "HomePage": {
+        "about": {
+            "title": {
+                "leftContent": "關於我",
+                "rightContent": "思考.創造."
+            },
+            "description": "你好，我叫 Yuzen，目前就讀國立台中科技大學五專資訊管理學科四年級學生，那主要專長是程式設計（C++、TS）、網頁前全端。我的興趣是游泳、跑步和健身，那目前主要專注於機器學習領域。\n\n透過在校課程與專案實作奠定紮實的程式設計基礎，由此點燃我對軟體工程與應用研究的長期熱忱。"
+        },
+        "project": {
+            "title": {
+                "leftContent": "我的專案",
+                "rightContent": "建置.未來."
+            }
+        },
+        "contact": {
+            "title": {
+                "leftContent": "聯絡我",
+                "rightContent": "共創.協作."
+            }
+        }
+    },
     "BlogPage": {
         "readMore": "閱讀更多",
         "noPosts": "暫無文章",

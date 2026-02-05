@@ -6,15 +6,17 @@ import { useParams } from "next/navigation";
 import ProjectCard from "../components/project-card";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 export default function Project({ all = false }: { all?: boolean }) {
   const { locale }: { locale: string } = useParams();
+    const t = useTranslations("HomePage");
   const projects = getProjectsContent(locale);
   return (
     <SectionLayout
       id="projects"
-      leftContent="my Projects"
-      rightContent="Build.Feature."
+      leftContent={t("project.title.leftContent")}
+      rightContent={t("project.title.rightContent")}
       className="  relative  bg-background "
     >
       <div className="w-full   mx-auto  flex-1 grid grid-cols-1 md:grid-cols-2">

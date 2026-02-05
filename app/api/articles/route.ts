@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     const locale = searchParams.get("lng");
 
     const response = await fetch(
-      `${ARTICLES_QUERY}?populate=*&locale=${locale}&fields=title,description,slug,isPublished,publishedAt`,
+      `${ARTICLES_QUERY}?populate=*&locale=${locale}`,
       {
         method: "GET",
         headers: {

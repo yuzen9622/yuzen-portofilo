@@ -23,10 +23,9 @@ export default function Article({
 
   return (
     <div className="w-full max-w-7xl mx-auto border-x-2 border-b-2  py-8">
-      {isLoading && <ArticleLoading />}
       {!isLoading && (!data || error) && <ArticleEmpty />}
 
-      {!isLoading && data && (
+      {data && (
         <article className="space-y-8">
           <header className="space-y-4">
             <motion.div
@@ -86,12 +85,14 @@ export default function Article({
               )}
             </div>
           </header>
-
-          <div className="space-y-4 px-4">
-            <ArticleMarkdown>{data.content}</ArticleMarkdown>
-          </div>
+          {data && (
+            <div className="space-y-4 px-4">
+              <ArticleMarkdown>{data.content}</ArticleMarkdown>
+            </div>
+          )}
         </article>
       )}
+      {!data && isLoading && <ArticleLoading />}
     </div>
   );
 }

@@ -42,9 +42,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "http://2026.yuzen.dev/avatar.webp",
-    shortcut: "http://2026.yuzen.dev/avatar.webp",
-    apple: "http://2026.yuzen.dev/avatar.webp",
+    icon: "https://2026.yuzen.dev/avatar.webp",
+    shortcut: "https://2026.yuzen.dev/avatar.webp",
+    apple: "https://2026.yuzen.dev/avatar.webp",
   },
   openGraph: {
     title: "Yuzen - Portfolio",

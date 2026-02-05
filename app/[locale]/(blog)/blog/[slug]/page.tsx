@@ -25,7 +25,7 @@ export async function generateMetadata({
         data.description ||
         "Welcome to the portfolio of Yuzen, showcasing projects and skills.",
       url: `https://2026.yuzen.dev/blog/${slug}`,
-      siteName: "Yuzen - Portfolio",
+      siteName: "Yuzen - Blog",
       images: [
         {
           url: getFallbackSrc(data.cover?.formats),
