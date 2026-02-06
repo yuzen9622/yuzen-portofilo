@@ -2,6 +2,7 @@ import ArticlePage from "@/feature/blog/article";
 import type { Metadata } from "next";
 import { getFallbackSrc } from "@/feature/blog/service/util";
 import type { Article } from "@/feature/blog/types/blog";
+
 export async function generateMetadata({
   params,
 }: {

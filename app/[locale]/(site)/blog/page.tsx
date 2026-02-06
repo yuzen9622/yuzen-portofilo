@@ -1,6 +1,4 @@
 import BlogHome from "@/feature/blog";
-
-export const dynamic = "force-static";
 import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
