@@ -1,10 +1,10 @@
 "use client";
 import { ArrowUp, Moon, Sun } from "lucide-react";
 
-import { useTheme } from "next-themes";
+import useTheme from "@/shared/hooks/use-theme";
 
 import { NavigationMenuItem } from "@/components/ui/navigation-menu";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 import {
   motion,
@@ -18,18 +18,7 @@ import { CircleProgress } from "@/shared/components/circle-progress";
 import LanguageSelector from "@/shared/components/lang-switch";
 
 export default function Tool() {
-  const { setTheme, theme, systemTheme } = useTheme();
-
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  const isDark = useMemo(
-    () => (theme === "system" && systemTheme === "dark") || theme === "dark",
-    [theme, systemTheme]
-  );
+  const { setTheme, isDark } = useTheme();
 
   const circleRef = useRef<SVGCircleElement>(null);
   const { scrollYProgress } = useScroll();
@@ -49,7 +38,7 @@ export default function Tool() {
   const r = 45;
   const circumference = 2 * Math.PI * r;
   const offset = circumference * (1 - scrollYPercent / 100);
-  if (!mounted) return null;
+
   return (
     <>
       <NavigationMenuItem
@@ -60,7 +49,7 @@ export default function Tool() {
       >
         {isDark ? <Sun size={18} /> : <Moon size={18} />}
       </NavigationMenuItem>
-      <NavigationMenuItem className="">
+      <NavigationMenuItem>
         <LanguageSelector />
       </NavigationMenuItem>
       {scrollYPercent !== 0 && (

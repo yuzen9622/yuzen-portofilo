@@ -1,6 +1,6 @@
-import React from "react";
+"use client";
 import { NAVIGATION_LINKS, SocialBase } from "../shared/content/base";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { motion } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 export default function Footer() {

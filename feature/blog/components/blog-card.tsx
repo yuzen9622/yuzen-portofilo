@@ -2,7 +2,7 @@
 import Image from "next/image";
 
 import { Article, ImgResponse } from "../types/blog";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";

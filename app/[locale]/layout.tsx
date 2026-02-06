@@ -74,7 +74,7 @@ export default async function RootLayout({
     notFound();
   }
   return (
-    <html lang="en" suppressHydrationWarning={true}>
+    <html>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${bbhBartle.variable} antialiased `}
       >

@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { SectionLayout } from "../components/section-layout";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { motion, Variants } from "framer-motion";
 import { useTranslations } from "next-intl";
 

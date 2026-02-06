@@ -1,5 +1,6 @@
 "us client";
 import { Button } from "@/components/ui/button";
+import LangSwitch from "@/shared/components/lang-switch";
 // import {
 //   DropdownMenu,
 //   DropdownMenuContent,
@@ -10,7 +11,7 @@ import { Button } from "@/components/ui/button";
 // } from "@/components/ui/dropdown-menu";
 import useTheme from "@/shared/hooks/use-theme";
 import { ChevronLeftIcon, MoonIcon, SunIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 export default function ArticleNavbar() {
   const { isDark, setTheme } = useTheme();
   const router = useRouter();
@@ -98,9 +99,7 @@ export default function ArticleNavbar() {
             </DropdownMenuContent>
           </DropdownMenu> */}
 
-          {/* <button type="button" className="relative">
-            <LanguageSelector />
-          </button> */}
+          <LangSwitch />
         </div>
       </div>
     </div>

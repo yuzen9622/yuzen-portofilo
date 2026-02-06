@@ -2,7 +2,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import Tool from "@/layouts/tool";
 import {
   NavigationMenu,
@@ -15,12 +15,8 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 
 import { NAVIGATION_LINKS, ProfileBase } from "@/shared/content/base";
-import { useParams } from "next/navigation";
-import { Locale } from "next-intl";
 
 export default function Navbar() {
-  const { locale }: { locale: Locale } = useParams();
-
   const [isOpen, setIsOpen] = useState(false);
   const MotionLink = motion.create(Link);
   const [isTop, setIsTop] = useState(true);
@@ -128,7 +124,7 @@ export default function Navbar() {
                       ease: "easeInOut",
                     }}
                     exit={{ y: 40, opacity: 0 }}
-                    href={`/${locale}/${item.href}`}
+                    href={`/${item.href}`}
                     onClick={() => setIsOpen(false)}
                     className={cn(" px-4 py-2 text-4xl inter ")}
                   >

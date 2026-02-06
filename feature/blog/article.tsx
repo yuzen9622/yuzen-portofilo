@@ -25,7 +25,7 @@ export default function Article({
     <div className="w-full max-w-7xl mx-auto border-x-2 border-b-2  py-8">
       {!isLoading && (!data || error) && <ArticleEmpty />}
 
-      {data && (
+      {data && !error && (
         <article className="space-y-8">
           <header className="space-y-4">
             <motion.div
