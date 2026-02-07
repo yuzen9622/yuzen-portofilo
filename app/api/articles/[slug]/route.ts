@@ -24,7 +24,7 @@ export async function GET(
       },
     );
     const data = await response.json();
-    console.log("Fetched articles data:", data);
+
     return NextResponse.json(data.data[0]);
   } catch (error) {
     console.error("Error fetching articles:", error);

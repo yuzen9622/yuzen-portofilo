@@ -10,13 +10,13 @@ import { useTranslations } from "next-intl";
 
 export default function Project({ all = false }: { all?: boolean }) {
   const { locale }: { locale: string } = useParams();
-    const t = useTranslations("HomePage");
+  const t = useTranslations("ProjectPage");
   const projects = getProjectsContent(locale);
   return (
     <SectionLayout
       id="projects"
-      leftContent={t("project.title.leftContent")}
-      rightContent={t("project.title.rightContent")}
+      leftContent={t("title.leftContent")}
+      rightContent={t("title.rightContent")}
       className="  relative  bg-background "
     >
       <div className="w-full   mx-auto  flex-1 grid grid-cols-1 md:grid-cols-2">

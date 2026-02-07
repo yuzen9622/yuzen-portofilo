@@ -6,18 +6,12 @@
                 "rightContent": "Think.Create."
             },
             "description": "Hello, my name is Yuzen. I am currently a fourth-year student in the Information Management program at National Taichung University of Science and Technology. My primary expertise lies in programming (C++, TS) and front-end web development.\n\nMy hobbies include swimming, running, and fitness, and I am currently focusing on the field of machine learning.\n\nThrough my coursework and project experience at university, I have built a solid foundation in programming, which has ignited my long-term passion for software engineering and applied research."
-        },
-        "project": {
-            "title": {
-                "leftContent": "my projects",
-                "rightContent": "Build.Future."
-            }
-        },
-        "contact": {
-            "title": {
-                "leftContent": "Contact me",
-                "rightContent": "Collaborate."
-            }
+        }
+    },
+    "ProjectPage": {
+        "title": {
+            "leftContent": "My Projects",
+            "rightContent": "Build.Future."
         }
     },
     "BlogPage": {
@@ -30,6 +24,15 @@
             "sortBy": "Sort by",
             "newest": "Newest",
             "oldest": "Oldest"
-        }
+        },
+        "backToBlog": "Back to Blog"
+    },
+    "ContactPage": {
+        "title": {
+            "leftContent": "Contact Me",
+            "rightContent": "Collaborate."
+        },
+        "successMessage": "Hi {name}, got your email! I’ll reply to you soon.",
+        "errorMessage": "Failed to send email. Please try again later."
     }
 }

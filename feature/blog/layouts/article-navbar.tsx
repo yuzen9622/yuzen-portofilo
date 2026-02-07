@@ -1,4 +1,4 @@
-"us client";
+"use client";
 import { Button } from "@/components/ui/button";
 import LangSwitch from "@/shared/components/lang-switch";
 // import {
@@ -11,31 +11,25 @@ import LangSwitch from "@/shared/components/lang-switch";
 // } from "@/components/ui/dropdown-menu";
 import useTheme from "@/shared/hooks/use-theme";
 import { ChevronLeftIcon, MoonIcon, SunIcon } from "lucide-react";
-import { useRouter } from "@/i18n/navigation";
+import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 export default function ArticleNavbar() {
   const { isDark, setTheme } = useTheme();
-  const router = useRouter();
-  const handleBack = () => {
-    if (document.startViewTransition) {
-      document.startViewTransition(() => {
-        router.push(`/blog`);
-      });
-    } else {
-      router.push(`/blog`);
-    }
-  };
+  const t = useTranslations("BlogPage");
+
   return (
     <div className=" fixed  top-0 z-20  w-full backdrop-blur-md bg-background/50 mx-auto ">
       <div className="w-11/12 max-w-6xl justify-between mx-auto flex items-center ">
-        <Button
-          variant="link"
-          size="sm"
-          onClick={handleBack}
-          className="  text-primary  py-2 rounded-3xl "
-        >
-          <ChevronLeftIcon size={16} />
-          回到部落格
-        </Button>
+        <Link href="/blog">
+          <Button
+            variant={"link"}
+            size="sm"
+            className="  text-primary  py-2 rounded-3xl "
+          >
+            <ChevronLeftIcon size={16} />
+            {t("backToBlog")}
+          </Button>
+        </Link>
         <div className="space-x-2 0 p-1 rounded-3xl  ">
           <button
             type="button"
@@ -44,7 +38,11 @@ export default function ArticleNavbar() {
             }}
             className=" relative p-2   rounded-3xl  cursor-pointer hover:text-background hover:before:scale-100 before:transition-all before:absolute before:scale-50 before:opacity-0  hover:before:opacity-100 before:rounded-3xl before:inset-0 before:w-full before:h-full  before:-z-20 before:bg-primary"
           >
-            {isDark ? <SunIcon size={18} /> : <MoonIcon size={18} />}
+            {isDark ? (
+              <SunIcon suppressHydrationWarning size={18} />
+            ) : (
+              <MoonIcon suppressHydrationWarning size={18} />
+            )}
           </button>
           {/* 
           <DropdownMenu>

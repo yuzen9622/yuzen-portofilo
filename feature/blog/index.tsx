@@ -14,7 +14,7 @@ export default function BlogHome() {
   const { locale } = useParams<{ locale: string }>();
   const { posts, loading, error, getFallbackSrc } = useBlogLoader(locale);
   const [search, setSearch] = useState("");
-  const [publishedOnly, setPublishedOnly] = useState(false);
+  const [publishedOnly, setPublishedOnly] = useState(true);
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
 

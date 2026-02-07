@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
         { status: response.status },
       );
     }
-    console.log("Fetched articles data:", data);
+
     return NextResponse.json(data);
   } catch (error) {
     console.error("Error fetching articles:", error);

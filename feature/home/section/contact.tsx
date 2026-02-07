@@ -1,12 +1,19 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { SectionLayout } from "../components/section-layout";
 import { Link } from "@/i18n/navigation";
 import { motion, Variants } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
+import { Loader2 } from "lucide-react";
+import { cn } from "@/shared/lib/utils";
 
 export default function Contact() {
-  const t = useTranslations("HomePage");
+  const t = useTranslations("ContactPage");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const reveal: Variants = {
     initial: {
       opacity: 0,
@@ -56,10 +63,36 @@ export default function Contact() {
     },
   };
 
+  const sendEmail = async () => {
+    try {
+      setIsLoading(true);
+      if (!name || !email || !message) {
+        toast.error(t("errorMessage"));
+        setIsLoading(false);
+        return;
+      }
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, message }),
+      });
+      if (response.ok) {
+        toast.success(t("successMessage", { name }));
+      } else {
+        toast.error(t("errorMessage"));
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <SectionLayout
-      leftContent={t("contact.title.leftContent")}
-      rightContent={t("contact.title.rightContent")}
+      leftContent={t("title.leftContent")}
+      rightContent={t("title.rightContent")}
       id="contact"
     >
       <motion.div
@@ -99,26 +132,40 @@ export default function Contact() {
             <motion.input
               variants={slideUp}
               type="text"
+              required
               placeholder="Your Name"
+              onChange={(e) => setName(e.target.value)}
               className="p-4 border border-muted-foreground rounded-lg font-inter"
             />
             <motion.input
               variants={slideUp}
               type="email"
+              required
               placeholder="Your Email"
+              onChange={(e) => setEmail(e.target.value)}
               className="p-4 border border-muted-foreground rounded-lg font-inter"
             />
             <motion.textarea
               variants={slideUp}
               placeholder="Your Message"
+              required
+              onChange={(e) => setMessage(e.target.value)}
               className="p-4 border border-muted-foreground rounded-lg font-inter h-32"
             />
             <motion.button
               variants={slideUp}
               type="submit"
-              className="bg-primary text-background p-4 rounded-lg font-inter  transition-all"
+              className={cn(
+                "bg-accent-foreground text-background flex items-center justify-center  gap-2  p-4 rounded-lg font-inter  transition-all",
+                isLoading && "bg-muted  cursor-not-allowed",
+              )}
+              disabled={isLoading}
+              onClick={(e) => {
+                e.preventDefault();
+                sendEmail();
+              }}
             >
-              Send Message
+              Send Message {isLoading && <Loader2 className="animate-spin" />}
             </motion.button>
           </form>
         </motion.div>
