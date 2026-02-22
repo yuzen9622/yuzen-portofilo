@@ -52,6 +52,7 @@ export default function LangSwitch() {
                   fontSize: "1.5em",
                   lineHeight: "1em",
                 }}
+                svg
               />
             </div>
           </DropdownMenuCheckboxItem>
