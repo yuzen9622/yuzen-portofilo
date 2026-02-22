@@ -8,8 +8,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { GlobeIcon } from "lucide-react";
-import { routing } from "@/i18n/routing";
+import ReactCountryFlag from "react-country-flag";
+
 import { useParams } from "next/navigation";
+import { LANGUAGE_OPTIONS } from "../content/base";
 import { useCallback } from "react";
 export default function LangSwitch() {
   const { locale } = useParams();
@@ -35,13 +37,23 @@ export default function LangSwitch() {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" sideOffset={24}>
-        {routing.locales.map((loc) => (
+        {LANGUAGE_OPTIONS.map((loc) => (
           <DropdownMenuCheckboxItem
-            key={loc}
-            checked={loc === locale}
-            onCheckedChange={() => switchLocale(loc)}
+            key={loc.value}
+            checked={loc.value === locale}
+            onCheckedChange={() => switchLocale(loc.value)}
           >
-            {loc.toUpperCase()}
+            <div className="flex items-center justify-between w-full gap-2">
+              {loc.label}
+              <ReactCountryFlag
+                countryCode={loc.countryCode}
+                className="rounded-sm"
+                style={{
+                  fontSize: "1.5em",
+                  lineHeight: "1em",
+                }}
+              />
+            </div>
           </DropdownMenuCheckboxItem>
         ))}
       </DropdownMenuContent>

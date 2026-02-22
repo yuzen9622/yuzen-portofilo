@@ -41,6 +41,10 @@ export const metadata: Metadata = {
   description:
     "Yuzen 的個人作品集網站，展示全端開發專案、技術部落格與專業技能。探索網頁開發、React、Next.js 等技術內容。",
   keywords: [
+    "taiwan",
+    "yuzen",
+
+    "oscar",
     "Yuzen",
     "Portfolio",
     "Full Stack Developer",
@@ -48,6 +52,7 @@ export const metadata: Metadata = {
     "React",
     "Next.js",
     "TypeScript",
+    "宇鎮",
     "前端開發",
     "全端工程師",
     "作品集",

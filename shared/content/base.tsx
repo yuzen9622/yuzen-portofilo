@@ -28,3 +28,8 @@ export const SocialBase: Record<string, SocialLink> = {
     icon: <SiInstagram />,
   },
 };
+
+export const LANGUAGE_OPTIONS = [
+  { label: "English", value: "en", countryCode: "US" },
+  { label: "繁體中文", value: "zh-Hant", countryCode: "TW" },
+];
