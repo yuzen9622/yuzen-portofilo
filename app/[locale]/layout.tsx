@@ -30,34 +30,83 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+const SITE_URL = "https://2026.yuzen.dev";
 
 export const metadata: Metadata = {
-  title: "Yuzen - Portfolio",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Yuzen - Full Stack Developer Portfolio",
+    template: "%s | Yuzen",
+  },
   description:
-    "Welcome to the portfolio of Yuzen, showcasing projects and skills.",
+    "Yuzen 的個人作品集網站，展示全端開發專案、技術部落格與專業技能。探索網頁開發、React、Next.js 等技術內容。",
+  keywords: [
+    "Yuzen",
+    "Portfolio",
+    "Full Stack Developer",
+    "Web Developer",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "前端開發",
+    "全端工程師",
+    "作品集",
+    "技術部落格",
+  ],
+  authors: [{ name: "Yuzen", url: SITE_URL }],
+  creator: "Yuzen",
+  publisher: "Yuzen",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   alternates: {
-    canonical: "https://2026.yuzen.dev",
+    canonical: SITE_URL,
     languages: {
-      en: "https://2026.yuzen.dev/en",
-      "zh-Hans": "https://2026.yuzen.dev/zh-Hans",
+      en: `${SITE_URL}/en`,
+      "zh-Hant": `${SITE_URL}/zh-Hant`,
     },
   },
   icons: {
-    icon: "https://2026.yuzen.dev/avatar.webp",
-    shortcut: "https://2026.yuzen.dev/avatar.webp",
-    apple: "https://2026.yuzen.dev/avatar.webp",
+    icon: `${SITE_URL}/avatar.webp`,
+    shortcut: `${SITE_URL}/avatar.webp`,
+    apple: `${SITE_URL}/avatar.webp`,
   },
   openGraph: {
-    title: "Yuzen - Portfolio",
+    type: "website",
+    locale: "zh_TW",
+    alternateLocale: "en_US",
+    title: "Yuzen - Full Stack Developer Portfolio",
     description:
-      "Welcome to the portfolio of Yuzen, showcasing projects and skills.",
-    url: "https://2026.yuzen.dev",
+      "Yuzen 的個人作品集網站，展示全端開發專案、技術部落格與專業技能。",
+    url: SITE_URL,
     siteName: "Yuzen Portfolio",
     images: [
       {
-        url: "https://2026.yuzen.dev/avatar.webp",
+        url: `${SITE_URL}/avatar.webp`,
+        width: 512,
+        height: 512,
+        alt: "Yuzen Portfolio",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Yuzen - Full Stack Developer Portfolio",
+    description:
+      "Yuzen 的個人作品集網站，展示全端開發專案、技術部落格與專業技能。",
+    images: [`${SITE_URL}/avatar.webp`],
+  },
+  verification: {
+    // 填入你的 Google Search Console 驗證碼
+    // google: "your-google-verification-code",
   },
 };
 
