@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
       { protocol: "http", hostname: "localhost" },
       { protocol: "https", hostname: "blog-cms.zeabur.app" },
       { protocol: "https", hostname: "res.cloudinary.com" },
+      { protocol: "https", hostname: "www.nangong5421.com" },
+      { protocol: "https", hostname: "twcat0503.org" },
+      { protocol: "https", hostname: "justin0711.com" },
+      { protocol: "https", hostname: "guatw.net" },
     ],
   },
 };

@@ -41,7 +41,15 @@ const DEFAULT_SKILLS = [
   },
   { label: "MySQL", icon: <SiMysql color={SiMysqlHex} size={65} /> },
   { label: "Node.js", icon: <SiNodedotjs color={SiNodedotjsHex} size={65} /> },
-  { label: "Next.js", icon: <SiNextdotjs color={SiNextdotjsHex} size={65} /> },
+  {
+    label: "Next.js",
+    icon: (
+      <SiNextdotjs
+        className="dark:text-muted text-muted-foreground"
+        size={65}
+      />
+    ),
+  },
   {
     label: "TypeScript",
     icon: <SiTypescript color={SiTypescriptHex} size={65} />,
@@ -63,7 +71,6 @@ export default function Marquee({
 }: MarqueeProps) {
   const shouldReduceMotion = useReducedMotion();
   const x = useMotionValue(0);
-  const [isPaused, setIsPaused] = useState(false);
 
   const firstSetRef = useRef<HTMLDivElement | null>(null);
   const contentWidthRef = useRef(0);
@@ -90,7 +97,7 @@ export default function Marquee({
   }, [items]);
 
   useAnimationFrame((time) => {
-    if (shouldReduceMotion || isPaused) {
+    if (shouldReduceMotion) {
       lastTimeRef.current = time;
       return;
     }
@@ -111,11 +118,9 @@ export default function Marquee({
     <section className={cn("max-w-full overflow-y-hidden  ", className)}>
       <div className="w-11/12 max-w-7xl mx-auto ">
         <div
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
           className={cn(
             "mt-6 relative overflow-hidden rounded-2xl  bg-background/60 backdrop-blur-xs",
-            "py-6"
+            "py-6",
           )}
           style={{
             maskImage:

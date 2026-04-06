@@ -34,5 +34,11 @@
         },
         "successMessage": "您好! {name}，已收到您的郵件，我會盡快回覆您。",
         "errorMessage": "發送失敗，請稍後再試。"
+    },
+    "AwardPage": {
+        "title": {
+            "leftContent": "我的獎項",
+            "rightContent": "榮耀.成就."
+        }
     }
 }

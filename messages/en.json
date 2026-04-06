@@ -34,5 +34,11 @@
         },
         "successMessage": "Hi {name}, got your email! I’ll reply to you soon.",
         "errorMessage": "Failed to send email. Please try again later."
+    },
+    "AwardPage": {
+        "title": {
+            "leftContent": "My Awards",
+            "rightContent": "Glory.Achievement."
+        }
     }
 }

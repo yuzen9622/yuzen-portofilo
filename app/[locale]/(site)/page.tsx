@@ -1,5 +1,7 @@
 import About from "@/feature/home/section/about";
+import Award from "@/feature/home/section/award";
 import Contact from "@/feature/home/section/contact";
+import Contribution from "@/feature/home/section/contribution";
 import Hero from "@/feature/home/section/hero";
 import Project from "@/feature/home/section/project";
 import JsonLd from "@/shared/components/json-ld";
@@ -64,6 +66,8 @@ export default function Home() {
       <Hero />
       <About />
       <Project />
+      <Award />
+      <Contribution />
       <Contact />
     </>
   );

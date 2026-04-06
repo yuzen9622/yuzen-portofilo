@@ -38,7 +38,7 @@ export default function Footer() {
           <p className="text-lg font-semibold">Social Links</p>
         </div>
       </div>
-      <h1 className="w-full mt-10 text-center font-bold font-inter leading-[0.9] text-[clamp(3rem,13vw,22rem)] whitespace-nowrap">
+      <h1 className="w-full blur-xs mt-10 text-center font-bold font-inter leading-[0.9] text-[clamp(3rem,13vw,22rem)] whitespace-nowrap">
         YUZEN©2026
       </h1>
     </div>

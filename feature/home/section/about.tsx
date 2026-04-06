@@ -11,7 +11,7 @@ export default function About() {
   const t = useTranslations("HomePage");
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["end center", "0.6 start"],
+    offset: ["end center", "0.7 start"],
   });
   const springProgress = useSpring(scrollYProgress, {
     stiffness: 100,

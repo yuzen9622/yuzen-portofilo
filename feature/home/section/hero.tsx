@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ProfileBase, SocialBase } from "@/shared/content/base";
 import Marquee from "@/feature/home/components/marquee";
 import {
+  AnimatePresence,
   motion,
   useMotionTemplate,
   useScroll,
@@ -14,12 +15,13 @@ import {
 } from "framer-motion";
 
 import Link from "next/link";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import useMobile from "@/shared/hooks/use-mobile";
 import { cn } from "@/shared/lib/utils";
 export default function Hero() {
   const marqueeRef = useRef(null);
   const imageRef = useRef(null);
+  const [showRotatingText, setShowRotatingText] = useState(false);
   const isMobile = useMobile();
   const { scrollYProgress } = useScroll({
     target: marqueeRef,
@@ -43,25 +45,6 @@ export default function Hero() {
   const translateY = useTransform(springProgress, [0, 1], [0, 100]);
   const rounded = useTransform(imageSpringProgress, [0, 1], [15, 300]);
   const roundedTemplate = useMotionTemplate`${rounded}px`;
-  const headline: Variants = {
-    initial: {
-      scale: 1.5,
-      opacity: 0,
-    },
-    animate: {
-      position: ["absolute", "absolute", "absolute", "relative"],
-      scale: [1.5, 1.5, 1.5, 1],
-      left: isMobile ? ["0", "0", "0", 0] : ["60%", "60%", "60%", 0],
-      y: isMobile ? ["100%", "100%", "100%", 0] : ["10%", "30%", "30%", 0],
-
-      opacity: [0, 1, 1, 1],
-      transition: {
-        times: [0, 0.3, 0.7, 1],
-        duration: 2.5,
-        ease: [0.22, 1, 0.36, 1],
-      },
-    },
-  };
 
   const reveal: Variants = {
     initial: {
@@ -86,6 +69,32 @@ export default function Hero() {
       transition: { duration: 2, ease: [0.22, 1, 0.36, 1] },
     },
   };
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setShowRotatingText(true);
+    }, 2400);
+
+    return () => window.clearTimeout(timeoutId);
+  }, []);
+
+  useEffect(() => {
+    if (showRotatingText) {
+      return;
+    }
+
+    const { body, documentElement } = document;
+    const prevBodyOverflow = body.style.overflow;
+    const prevHtmlOverflow = documentElement.style.overflow;
+
+    body.style.overflow = "hidden";
+    documentElement.style.overflow = "hidden";
+
+    return () => {
+      body.style.overflow = prevBodyOverflow;
+      documentElement.style.overflow = prevHtmlOverflow;
+    };
+  }, [showRotatingText]);
 
   const revealDelayed: Variants = {
     ...reveal,
@@ -119,7 +128,7 @@ export default function Hero() {
     <motion.section
       initial="initial"
       animate="animate"
-      className=" flex flex-col min-h-0 font-inter space-y-3 mt-10 max-w-dvw overflow-hidden"
+      className=" flex flex-col font-inter space-y-3 mt-10 max-w-dvw  overflow-hidden"
     >
       <div className=" w-11/12 max-w-6xl  mx-auto  space-y-3">
         <div className="flex  justify-between sm:flex-row flex-col  items-center  md:space-y-0 space-y-6">
@@ -130,22 +139,54 @@ export default function Hero() {
             <motion.h1 className="w-fit" variants={revealDelayed}>
               Not Just Code
             </motion.h1>
+
             <motion.div
-              variants={headline}
-              className="flex flex-col space-y-2 w-fit"
+              className="flex flex-col  space-y-2 w-fit"
+              variants={below}
             >
-              <RotatingText
-                staggerFrom={"last"}
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                exit={{ y: "-120%" }}
-                staggerDuration={0.05}
-                splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1 "
-                transition={{ type: "spring", damping: 30, stiffness: 400 }}
-                rotationInterval={2500}
-                texts={["Yuzen", "Build.", "Measure.", "Refine."]}
-              />
-              <motion.div variants={line} className="border"></motion.div>
+              <AnimatePresence mode="wait">
+                {!showRotatingText ? (
+                  <motion.div className="w-full min-h-dvh z-10  fixed bg-background flex items-center justify-center top-0 left-0 ">
+                    <motion.h1
+                      initial={{ y: -120, opacity: 0, scale: 2 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{
+                        duration: 1.2,
+                        ease: [0.22, 1, 0.36, 1],
+                        layout: {
+                          duration: 1.2,
+                          ease: [0.22, 1, 0.36, 1],
+                        },
+                      }}
+                      key={"init-title"}
+                      layoutId="hero-title"
+                    >
+                      Yuzen
+                    </motion.h1>
+                  </motion.div>
+                ) : (
+                  <motion.div className="flex flex-col space-y-2 w-fit">
+                    <RotatingText
+                      key="rotating-title"
+                      layoutId="hero-title"
+                      transition={{
+                        duration: 1.1,
+                        ease: [0.22, 1, 0.36, 1],
+                        layout: {
+                          duration: 1.2,
+                          ease: [0.22, 1, 0.36, 1],
+                        },
+                      }}
+                      staggerFrom={"last"}
+                      staggerDuration={0.05}
+                      splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1 "
+                      rotationInterval={2500}
+                      texts={["Yuzen", "Build.", "Measure.", "Refine."]}
+                    />
+                  </motion.div>
+                )}
+                <motion.div variants={line} className="border"></motion.div>
+              </AnimatePresence>
             </motion.div>
           </div>
 

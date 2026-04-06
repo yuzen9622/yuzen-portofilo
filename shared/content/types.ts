@@ -23,3 +23,25 @@ export interface Project {
   picture: string;
   datetime: string;
 }
+export interface Award {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  image?: string;
+}
+
+export type CardConfig = {
+  nickname: string;
+  label: string;
+  description: string;
+  image: string;
+  website?: string;
+  github?: string;
+  className: string;
+  enterFromX: number;
+  enterFromY: number;
+  rotate: number;
+  start: number;
+  end: number;
+};
