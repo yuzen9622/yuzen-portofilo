@@ -49,9 +49,9 @@ export default function Contribution() {
       label: "03",
       description: "justin",
       image: "https://justin0711.com/static/img/profile.jpg",
-      github: "github.com/him6794",
+      github: "https://github.com/him6794",
       website: "https://justin0711.com",
-      className: "left-[6%] top-[14%] sm:top-[51%] sm:left-[0%] -rotate-6",
+      className: "left-[6%] top-[14%] sm:top-[51%] sm:left-[6%] -rotate-6",
       enterFromX: 0,
       enterFromY: 72,
       rotate: 0,
@@ -59,7 +59,7 @@ export default function Contribution() {
       end: 0.5,
     },
     {
-      nickname: " 青呱Gua",
+      nickname: "青呱Gua",
       label: "04",
       description: "廢物一枚 便便教主",
       image: "https://guatw.net/images/IMG_9209.png",
@@ -71,6 +71,20 @@ export default function Contribution() {
       rotate: 0,
       start: 0.4,
       end: 0.5,
+    },
+    {
+      nickname: "南宮有栖",
+      label: "05",
+      description: "競程邊角料",
+      image: "https://blog.siewilly.me/images/owner_avatar.jpg",
+      github: "https://github.com/siewilly",
+      website: "https://blog.siewilly.me/",
+      className: "left-[6%] top-[10%] sm:left-[10%] -rotate-3",
+      enterFromX: 0,
+      enterFromY: 72,
+      rotate: 0,
+      start: 0,
+      end: 0.05,
     },
   ];
 
@@ -89,7 +103,17 @@ export default function Contribution() {
     });
   };
 
-  const desktopCards = applyProgressRange(CARD_CONFIGS);
+  const desktopCards = CARD_CONFIGS.reduce<CardConfig[][]>((groups, card) => {
+    const currentGroup = groups[groups.length - 1];
+
+    if (!currentGroup || currentGroup.length === 4) {
+      groups.push([card]);
+      return groups;
+    }
+
+    currentGroup.push(card);
+    return groups;
+  }, []).map((group) => applyProgressRange(group));
 
   const mobileCardGroups = CARD_CONFIGS.reduce<CardConfig[][]>(
     (groups, card) => {
@@ -129,7 +153,9 @@ export default function Contribution() {
       <ContributionMarquee />
 
       <div className="hidden md:block">
-        <ContributionSection cards={desktopCards} />
+        {desktopCards.map((group, index) => (
+          <ContributionSection key={`desktop-group-${index}`} cards={group} />
+        ))}
       </div>
 
       <div className="space-y-10 md:hidden">
