@@ -20,6 +20,8 @@ export default function Contribution() {
       description: "空梅居士 — 於虛無中見繁花",
       image:
         "https://www.nangong5421.com/_next/image?url=%2Favatar.jpg&w=640&q=75",
+      website: "https://www.nangong5421.com/",
+      github: "https://github.com/nangong5421",
       className: "left-[6%] top-[10%] sm:left-[10%] -rotate-3",
       enterFromX: 0,
       enterFromY: 72,
@@ -31,6 +33,8 @@ export default function Contribution() {
       nickname: "twcat0503",
       label: "02",
       description: "台貓",
+      website: "https://twcat0503.org/",
+      github: "https://github.com/twcat0503",
       image: "https://twcat0503.org/icon.jpg",
       className: "right-[6%] top-[50%] sm:top-[21%] sm:right-[10%] rotate-3",
       enterFromX: 0,
