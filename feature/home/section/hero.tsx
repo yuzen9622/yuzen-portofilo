@@ -146,7 +146,10 @@ export default function Hero() {
             >
               <AnimatePresence mode="wait">
                 {!showRotatingText ? (
-                  <motion.div className="w-full min-h-dvh z-10  fixed bg-background flex items-center justify-center top-0 left-0 ">
+                  <motion.div
+                    key="hero-intro-overlay"
+                    className="w-full min-h-dvh z-10  fixed bg-background flex items-center justify-center top-0 left-0 "
+                  >
                     <motion.h1
                       initial={{ y: -120, opacity: 0, scale: 2 }}
                       animate={{ y: 0, opacity: 1 }}
@@ -165,7 +168,10 @@ export default function Hero() {
                     </motion.h1>
                   </motion.div>
                 ) : (
-                  <motion.div className="flex flex-col space-y-2 w-fit">
+                  <motion.div
+                    key="hero-rotating-title"
+                    className="flex flex-col space-y-2 w-fit"
+                  >
                     <RotatingText
                       key="rotating-title"
                       layoutId="hero-title"
@@ -185,7 +191,11 @@ export default function Hero() {
                     />
                   </motion.div>
                 )}
-                <motion.div variants={line} className="border"></motion.div>
+                <motion.div
+                  key="hero-title-divider"
+                  variants={line}
+                  className="border"
+                ></motion.div>
               </AnimatePresence>
             </motion.div>
           </div>

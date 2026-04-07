@@ -82,15 +82,17 @@ export default function Award() {
             y: springY,
             opacity: imageOpacitySpring,
           }}
-          className="pointer-events-none  absolute z-50 h-40 w-30 rotate-6 -translate-x-120 -translate-y-40  overflow-hidden rounded-2xl border border-border/60 bg-muted shadow-2xl shadow-black/20 "
+          className="pointer-events-none  absolute z-50 h-40 w-30 rotate-6 -translate-x-200 -translate-y-50  overflow-hidden rounded-2xl border border-border/60 bg-muted shadow-2xl shadow-black/20 "
         >
-          <Image
-            src={pointImage ?? FALLBACK_IMAGE}
-            alt={"point image"}
-            fill
-            sizes="128px"
-            className="object-cover"
-          />
+          {pointImage !== "" && (
+            <Image
+              src={pointImage}
+              alt={"point image"}
+              fill
+              sizes="128px"
+              className="object-cover"
+            />
+          )}
         </motion.div>
       </div>
     </SectionLayout>
