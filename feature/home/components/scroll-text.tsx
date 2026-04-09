@@ -34,10 +34,10 @@ export default function ScrollText({ text }: ScrollTextProps) {
   linear-gradient(to right, transparent ${bg}%, var(--background) ${bg}%)
 `;
   return (
-    <div className=" relative text-xl lg:text-2xl">
-      <p className="text-primary/70   leading-normal whitespace-pre-wrap ">
+    <div className=" relative text-lg ">
+      <span className="text-primary/70   leading-normal whitespace-pre-wrap ">
         {text}
-      </p>
+      </span>
       <p className=" absolute   top-0 whitespace-pre-wrap ">
         <motion.span
           style={{

@@ -43,7 +43,7 @@ export default function BlogSearch({
 
   return (
     <>
-      <div className="flex items-center gap-2 w-11/12 max-w-7xl mx-auto border-x-2 border-b-2 py-4  px-2">
+      <div className="flex items-center gap-2 w-11/12 max-w-7xl mx-auto border-x border-b py-4  px-2">
         <div className="relative flex-1 backdrop-blur-3xl rounded-3xl">
           <Search
             className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
@@ -107,23 +107,27 @@ export default function BlogSearch({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      <div className=" w-11/12 max-w-7xl mx-auto py-3 px-2 border-x-2 border-b-2 flex gap-2 overflow-x-auto">
-        {allTags.length > 0 &&
-          allTags.map((tag) => (
-            <Badge
-              className="text-sm px-3 py-2"
-              variant={selectedTag === tag ? "default" : "outline"}
-              key={tag}
-              asChild
-            >
-              <button
-                onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
+      {allTags.length > 0 && (
+        <div className=" w-11/12 max-w-7xl mx-auto py-3 px-2 border-x border-b flex gap-2 overflow-x-auto">
+          {allTags.length > 0 &&
+            allTags.map((tag) => (
+              <Badge
+                className="text-sm px-3 py-2"
+                variant={selectedTag === tag ? "default" : "outline"}
+                key={tag}
+                asChild
               >
-                {tag}
-              </button>
-            </Badge>
-          ))}
-      </div>
+                <button
+                  onClick={() =>
+                    setSelectedTag(selectedTag === tag ? null : tag)
+                  }
+                >
+                  {tag}
+                </button>
+              </Badge>
+            ))}
+        </div>
+      )}
     </>
   );
 }

@@ -94,7 +94,7 @@ function ContributionCard({
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Github size={20} />
+            <Github size={12} />
           </Link>
         )}
         {website && (
@@ -104,7 +104,7 @@ function ContributionCard({
             className="border border-border p-2"
             rel="noopener noreferrer"
           >
-            <Globe size={20} />
+            <Globe size={12} />
           </Link>
         )}
       </div>

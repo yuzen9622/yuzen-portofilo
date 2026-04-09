@@ -25,7 +25,7 @@ export const SectionLayout = forwardRef<HTMLElement, SectionLayoutProps>(
           <p>{leftContent}</p>
           <p>{rightContent}</p>
         </motion.div>
-        <motion.div className="w-dvw border"></motion.div>
+        <motion.div className="w-dvw border-b"></motion.div>
         {children}
       </section>
     );

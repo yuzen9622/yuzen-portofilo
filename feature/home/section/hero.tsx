@@ -16,33 +16,24 @@ import {
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import useMobile from "@/shared/hooks/use-mobile";
+
 import { cn } from "@/shared/lib/utils";
+import { ChevronDown } from "lucide-react";
 export default function Hero() {
-  const marqueeRef = useRef(null);
   const imageRef = useRef(null);
   const [showRotatingText, setShowRotatingText] = useState(false);
-  const isMobile = useMobile();
-  const { scrollYProgress } = useScroll({
-    target: marqueeRef,
-    offset: ["start center", "end start"],
-  });
+
   const { scrollYProgress: imageScrollYProgress } = useScroll({
     target: imageRef,
     offset: ["0.4 center", "end start"],
   });
-  const springProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    mass: 0.2,
-  });
+
   const imageSpringProgress = useSpring(imageScrollYProgress, {
     stiffness: 100,
     damping: 30,
     mass: 0.2,
   });
-  const rotate = useTransform(springProgress, [0, 1], [0, 3]);
-  const translateY = useTransform(springProgress, [0, 1], [0, 100]);
+
   const rounded = useTransform(imageSpringProgress, [0, 1], [15, 300]);
   const roundedTemplate = useMotionTemplate`${rounded}px`;
 
@@ -128,7 +119,7 @@ export default function Hero() {
     <motion.section
       initial="initial"
       animate="animate"
-      className=" flex flex-col font-inter space-y-3 mt-10 max-w-dvw  overflow-hidden"
+      className=" flex flex-col font-inter space-y-3 mt-10 max-w-dvw  min-h-dvh overflow-hidden relative"
     >
       <div className=" w-11/12 max-w-6xl  mx-auto  space-y-3">
         <div className="flex  justify-between sm:flex-row flex-col  items-center  md:space-y-0 space-y-6">
@@ -148,7 +139,7 @@ export default function Hero() {
                 {!showRotatingText ? (
                   <motion.div
                     key="hero-intro-overlay"
-                    className="w-full min-h-dvh z-10  fixed bg-background flex items-center justify-center top-0 left-0 "
+                    className="w-full min-h-dvh z-50  fixed bg-background flex items-center justify-center top-0 left-0 "
                   >
                     <motion.h1
                       initial={{ y: -120, opacity: 0, scale: 2 }}
@@ -227,14 +218,16 @@ export default function Hero() {
       </div>
       <motion.div variants={below}>
         <motion.div variants={line} className=" border"></motion.div>
-        <motion.div
-          variants={reveal}
-          style={{ rotate, translateY: isMobile ? 0 : translateY }}
-          ref={marqueeRef}
-          className="flex-1 py-10"
-        >
+        <motion.div className="flex-1 py-10">
           <Marquee />
         </motion.div>
+      </motion.div>
+
+      <motion.div
+        variants={below}
+        className="absolute bottom-25 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-60 animate-bounce text-muted-foreground"
+      >
+        <ChevronDown className="w-6 h-6" />
       </motion.div>
     </motion.section>
   );

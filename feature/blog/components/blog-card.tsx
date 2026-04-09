@@ -20,7 +20,7 @@ export default function BlogCard({
       onMouseEnter={() => router.prefetch(`blog/${post.slug}`)}
       href={`blog/${post.slug}`}
       prefetch={true}
-      className="space-y-2 group flex flex-col border-r-2 border-b-2"
+      className="space-y-2 group flex flex-col border-r border-b"
     >
       <motion.div
         layoutId={`blog-image-${post.slug}`}

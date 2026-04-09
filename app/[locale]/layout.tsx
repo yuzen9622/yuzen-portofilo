@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, BBH_Bartle, Inter } from "next/font/google";
-import "../globals.css";
+
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { ThemeProvider } from "next-themes";
 import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "@/components/ui/sonner";
+import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -17,6 +18,7 @@ const bbhBartle = BBH_Bartle({
   subsets: ["latin"],
   weight: ["400"],
   display: "swap",
+  adjustFontFallback: false,
 });
 
 const inter = Inter({

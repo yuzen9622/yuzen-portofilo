@@ -10,7 +10,7 @@ import { Rss } from "lucide-react";
 
 export default function BlogEmpty() {
   return (
-    <div className="border-x-2 border-b-2 w-full max-w-7xl mx-auto h-96 flex items-center justify-center">
+    <div className=" w-full max-w-7xl mx-auto h-96 flex items-center justify-center">
       <Empty>
         <EmptyHeader>
           <EmptyMedia variant="icon">

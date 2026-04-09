@@ -37,7 +37,7 @@ export default function About() {
             <AboutCard key={index} href={link.href} title={link.name} />
           ))}
         </div>
-        <div className="flex-1 w-11/12 mx-auto   ">
+        <div className="flex-1 w-11/12 mx-auto  ">
           <ScrollText text={t("about.description")} />
         </div>
       </motion.div>
