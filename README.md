@@ -1,12 +1,24 @@
-# Yuzen Portfolio
+<div align="center">
 
-> 🌐 **[2026.yuzen.dev](https://2026.yuzen.dev)**
+  <img src="public/avatar.webp" alt="yuzen.dev" width="80" style="border-radius:50%"/>
 
-個人作品集與技術部落格網站，展示開發專案、技術文章與專業技能。支援中英文雙語切換，具備深色/淺色主題、響應式設計與完整 SEO 優化。
+  [![Website](https://img.shields.io/website?url=https%3A%2F%2F2026.yuzen.dev&style=flat-square&label=2026.yuzen.dev)](https://2026.yuzen.dev)
+  [![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black?style=flat-square&logo=next.js)](https://nextjs.org)
+  [![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)](LICENSE)
+
+  **🧑‍💻 個人作品集與技術部落格 — 雙語支援、深色主題、動畫豐富 🌏**
+
+  [網站](https://2026.yuzen.dev) · [部落格](https://2026.yuzen.dev/blog) · [聯絡](https://2026.yuzen.dev/contact)
+
+</div>
+
+---
+
+全端開發者的個人作品集網站，展示開發專案、技術文章與參賽成果。支援中英文雙語切換，具備深色/淺色主題、響應式設計、Framer Motion 動畫效果與完整 SEO 優化。
 
 ## 網站內容
 
-- **首頁** — 個人介紹、精選專案展示與聯絡入口
+- **首頁** — 個人介紹、精選專案展示、獎項成就、貢獻者卡片與聯絡入口
 - **關於** — 技術背景、技能與開發經歷
 - **專案** — 作品集展示，包含 Chatto 即時聊天、Dcard Clone、微財記帳、台灣天氣 App 等
 - **部落格** — 技術文章撰寫，支援 Markdown 渲染、程式碼高亮、KaTeX 數學公式
