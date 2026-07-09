@@ -76,4 +76,35 @@ export const Awards_en = [
     id: "20251213-ai-competition",
     image: "/awards/ai-competition.webp",
   },
+  {
+    title: "21st TWLEF Taiwan e-Learning Forum",
+    description:
+      "Best Paper Award・An explainable AI teaching-assistant system based on the SINKT model",
+    date: "2026-03-05",
+    id: "20260305-twlef",
+  },
+  {
+    title: "2026 YTP Hackathon",
+    description: "Participant",
+    date: "2026-04-25",
+    id: "20260425-ytp-hackathon",
+  },
+  {
+    title: "2026 MakeNTU",
+    description: "Participant",
+    date: "2026-05-08",
+    id: "20260508-makentu",
+  },
+  {
+    title: "iPAS Information Security Engineer",
+    description: "Elementary Level",
+    date: "2026-05-23",
+    id: "20260523-ipas",
+  },
+  {
+    title: "NSTC Undergraduate Research Project",
+    description: "Project Approved",
+    date: "2026-06-26",
+    id: "20260626-nstc-project",
+  },
 ];

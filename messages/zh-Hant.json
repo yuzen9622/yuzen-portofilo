@@ -35,10 +35,16 @@
         "successMessage": "您好! {name}，已收到您的郵件，我會盡快回覆您。",
         "errorMessage": "發送失敗，請稍後再試。"
     },
-    "AwardPage": {
+    "StatsPage": {
+        "awards": "競賽與檢定",
+        "projects": "作品專案",
+        "years": "年程式旅程",
+        "papers": "最佳論文獎"
+    },
+    "ArchivePage": {
         "title": {
-            "leftContent": "我的獎項",
-            "rightContent": "榮耀.成就."
+            "leftContent": "我的積累",
+            "rightContent": "分類.典藏."
         }
     },
     "ProjectDetailPage": {

@@ -1,9 +1,10 @@
 import About from "@/feature/home/section/about";
-import Award from "@/feature/home/section/award";
+import Archive from "@/feature/home/section/archive";
 import Contact from "@/feature/home/section/contact";
 import Contribution from "@/feature/home/section/contribution";
 import Hero from "@/feature/home/section/hero";
 import Project from "@/feature/home/section/project";
+import Stats from "@/feature/home/section/stats";
 import JsonLd from "@/shared/components/json-ld";
 import type { Metadata } from "next";
 
@@ -65,8 +66,9 @@ export default function Home() {
       <JsonLd data={jsonLd} />
       <Hero />
       <About />
+      <Stats />
       <Project />
-      <Award />
+      <Archive />
       <Contribution />
       <Contact />
     </>

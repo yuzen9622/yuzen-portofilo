@@ -76,4 +76,34 @@ export const Awards_zhTW = [
     id: "20251213-ai-competition",
     image: "/awards/ai-competition.webp",
   },
+  {
+    title: "TWLEF 第21屆台灣數位學習發展研討會",
+    description: "最佳論文獎・基於 SINKT 模型融入可解釋性人工智慧助教系統",
+    date: "2026-03-05",
+    id: "20260305-twlef",
+  },
+  {
+    title: "2026 YTP 黑客松",
+    description: "參賽",
+    date: "2026-04-25",
+    id: "20260425-ytp-hackathon",
+  },
+  {
+    title: "2026 MakeNTU",
+    description: "參賽",
+    date: "2026-05-08",
+    id: "20260508-makentu",
+  },
+  {
+    title: "iPAS 資訊安全工程師能力鑑定",
+    description: "初級",
+    date: "2026-05-23",
+    id: "20260523-ipas",
+  },
+  {
+    title: "國科會大專生研究計畫",
+    description: "計畫通過",
+    date: "2026-06-26",
+    id: "20260626-nstc-project",
+  },
 ];
