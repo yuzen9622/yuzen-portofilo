@@ -32,7 +32,7 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-const SITE_URL = "https://2026.yuzen.dev";
+const SITE_URL = "https://www.yuzen.dev";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
