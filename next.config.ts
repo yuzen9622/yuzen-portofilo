@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "guatw.net" },
       { protocol: "https", hostname: "blog.siewilly.me" },
       { protocol: "https", hostname: "qwo877.github.io" },
+      { protocol: "https", hostname: "opengraph.githubassets.com" },
     ],
   },
 };
