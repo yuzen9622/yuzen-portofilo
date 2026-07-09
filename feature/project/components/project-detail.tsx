@@ -124,6 +124,7 @@ export default function ProjectDetail({
           height={900}
           priority
           className="w-full object-cover aspect-video"
+          unoptimized={project.picture.startsWith("http")}
         />
       </motion.div>
 

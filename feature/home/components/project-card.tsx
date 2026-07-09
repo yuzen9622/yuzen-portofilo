@@ -84,6 +84,7 @@ export default function ProjectCard({
           src={project.picture}
           width={1000}
           height={1000}
+          unoptimized={project.picture.startsWith("http")}
         />
       </motion.div>
 

@@ -597,6 +597,7 @@ export default function Archive() {
               fill
               sizes="224px"
               className="object-cover"
+              unoptimized={pointImage.startsWith("http")}
             />
           )}
         </motion.div>
