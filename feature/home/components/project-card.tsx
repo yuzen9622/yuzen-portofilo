@@ -1,3 +1,4 @@
+import { Link } from "@/i18n/navigation";
 import { Project } from "@/shared/content/types";
 import {
   motion,
@@ -63,9 +64,10 @@ export default function ProjectCard({
     },
   };
   return (
-    <div
+    <Link
+      href={`/projects/${project.slug}`}
       ref={projectRef}
-      className={`flex-1  
+      className={`flex-1
       flex flex-col gap-4 overflow-hidden nth-[2n]:border-l-2 border-b-2 items-center justify-center p-6 group font-inter ${className}`}
     >
       <motion.div
@@ -111,6 +113,6 @@ export default function ProjectCard({
           {`${index}`.padStart(2, "0")}
         </motion.div>
       </motion.span>
-    </div>
+    </Link>
   );
 }

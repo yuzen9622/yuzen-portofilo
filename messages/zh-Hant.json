@@ -40,5 +40,13 @@
             "leftContent": "我的獎項",
             "rightContent": "榮耀.成就."
         }
+    },
+    "ProjectDetailPage": {
+        "backToProjects": "回到專案",
+        "viewGithub": "GitHub",
+        "viewDemo": "Live Demo",
+        "highlights": "技術亮點",
+        "prevProject": "上一個專案",
+        "nextProject": "下一個專案"
     }
 }

@@ -22,7 +22,39 @@ export interface Project {
   description: string;
   picture: string;
   datetime: string;
+  tech?: string[];
+  github?: string;
+  demo?: string;
+  intro?: string;
+  highlights?: { title: string; description: string }[];
 }
+
+export interface ArchiveItem {
+  id: string;
+  title: string;
+  description?: string;
+  date?: string;
+  image?: string;
+  link?: string;
+  highlight?: boolean;
+}
+
+export interface ArchiveCategory {
+  id: string;
+  name: string;
+  items: ArchiveItem[];
+}
+
+export interface ArchiveGroup {
+  id: string;
+  name: string;
+  categories: ArchiveCategory[];
+}
+
+export interface ArchiveContent {
+  groups: ArchiveGroup[];
+}
+
 export interface Award {
   id: string;
   title: string;

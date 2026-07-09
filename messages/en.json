@@ -40,5 +40,13 @@
             "leftContent": "My Awards",
             "rightContent": "Glory.Achievement."
         }
+    },
+    "ProjectDetailPage": {
+        "backToProjects": "Back to Projects",
+        "viewGithub": "GitHub",
+        "viewDemo": "Live Demo",
+        "highlights": "Technical Highlights",
+        "prevProject": "Previous Project",
+        "nextProject": "Next Project"
     }
 }
