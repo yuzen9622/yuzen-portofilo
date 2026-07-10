@@ -111,10 +111,7 @@ export const metadata: Metadata = {
       "Yuzen 的個人作品集網站，展示全端開發專案、技術部落格與專業技能。",
     images: [`${SITE_URL}/avatar.webp`],
   },
-  verification: {
-    // 填入你的 Google Search Console 驗證碼
-    // google: "your-google-verification-code",
-  },
+ 
 };
 
 type Props = {
