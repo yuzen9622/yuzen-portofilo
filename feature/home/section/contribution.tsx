@@ -14,21 +14,7 @@ import ContributionSection from "../components/contribution-section";
 export default function Contribution() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const CARD_CONFIGS: CardConfig[] = [
-    {
-      nickname: "南宮柳信",
-      label: "01",
-      description: "空梅居士 — 於虛無中見繁花",
-      image:
-        "https://www.nangong5421.com/_next/image?url=%2Favatar.jpg&w=640&q=75",
-      website: "https://www.nangong5421.com/",
-      github: "https://github.com/nangong5421",
-      className: "left-[6%] top-[14%] sm:left-[10%] -rotate-3",
-      enterFromX: 0,
-      enterFromY: 72,
-      rotate: 0,
-      start: 0,
-      end: 0.05,
-    },
+   
     {
       nickname: "twcat0503",
       label: "02",
