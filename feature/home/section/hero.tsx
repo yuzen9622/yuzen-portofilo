@@ -21,9 +21,15 @@ import { cn } from "@/shared/lib/utils";
 import SplitText from "@/shared/components/split-text";
 import Magnetic from "@/shared/components/magnetic";
 import { ChevronDown } from "lucide-react";
+
+const HERO_INTRO_KEY = "yuzen-hero-intro-seen";
+
 export default function Hero() {
 	const imageRef = useRef(null);
 	const [showRotatingText, setShowRotatingText] = useState(false);
+	// intro 決策完成（讀完 sessionStorage）才啟動動畫，避免回訪者被 2.5s delay 卡住
+	const [ready, setReady] = useState(false);
+	const [skipIntro, setSkipIntro] = useState(false);
 
 	const { scrollYProgress: imageScrollYProgress } = useScroll({
 		target: imageRef,
@@ -64,15 +70,26 @@ export default function Hero() {
 	};
 
 	useEffect(() => {
-		const timeoutId = window.setTimeout(() => {
+		// 回訪者跳過：sessionStorage 記憶，回訪時立刻顯示內容、不鎖滾動
+		let timeoutId: number | undefined;
+		const seen = window.sessionStorage.getItem(HERO_INTRO_KEY) === "1";
+		window.sessionStorage.setItem(HERO_INTRO_KEY, "1");
+
+		if (seen) {
+			setSkipIntro(true);
 			setShowRotatingText(true);
-		}, 2400);
+		} else {
+			timeoutId = window.setTimeout(() => {
+				setShowRotatingText(true);
+			}, 2400);
+		}
+		setReady(true);
 
 		return () => window.clearTimeout(timeoutId);
 	}, []);
 
 	useEffect(() => {
-		if (showRotatingText) {
+		if (!ready || skipIntro || showRotatingText) {
 			return;
 		}
 
@@ -87,13 +104,16 @@ export default function Hero() {
 			body.style.overflow = prevBodyOverflow;
 			documentElement.style.overflow = prevHtmlOverflow;
 		};
-	}, [showRotatingText]);
+	}, [ready, skipIntro, showRotatingText]);
+
+	// 回訪者：所有進場 delay 歸零，直接顯示
+	const introDelay = skipIntro ? 0 : 2.5;
 
 	const revealDelayed: Variants = {
 		...reveal,
 		animate: {
 			...reveal.animate,
-			transition: { delay: 2.5 },
+			transition: { delay: introDelay },
 		},
 	};
 
@@ -101,7 +121,7 @@ export default function Hero() {
 		initial: {},
 		animate: {
 			transition: {
-				delayChildren: 2.5,
+				delayChildren: introDelay,
 				staggerChildren: 0.08,
 			},
 		},
@@ -111,7 +131,7 @@ export default function Hero() {
 		initial: {},
 		animate: {
 			transition: {
-				delayChildren: 2.5,
+				delayChildren: introDelay,
 				staggerChildren: 0.1,
 			},
 		},
@@ -120,7 +140,7 @@ export default function Hero() {
 	return (
 		<motion.section
 			initial="initial"
-			animate="animate"
+			animate={ready ? "animate" : "initial"}
 			className=" flex flex-col font-inter space-y-3 mt-10 max-w-dvw  min-h-dvh overflow-hidden relative"
 		>
 			<div className=" w-11/12 max-w-6xl  mx-auto  space-y-3">
