@@ -96,6 +96,40 @@ shared/           # 共用工具、Hooks、內容資料
 
 使用 [Vercel](https://vercel.com) 部署，支援 ISR 增量靜態再生與 Edge Runtime。
 
+## Apple Music 播放器（Navbar）
+
+Navbar 上的 CD 圓形按鈕接 [Apple Music API](https://developer.apple.com/documentation/applemusicapi/) 與
+[MusicKit JS](https://js-cdn.music.apple.com/musickit/v3/musickit.js)：預設不播放、顯示最近播放歌曲的封面，
+播放時封面像 CD 一樣旋轉。個人化端點（`GET /v1/me/recent-played-tracks`）與播放都需要使用者透過
+MusicKit 授權（Apple ID + Apple Music 訂閱），token 由 SDK 存於 localStorage，只需授權一次。
+
+### 設定步驟
+
+1. 加入 [Apple Developer Program](https://developer.apple.com/programs/)。
+2. Developer Portal → **Certificates, Identifiers & Profiles → Keys** → 建立一個啟用 **MusicKit** 的 Key，下載 `.p8` 私鑰並記下 **Key ID**。
+3. **Membership** 頁面取得 10 字元 **Team ID**。
+4. 在 `.env.local` 設定：
+
+   ```bash
+   APPLE_TEAM_ID=XXXXXXXXXX
+   APPLE_MUSIC_KEY_ID=XXXXXXXXXX
+   # .p8 私鑰全文（可含真實換行，或用 \n 跳脫寫成單行）
+   APPLE_MUSIC_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----"
+   # 可選
+   APPLE_MUSIC_TOKEN_TTL_SECONDS=12960000   # JWT 效期，上限約 150 天
+   APPLE_MUSIC_TOKEN_ORIGINS=https://www.yuzen.dev  # 可選，限制 token 來源 origin
+   ```
+
+### 實作架構
+
+| 檔案 | 職責 |
+| --- | --- |
+| `app/api/music/token/route.ts` | Server 端用 `node:crypto` 簽 ES256 JWT（私鑰不出 server），含記憶體快取 |
+| `shared/lib/apple-music.ts` | 載入 MusicKit JS、configure、抓取 recent-played-tracks、artwork URL 格式化 |
+| `shared/components/music-player.tsx` | CD 圓形按鈕 UI、授權流程、播放/暫停、旋轉動畫 |
+
+未設定環境變數時 `/api/music/token` 回 501，按鈕會自動隱藏。
+
 ## License
 
 MIT
