@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/empty";
 import { FileQuestion } from "lucide-react";
 import Link from "next/link";
+import GlitchText from "@/shared/components/glitch-text";
 
 export default function NotFound() {
   return (
@@ -18,9 +19,11 @@ export default function NotFound() {
           <EmptyMedia variant="icon">
             <FileQuestion className="w-16 h-16" />
           </EmptyMedia>
-          <EmptyTitle className="text-4xl font-bold">404</EmptyTitle>
+          <EmptyTitle className="text-4xl font-bold">
+            <GlitchText text="404" />
+          </EmptyTitle>
           <EmptyDescription className="text-lg">
-            Page Not Found
+            <GlitchText text="Page Not Found" decodeDuration={1200} />
           </EmptyDescription>
           <EmptyContent className="max-w-md text-center">
             The page you are looking has been moved.
