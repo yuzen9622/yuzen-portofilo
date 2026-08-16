@@ -9,6 +9,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "@/components/ui/sonner";
 import AmbientBackground from "@/shared/components/ambient-background";
 import CustomCursor from "@/shared/components/custom-cursor";
+import RouteProgress from "@/shared/components/route-progress";
 import "./globals.css";
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -152,6 +153,7 @@ export default async function RootLayout({
 					<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
 						<AmbientBackground />
 						<CustomCursor />
+						<RouteProgress />
 						{children} <Analytics />
 						<Toaster />
 					</ThemeProvider>
