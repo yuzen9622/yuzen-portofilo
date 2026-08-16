@@ -450,11 +450,6 @@ export default function Archive() {
   });
 
   const [activeIdx, setActiveIdx] = useState(0);
-  useEffect(() => {
-    return wheel.on("change", (latest) => {
-      setActiveIdx(Math.round(latest));
-    });
-  }, []);
 
   // 群的滾動幾何（vh 單位），供滾筒與點擊跳轉換算
   const geometry = useMemo(() => {
@@ -490,6 +485,12 @@ export default function Archive() {
     }
     return w;
   });
+
+  useEffect(() => {
+    return wheel.on("change", (latest) => {
+      setActiveIdx(Math.round(latest));
+    });
+  }, [wheel]);
 
   const { xInput, xOutput } = useMemo(() => {
     const input: number[] = [];
@@ -530,15 +531,12 @@ export default function Archive() {
   };
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
     const handleMouseMove = (event: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      mouseX.set(event.clientX - rect.left + 20);
-      mouseY.set(event.clientY - rect.top + 20);
+      mouseX.set(event.clientX + 20);
+      mouseY.set(event.clientY + 20);
     };
-    container.addEventListener("mousemove", handleMouseMove);
-    return () => container.removeEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, [mouseX, mouseY]);
 
   const handlePoint = (image: string | null) => {
@@ -615,7 +613,7 @@ export default function Archive() {
 
         <motion.div
           style={{ x: springX, y: springY, opacity: opacitySpring }}
-          className="pointer-events-none hidden md:block absolute left-0 top-0 z-50 h-40 w-56 rotate-3 overflow-hidden rounded-2xl border border-border/60 bg-muted shadow-2xl shadow-black/20"
+          className="pointer-events-none hidden md:block fixed left-0 top-0 z-50 h-40 w-56 rotate-3 overflow-hidden rounded-2xl border border-border/60 bg-muted shadow-2xl shadow-black/20"
         >
           {pointImage !== "" && (
             <Image

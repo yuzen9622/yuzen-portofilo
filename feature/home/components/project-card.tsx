@@ -77,7 +77,6 @@ export default function ProjectCard({
           translateX: translateX,
           borderRadius: borderRadiusTemplate,
         }}
-        initial={{ clipPath: "inset(0% 100% 0% 0%)" }}
         className="w-full h-full overflow-hidden"
       >
         <Image
