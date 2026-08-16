@@ -19,7 +19,7 @@ import Image from "next/image";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
 const FALLBACK_IMAGE = "/blog/default-placeholder.webp";
-// 可調參數：每個 entry 貢獻 20vh 滾動行程，基底 80vh
+
 const BASE_VH = 80;
 const PER_ENTRY_VH = 20;
 
@@ -105,7 +105,12 @@ function NumberOdometer({
 }) {
   const y = useTransform(wheel, (w) => `${-w}em`);
   return (
-    <div className={cn("flex items-center gap-1.5 w-full", align === "left" ? "justify-start" : "justify-end")}>
+    <div
+      className={cn(
+        "flex items-center gap-1.5 w-full",
+        align === "left" ? "justify-start" : "justify-end",
+      )}
+    >
       <p className="flex items-center leading-none text-sm md:text-base text-muted-foreground tabular-nums">
         <span>0</span>
         {reduced ? (
@@ -157,7 +162,10 @@ function WheelBlock({
   const offset = useTransform(wheel, (w) => index - w);
   const y = useTransform(offset, (o) => o * 280);
   const rotateX = useTransform(offset, (o) => o * -70);
-  const opacity = useTransform(offset, (o) => 1 - Math.min(Math.abs(o) * 1.4, 1));
+  const opacity = useTransform(
+    offset,
+    (o) => 1 - Math.min(Math.abs(o) * 1.4, 1),
+  );
   const pointerEvents = useTransform(offset, (o) =>
     Math.abs(o) < 0.5 ? "auto" : "none",
   );
@@ -185,7 +193,12 @@ function WheelBlock({
       <h2 className="font-inter text-5xl md:text-7xl font-semibold uppercase">
         {group.name}
       </h2>
-      <div className={cn("flex flex-col gap-3", isEven ? "items-start" : "items-end")}>
+      <div
+        className={cn(
+          "flex flex-col gap-3",
+          isEven ? "items-start" : "items-end",
+        )}
+      >
         {group.categories.map((category) => (
           <CategoryLabel
             key={category.id}
@@ -284,17 +297,20 @@ function GroupPanel({
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
-  
+
   const { scrollYProgress } = useScroll({
     target: wrapperRef,
     offset: ["start start", "end end"],
   });
-  
+
   const entries = useMemo(() => flattenGroup(group), [group]);
   const slots = entries.length + 1;
   const isEven = index % 2 === 0;
 
-  const [dimensions, setDimensions] = useState({ listHeight: 0, viewportHeight: 0 });
+  const [dimensions, setDimensions] = useState({
+    listHeight: 0,
+    viewportHeight: 0,
+  });
 
   useEffect(() => {
     if (reduced) return;
@@ -337,7 +353,7 @@ function GroupPanel({
     : 0;
 
   const endY = hasOverflow
-    ? (viewportHeight - bottomLimit) - (viewportHeight / 2 + listHeight / 2)
+    ? viewportHeight - bottomLimit - (viewportHeight / 2 + listHeight / 2)
     : 0;
 
   const listY = useTransform(scrollYProgress, [0, 1], [startY, endY]);
@@ -360,16 +376,20 @@ function GroupPanel({
             : "sticky top-0 h-screen flex items-center overflow-hidden",
         )}
       >
-        <div className={cn(
-          "grid grid-cols-1 gap-6 md:gap-16 items-center w-11/12 max-w-6xl mx-auto",
-          isEven ? "md:grid-cols-[1fr_1.8fr]" : "md:grid-cols-[1.8fr_1fr]"
-        )}>
+        <div
+          className={cn(
+            "grid grid-cols-1 gap-6 md:gap-16 items-center w-11/12 max-w-6xl mx-auto",
+            isEven ? "md:grid-cols-[1fr_1.8fr]" : "md:grid-cols-[1.8fr_1fr]",
+          )}
+        >
           {/* 桌機左欄交給跨群滾筒（rail），這格只當佔位；手機與 reduced-motion 顯示靜態群名 */}
           <div className={cn(!isEven && "md:order-2")}>
-            <div className={cn(
-              reduced ? "flex flex-col gap-2" : "md:hidden",
-              !isEven && "md:items-end md:text-end"
-            )}>
+            <div
+              className={cn(
+                reduced ? "flex flex-col gap-2" : "md:hidden",
+                !isEven && "md:items-end md:text-end",
+              )}
+            >
               <p className="text-sm text-muted-foreground tabular-nums">
                 {`${index + 1}`.padStart(2, "0")} /{" "}
                 {`${total}`.padStart(2, "0")}
@@ -413,8 +433,16 @@ export default function Archive() {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const imageOpacity = useMotionValue(0);
-  const springX = useSpring(mouseX, { stiffness: 180, damping: 24, mass: 0.15 });
-  const springY = useSpring(mouseY, { stiffness: 180, damping: 24, mass: 0.15 });
+  const springX = useSpring(mouseX, {
+    stiffness: 180,
+    damping: 24,
+    mass: 0.15,
+  });
+  const springY = useSpring(mouseY, {
+    stiffness: 180,
+    damping: 24,
+    mass: 0.15,
+  });
   const opacitySpring = useSpring(imageOpacity, {
     stiffness: 180,
     damping: 24,
@@ -491,8 +519,7 @@ export default function Archive() {
     const container = containerRef.current;
     if (!container) return;
     const vhPx = window.innerHeight / 100;
-    const containerTop =
-      window.scrollY + container.getBoundingClientRect().top;
+    const containerTop = window.scrollY + container.getBoundingClientRect().top;
     const scrollVh =
       geometry.cumBefore[groupIndex] +
       (geometry.heights[groupIndex] - 100) * clamp01(target);
