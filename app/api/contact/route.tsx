@@ -2,9 +2,9 @@ import { Resend } from "resend";
 
 import { NextRequest, NextResponse } from "next/server";
 import { ContactEmail } from "@/shared/components/contact-email";
-const resend = new Resend(process.env.NEXT_RESEND_API_KEY!);
 
 export async function POST(request: NextRequest) {
+  const resend = new Resend(process.env.NEXT_RESEND_API_KEY!);
   const { name, email, message } = await request.json();
   const response = await resend.emails.send({
     from: "Yuzen website <noreply@2026.yuzen.dev>",
