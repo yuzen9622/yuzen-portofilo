@@ -118,10 +118,7 @@ export default function Marquee({
     <section className={cn("max-w-full overflow-y-hidden  ", className)}>
       <div className="w-11/12 max-w-7xl mx-auto ">
         <div
-          className={cn(
-            "mt-6 relative overflow-hidden rounded-2xl  bg-background/60 backdrop-blur-xs",
-            "py-6",
-          )}
+          className={cn("mt-6 relative overflow-hidden rounded-2xl py-6")}
           style={{
             maskImage:
               "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",

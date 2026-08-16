@@ -19,6 +19,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { cn } from "@/shared/lib/utils";
 import SplitText from "@/shared/components/split-text";
+import Magnetic from "@/shared/components/magnetic";
 import { ChevronDown } from "lucide-react";
 export default function Hero() {
 	const imageRef = useRef(null);
@@ -132,10 +133,7 @@ export default function Hero() {
 							Not Just Code
 						</motion.h1>
 
-						<motion.div
-							className="flex flex-col  space-y-2 w-fit"
-							variants={below}
-						>
+						<motion.div className="flex flex-col  space-y-2 w-fit" variants={below}>
 							<AnimatePresence mode="wait">
 								{!showRotatingText ? (
 									<motion.div
@@ -210,9 +208,11 @@ export default function Hero() {
 				>
 					{Object.entries(SocialBase).map(([key, value]) => (
 						<motion.div className="hover:rotate-6 " variants={reveal} key={key}>
-							<Link className=" transition-all" href={value.url}>
-								{value.icon}
-							</Link>
+							<Magnetic strength={0.4}>
+								<Link className=" transition-all block p-1" href={value.url}>
+									{value.icon}
+								</Link>
+							</Magnetic>
 						</motion.div>
 					))}
 				</motion.div>

@@ -17,6 +17,7 @@ import { CircleProgress } from "@/shared/components/circle-progress";
 
 import LanguageSelector from "@/shared/components/lang-switch";
 import MusicPlayer from "@/shared/components/music-player";
+import Magnetic from "@/shared/components/magnetic";
 
 export default function Tool() {
   const { setTheme, isDark } = useTheme();
@@ -48,13 +49,17 @@ export default function Tool() {
           setTheme(isDark ? "light" : "dark");
         }}
       >
-        {isDark ? <Sun size={18} /> : <Moon size={18} />}
+        <Magnetic strength={0.35}>
+          {isDark ? <Sun size={18} /> : <Moon size={18} />}
+        </Magnetic>
       </NavigationMenuItem>
       <NavigationMenuItem>
         <LanguageSelector />
       </NavigationMenuItem>
       <NavigationMenuItem>
-        <MusicPlayer />
+        <Magnetic strength={0.3}>
+          <MusicPlayer />
+        </Magnetic>
       </NavigationMenuItem>
       {scrollYPercent !== 0 && (
         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
@@ -62,22 +67,24 @@ export default function Tool() {
             className="relative isolate  cursor-pointer   text-foreground"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            <span className="relative  z-10 border  flex h-8 w-8 items-center justify-center rounded-full text-primary transition-colors hover:bg-primary hover:text-background">
-              {scrollYPercent === 100 ? (
-                <ArrowUp size={18} />
-              ) : (
-                <CircleProgress
-                  ref={circleRef}
-                  circumference={circumference}
-                  offset={offset}
-                  scrollY={
-                    reduceMotion
-                      ? springProgress.get() * 100
-                      : springProgress.get() * 100
-                  }
-                />
-              )}
-            </span>
+            <Magnetic strength={0.35}>
+              <span className="relative  z-10 border  flex h-8 w-8 items-center justify-center rounded-full text-primary transition-colors hover:bg-primary hover:text-background">
+                {scrollYPercent === 100 ? (
+                  <ArrowUp size={18} />
+                ) : (
+                  <CircleProgress
+                    ref={circleRef}
+                    circumference={circumference}
+                    offset={offset}
+                    scrollY={
+                      reduceMotion
+                        ? springProgress.get() * 100
+                        : springProgress.get() * 100
+                    }
+                  />
+                )}
+              </span>
+            </Magnetic>
           </NavigationMenuItem>
         </motion.div>
       )}

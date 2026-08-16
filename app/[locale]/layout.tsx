@@ -7,6 +7,8 @@ import { routing } from "@/i18n/routing";
 import { ThemeProvider } from "next-themes";
 import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "@/components/ui/sonner";
+import AmbientBackground from "@/shared/components/ambient-background";
+import CustomCursor from "@/shared/components/custom-cursor";
 import "./globals.css";
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -148,6 +150,8 @@ export default async function RootLayout({
 			<body className="antialiased">
 				<NextIntlClientProvider>
 					<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+						<AmbientBackground />
+						<CustomCursor />
 						{children} <Analytics />
 						<Toaster />
 					</ThemeProvider>

@@ -36,13 +36,15 @@ export default function Navbar() {
       <div
         className={cn(
           "top-2 sticky z-20 flex items-center transition-[width] duration-300 justify-center",
-          isTop && "top-0 w-full  transition-all",
+          isTop && "top-0 w-full transition-all",
         )}
       >
         <NavigationMenu
           className={cn(
-            "outline p-3 transition-[width] rounded-full duration-300  h-fit hidden sm:block flex-none  bg-background/80  backdrop-blur-xs",
-            isTop && " rounded-none outline-none",
+            "p-3 transition-all rounded-full duration-300 h-fit hidden sm:block flex-none",
+            isTop
+              ? "bg-transparent backdrop-blur-none outline-none shadow-none"
+              : "bg-background/80 backdrop-blur-md border border-border/40 shadow-xs",
           )}
         >
           <NavigationMenuList className="transition-all">
@@ -71,9 +73,12 @@ export default function Navbar() {
       {/** RWD navbar */}
       <NavigationMenu
         className={cn(
-          "p-3  w-11/12 max-w-none mx-auto  h-fit  hidden max-sm:flex rounded-2xl transition-all justify-between flex-none top-2 sticky  z-30  backdrop-blur-xs bg-background/80",
-          isOpen && "max-sm:backdrop-blur-none bg-transparent",
-          isTop && "w-full top-0 rounded-none",
+          "p-3 w-11/12 max-w-none mx-auto h-fit hidden max-sm:flex rounded-2xl transition-all justify-between flex-none top-2 sticky z-30",
+          isOpen
+            ? "backdrop-blur-none bg-transparent"
+            : isTop
+              ? "bg-transparent backdrop-blur-none"
+              : "backdrop-blur-md bg-background/80 border border-border/40 shadow-xs",
         )}
       >
         <Link href={`/`} className="relative font-bold text-xl  text-primary">

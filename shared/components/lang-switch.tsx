@@ -12,8 +12,11 @@ import ReactCountryFlag from "react-country-flag";
 
 import { useParams } from "next/navigation";
 import { LANGUAGE_OPTIONS } from "../content/base";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
+import Magnetic from "@/shared/components/magnetic";
+
 export default function LangSwitch() {
+  const [open, setOpen] = useState(false);
   const { locale } = useParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -27,15 +30,17 @@ export default function LangSwitch() {
     [locale, pathname, router],
   );
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <button
-          aria-label="Change Language"
-          className="p-2 relative  cursor-pointer hover:text-background hover:before:scale-100 before:transition-all before:absolute before:scale-50 before:opacity-0  hover:before:opacity-100 before:rounded-3xl before:inset-0 before:w-full before:h-full  before:-z-20 before:bg-primary"
-        >
-          <GlobeIcon size={18} />
-        </button>
-      </DropdownMenuTrigger>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      <Magnetic disabled={open} strength={0.35}>
+        <DropdownMenuTrigger asChild>
+          <button
+            aria-label="Change Language"
+            className="p-2 relative  cursor-pointer hover:text-background hover:before:scale-100 before:transition-all before:absolute before:scale-50 before:opacity-0  hover:before:opacity-100 before:rounded-3xl before:inset-0 before:w-full before:h-full  before:-z-20 before:bg-primary"
+          >
+            <GlobeIcon size={18} />
+          </button>
+        </DropdownMenuTrigger>
+      </Magnetic>
       <DropdownMenuContent align="end" sideOffset={24}>
         {LANGUAGE_OPTIONS.map((loc) => (
           <DropdownMenuCheckboxItem

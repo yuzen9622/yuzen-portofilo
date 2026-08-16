@@ -67,6 +67,7 @@ export default function ProjectCard({
     <Link
       href={`/projects/${project.slug}`}
       ref={projectRef}
+      data-cursor-text="VIEW"
       className={`flex-1
       flex flex-col gap-4 overflow-hidden nth-[2n]:border-l-2 border-b-2 items-center justify-center p-6 group font-inter ${className}`}
     >

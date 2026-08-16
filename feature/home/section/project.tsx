@@ -36,9 +36,10 @@ export default function Project({ all = false }: { all?: boolean }) {
 
           <Link
             href="/projects"
-            className="relative isolate group flex items-center justify-center md:col-span-2 lg:border-2 lg:border-t-0 lg:border-r-0  lg:col-span-1 p-4"
+            data-cursor-text="ALL"
+            className="relative isolate group flex items-center justify-center md:col-span-2 lg:border-2 lg:border-t-0 lg:border-r-0 lg:col-span-1 p-4 overflow-hidden"
           >
-            <h1 className="z-10 text-background text-6xl text-center font-semibold uppercase">
+            <h1 className="z-10 text-background text-6xl text-center font-semibold uppercase transition-transform duration-500 group-hover:scale-105">
               All Projects
             </h1>
 
