@@ -134,6 +134,22 @@
   }
 }
 
+/* Dark mode circular reveal via View Transitions API (see use-theme.tsx).
+   Disable the default cross-fade; the clip-path expansion is driven by WAAPI. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
 /* MusicPlayer: CD spin while playing (animation-play-state pauses without resetting angle) */
 @keyframes cd-spin {
   from {

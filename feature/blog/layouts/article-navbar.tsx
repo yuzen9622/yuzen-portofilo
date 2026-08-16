@@ -14,7 +14,7 @@ import { ChevronLeftIcon, MoonIcon, SunIcon } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 export default function ArticleNavbar() {
-  const { isDark, setTheme } = useTheme();
+  const { isDark, toggleTheme } = useTheme();
   const t = useTranslations("BlogPage");
 
   return (
@@ -33,8 +33,8 @@ export default function ArticleNavbar() {
         <div className="space-x-2 0 p-1 rounded-3xl  ">
           <button
             type="button"
-            onClick={() => {
-              setTheme(isDark ? "light" : "dark");
+            onClick={(event) => {
+              toggleTheme(event);
             }}
             className=" relative p-2   rounded-3xl  cursor-pointer hover:text-background hover:before:scale-100 before:transition-all before:absolute before:scale-50 before:opacity-0  hover:before:opacity-100 before:rounded-3xl before:inset-0 before:w-full before:h-full  before:-z-20 before:bg-primary"
           >

@@ -20,7 +20,7 @@ import MusicPlayer from "@/shared/components/music-player";
 import Magnetic from "@/shared/components/magnetic";
 
 export default function Tool() {
-  const { setTheme, isDark } = useTheme();
+  const { toggleTheme, isDark } = useTheme();
 
   const circleRef = useRef<SVGCircleElement>(null);
   const { scrollYProgress } = useScroll();
@@ -45,8 +45,8 @@ export default function Tool() {
     <>
       <NavigationMenuItem
         className=" p-2  cursor-pointer hover:text-background hover:before:scale-100 before:transition-all before:absolute before:scale-50 before:opacity-0  hover:before:opacity-100 before:rounded-3xl before:inset-0 before:w-full before:h-full  before:-z-20 before:bg-primary"
-        onClick={() => {
-          setTheme(isDark ? "light" : "dark");
+        onClick={(event) => {
+          toggleTheme(event);
         }}
       >
         <Magnetic strength={0.35}>
