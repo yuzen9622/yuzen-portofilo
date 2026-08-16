@@ -16,6 +16,7 @@ import {
 import { CircleProgress } from "@/shared/components/circle-progress";
 
 import LanguageSelector from "@/shared/components/lang-switch";
+import MusicPlayer from "@/shared/components/music-player";
 
 export default function Tool() {
   const { setTheme, isDark } = useTheme();
@@ -51,6 +52,9 @@ export default function Tool() {
       </NavigationMenuItem>
       <NavigationMenuItem>
         <LanguageSelector />
+      </NavigationMenuItem>
+      <NavigationMenuItem>
+        <MusicPlayer />
       </NavigationMenuItem>
       {scrollYPercent !== 0 && (
         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>

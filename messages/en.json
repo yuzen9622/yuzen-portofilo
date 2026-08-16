@@ -54,5 +54,14 @@
         "highlights": "Technical Highlights",
         "prevProject": "Previous Project",
         "nextProject": "Next Project"
+    },
+    "MusicPlayer": {
+        "ariaLabel": "Music player",
+        "connect": "Click to connect Apple Music and play your recently played tracks",
+        "play": "Play",
+        "pause": "Pause",
+        "errors": {
+            "playback": "Playback failed. An active Apple Music subscription may be required."
+        }
     }
 }

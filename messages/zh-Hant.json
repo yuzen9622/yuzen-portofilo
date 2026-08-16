@@ -54,5 +54,14 @@
         "highlights": "技術亮點",
         "prevProject": "上一個專案",
         "nextProject": "下一個專案"
+    },
+    "MusicPlayer": {
+        "ariaLabel": "音樂播放器",
+        "connect": "點擊連結 Apple Music，播放你最近播放的歌曲",
+        "play": "播放",
+        "pause": "暫停",
+        "errors": {
+            "playback": "播放失敗，可能需要有效的 Apple Music 訂閱。"
+        }
     }
 }
