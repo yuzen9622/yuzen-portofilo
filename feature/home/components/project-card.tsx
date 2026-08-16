@@ -77,6 +77,10 @@ export default function ProjectCard({
           translateX: translateX,
           borderRadius: borderRadiusTemplate,
         }}
+        initial={{ clipPath: "inset(0% 100% 0% 0%)" }}
+        whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         className="w-full h-full overflow-hidden"
       >
         <Image
@@ -102,6 +106,11 @@ export default function ProjectCard({
         >
           {project.title}
         </motion.h1>
+        {/* hover 時標題底部滑出的線條 */}
+        <span
+          aria-hidden
+          className="block h-px w-full origin-left scale-x-0 bg-foreground/60 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100"
+        />
         <motion.p
           className=" text-sm  line-clamp-2 text-muted-foreground"
           variants={textItemVariants}
