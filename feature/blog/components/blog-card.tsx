@@ -41,13 +41,13 @@ export default function BlogCard({
         {post.description}
       </p>
 
-      <span className="p-2 space-x-3">
+      <div className="p-2 space-x-3">
         {post.categories.slice(0, 2).map((category) => (
           <Badge key={category.name} className="px-3 py-2">
             {category.name}
           </Badge>
         ))}
-      </span>
+      </div>
     </Link>
   );
 }
