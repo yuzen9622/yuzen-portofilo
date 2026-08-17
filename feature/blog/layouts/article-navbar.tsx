@@ -30,7 +30,7 @@ export default function ArticleNavbar() {
             {t("backToBlog")}
           </Button>
         </Link>
-        <div className="space-x-2 0 p-1 rounded-3xl  ">
+        <div className="space-x-2 0 p-1 rounded-3xl  flex items-center justify-center">
           <button
             type="button"
             onClick={(event) => {
