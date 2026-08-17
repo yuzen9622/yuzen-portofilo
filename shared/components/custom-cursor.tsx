@@ -137,7 +137,7 @@ export default function CustomCursor() {
 
       {/* 2. Spring-smoothed Outer Trailing Ring / Pill / Custom Badge */}
       <motion.div
-        className="fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 pointer-events-none flex items-center justify-center rounded-full border border-foreground/40 bg-foreground/5 backdrop-blur-[1px]"
+        className="fixed top-0 left-0 -translate-x-1/2 -translate-y-1/2 pointer-events-none flex items-center justify-center rounded-full border border-foreground/40 "
         style={{
           x: smoothX,
           y: smoothY,
@@ -160,15 +160,13 @@ export default function CustomCursor() {
           backgroundColor:
             cursorVariant === "custom"
               ? "var(--foreground)"
-              : cursorVariant === "pointer"
-                ? "oklch(var(--primary-raw, 0.5 0.05 260) / 0.12)"
-                : "transparent",
-          borderColor:
+              : "transparent",
+     borderColor:
             cursorVariant === "custom"
               ? "transparent"
               : cursorVariant === "pointer"
                 ? "oklch(var(--primary-raw, 0.5 0.05 260) / 0.5)"
-                : "var(--border)",
+                : "var(--border)",     
         }}
         transition={{
           type: "spring",
