@@ -181,12 +181,12 @@ export default function Hero() {
 										/>
 									</motion.div>
 								)}
-								<motion.div
-									key="hero-title-divider"
-									variants={line}
-									className="border"
-								></motion.div>
 							</AnimatePresence>
+							<motion.div
+								key="hero-title-divider"
+								variants={line}
+								className="border"
+							></motion.div>
 						</motion.div>
 					</div>
 
