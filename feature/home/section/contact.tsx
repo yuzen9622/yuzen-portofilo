@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { SectionLayout } from "../components/section-layout";
 import { Link } from "@/i18n/navigation";
 import { motion, Variants } from "framer-motion";
@@ -102,9 +102,9 @@ export default function Contact() {
         className="w-11/12 py-10 gap-4 items-center   flex-col md:flex-row  mx-auto  flex-1 flex "
       >
         <div className="flex flex-col  gap-10 flex-1 w-full">
-          <motion.span
+          <motion.div
             variants={titleStagger}
-            className=" uppercase max-sm:text-5xl text-7xl font-infer  font-semibold space-y-5"
+            className=" uppercase max-sm:text-5xl text-7xl font-inter  font-semibold space-y-5"
           >
             <motion.div variants={reveal} className="overflow-hidden">
               <h1>Together.</h1>
@@ -115,7 +115,7 @@ export default function Contact() {
             <motion.div variants={reveal} className="overflow-hidden">
               <h1>Something.</h1>
             </motion.div>
-          </motion.span>
+          </motion.div>
 
           <motion.div variants={slideUp}>
             <Link

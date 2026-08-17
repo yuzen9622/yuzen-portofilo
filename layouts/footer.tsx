@@ -27,13 +27,8 @@ export default function Footer() {
     [0.4, 1],
     reduceMotion ? [0, 0] : [18, 0],
   );
-  const trackingEm = useTransform(
-    scrollYProgress,
-    [0.4, 1],
-    reduceMotion ? [0, 0] : [0.35, 0],
-  );
+
   const filter = useMotionTemplate`blur(${blurPx}px)`;
-  const letterSpacing = useMotionTemplate`${trackingEm}em`;
 
   return (
     <div ref={footerRef} className="w-full  text-center">
@@ -48,16 +43,16 @@ export default function Footer() {
       <div className="flex px-4 items-center  justify-between  md:flex-row flex-col">
         <div className="space-y-2 self-start text-start ">
           <p className="text-lg font-semibold">Quick Links</p>
-          <span className="flex gap-2">
+          <div className="flex gap-2">
             {NAVIGATION_LINKS.map((link) => (
               <Link key={link.href} href={link.href}>
                 {link.name}
               </Link>
             ))}
-          </span>
+          </div>
         </div>
         <div className=" text-end self-end space-y-2">
-          <span className="flex gap-2 w-full items-center justify-between">
+          <div className="flex gap-2 w-full items-center justify-between">
             {Object.entries(SocialBase).map(([key, value]) => (
               <motion.div className=" uppercase" key={key}>
                 <Link className=" " href={value.url}>
@@ -65,12 +60,12 @@ export default function Footer() {
                 </Link>
               </motion.div>
             ))}
-          </span>
+          </div>
           <p className="text-lg font-semibold">Social Links</p>
         </div>
       </div>
       <motion.h1
-        style={{ filter, letterSpacing }}
+        style={{ filter }}
         className="w-full select-none mt-10 text-center font-bold  font-inter leading-[0.9] text-[clamp(3rem,13vw,22rem)] whitespace-nowrap"
       >
         YUZEN©2026
