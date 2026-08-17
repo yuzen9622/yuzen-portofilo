@@ -116,7 +116,7 @@ export default function Navbar() {
             transition={{ duration: 0.4 }}
             className=" fixed z-20  inset-0 bg-background/80  sm:hidden w-dvw h-dvh backdrop-blur-3xl flex justify-center flex-col items-center gap-10 "
           >
-            <AnimatePresence mode="wait">
+            <AnimatePresence>
               {isOpen &&
                 NAVIGATION_LINKS.map((item, index) => (
                   <MotionLink
