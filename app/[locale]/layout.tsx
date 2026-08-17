@@ -1,11 +1,5 @@
 import type { Metadata } from "next";
-import {
-	Geist,
-	Geist_Mono,
-	BBH_Bartle,
-	Inter,
-	Shippori_Mincho,
-} from "next/font/google";
+import { Geist, Geist_Mono, Inter, Shippori_Mincho } from "next/font/google";
 
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
@@ -20,14 +14,6 @@ import "./globals.css";
 const geistSans = Geist({
 	variable: "--font-geist-sans",
 	subsets: ["latin"],
-});
-
-const bbhBartle = BBH_Bartle({
-	variable: "--font-bbh-bartle",
-	subsets: ["latin"],
-	weight: ["400"],
-	display: "swap",
-	adjustFontFallback: false,
 });
 
 const inter = Inter({
@@ -153,7 +139,7 @@ export default async function RootLayout({
 		<html
 			lang={locale}
 			suppressHydrationWarning
-			className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${bbhBartle.variable} ${shipporiMincho.variable}`}
+			className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${shipporiMincho.variable}`}
 		>
 			<body className="antialiased" suppressHydrationWarning>
 				<NextIntlClientProvider>
