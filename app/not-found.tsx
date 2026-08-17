@@ -8,9 +8,9 @@ import Error from "next/error";
 
 export default function GlobalNotFound() {
   return (
-    <html lang="en">
-      <body>
-        <Error statusCode={404} />;
+    <html lang="en" suppressHydrationWarning>
+      <body suppressHydrationWarning>
+        <Error statusCode={404} />
       </body>
     </html>
   );

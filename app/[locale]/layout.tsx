@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, BBH_Bartle, Inter } from "next/font/google";
+import {
+	Geist,
+	Geist_Mono,
+	BBH_Bartle,
+	Inter,
+	Shippori_Mincho,
+} from "next/font/google";
 
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
@@ -35,10 +41,24 @@ const geistMono = Geist_Mono({
 	variable: "--font-geist-mono",
 	subsets: ["latin"],
 });
+
+const shipporiMincho = Shippori_Mincho({
+	variable: "--font-shippori",
+	subsets: ["latin"],
+	weight: ["400", "500", "600", "700", "800"],
+	display: "swap",
+});
 const SITE_URL = "https://www.yuzen.dev";
 
 export const metadata: Metadata = {
 	metadataBase: new URL(SITE_URL),
+	formatDetection: {
+		telephone: false,
+		date: false,
+		address: false,
+		email: false,
+		url: false,
+	},
 	title: {
 		default: "Yuzen - Full Stack Developer Portfolio",
 		template: "%s | Yuzen",
@@ -133,22 +153,9 @@ export default async function RootLayout({
 		<html
 			lang={locale}
 			suppressHydrationWarning
-			className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${bbhBartle.variable}`}
+			className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${bbhBartle.variable} ${shipporiMincho.variable}`}
 		>
-			<head>
-				<link rel="preconnect" href="https://fonts.googleapis.com" />
-				<link
-					rel="preconnect"
-					href="https://fonts.gstatic.com"
-					crossOrigin="anonymous"
-				/>
-				{/* eslint-disable-next-line @next/next/no-page-custom-font -- App Router root layout: documented pattern for external fonts (rule targets pages-router _document) */}
-				<link
-					href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&display=swap"
-					rel="stylesheet"
-				/>
-			</head>
-			<body className="antialiased">
+			<body className="antialiased" suppressHydrationWarning>
 				<NextIntlClientProvider>
 					<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
 						<AmbientBackground />
