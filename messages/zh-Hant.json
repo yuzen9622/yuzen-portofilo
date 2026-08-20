@@ -15,17 +15,27 @@
         }
     },
     "BlogPage": {
-        "readMore": "閱讀更多",
-        "noPosts": "暫無文章",
+        "readMore": "閱讀文章",
+        "noPosts": "暫無符合條件的文章",
+        "allCategories": "全部文章",
         "search": {
-            "filters": "篩選",
-            "searchPlaceholder": "搜尋文章...",
+            "filters": "篩選排序",
+            "searchPlaceholder": "搜尋文章標題、內容或關鍵字...",
             "publishedOnly": "僅顯示已發布文章",
             "sortBy": "排序方式",
-            "newest": "最新",
-            "oldest": "最舊"
+            "newest": "由新到舊",
+            "oldest": "由舊到新",
+            "clear": "清除搜尋"
         },
-        "backToBlog": "回到部落格"
+        "backToBlog": "回到部落格",
+        "minRead": "分鐘閱讀",
+        "tableOfContents": "文章目錄",
+        "shareArticle": "分享文章",
+        "copyLink": "複製文章連結",
+        "linkCopied": "已複製文章連結到剪貼簿",
+        "prevArticle": "上一篇文章",
+        "nextArticle": "下一篇文章",
+        "backToTop": "回到頂部"
     },
     "ContactPage": {
         "title": {

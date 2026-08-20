@@ -15,17 +15,27 @@
         }
     },
     "BlogPage": {
-        "readMore": "Read More",
-        "noPosts": "No Posts",
+        "readMore": "Read Article",
+        "noPosts": "No articles match your criteria",
+        "allCategories": "All Articles",
         "search": {
-            "filters": "Filters",
-            "searchPlaceholder": "Search articles...",
+            "filters": "Filters & Sort",
+            "searchPlaceholder": "Search articles by title, content or keyword...",
             "publishedOnly": "Published only",
             "sortBy": "Sort by",
-            "newest": "Newest",
-            "oldest": "Oldest"
+            "newest": "Newest first",
+            "oldest": "Oldest first",
+            "clear": "Clear search"
         },
-        "backToBlog": "Back to Blog"
+        "backToBlog": "Back to Blog",
+        "minRead": "min read",
+        "tableOfContents": "Table of Contents",
+        "shareArticle": "Share Article",
+        "copyLink": "Copy link",
+        "linkCopied": "Link copied to clipboard",
+        "prevArticle": "Previous Article",
+        "nextArticle": "Next Article",
+        "backToTop": "Back to Top"
     },
     "ContactPage": {
         "title": {
