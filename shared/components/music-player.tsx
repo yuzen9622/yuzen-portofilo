@@ -54,41 +54,68 @@ export default function MusicPlayer() {
   const trackRef = useRef<RecentTrack | null>(null);
   trackRef.current = track;
 
+  type MusicKitInstance = Awaited<ReturnType<typeof getMusicKit>>;
+  const musicKitRef = useRef<Promise<MusicKitInstance | null> | null>(null);
+  const teardownRef = useRef<(() => void) | null>(null);
+
+  // Idempotent: the MusicKit script is loaded (and the listener attached) at most once,
+  // no matter how many times hover / focus / click ask for it.
+  const initMusicKit = useCallback(() => {
+    if (!musicKitRef.current) {
+      musicKitRef.current = (async () => {
+        try {
+          const music = await getMusicKit();
+          const handlePlaybackStateChange = () => setIsPlaying(music.isPlaying);
+          music.addEventListener(
+            "playbackStateDidChange",
+            handlePlaybackStateChange,
+          );
+          teardownRef.current = () =>
+            music.removeEventListener(
+              "playbackStateDidChange",
+              handlePlaybackStateChange,
+            );
+          setAvailable(true);
+
+          if (music.isAuthorized) {
+            const [latest] = await fetchRecentlyPlayedTracks(music, 1);
+            if (latest) setTrack(toRecentTrack(latest));
+          }
+          return music;
+        } catch {
+          setAvailable(false);
+          return null;
+        }
+      })();
+    }
+    return musicKitRef.current;
+  }, []);
+
   useEffect(() => {
     let disposed = false;
-    let music: Awaited<ReturnType<typeof getMusicKit>> | null = null;
 
-    const handlePlaybackStateChange = () => {
-      if (music) setIsPlaying(music.isPlaying);
+    // Defer initialization until browser idle time to avoid blocking critical initial render
+    const runIdle = () => {
+      if (disposed) return;
+      initMusicKit();
     };
 
-    (async () => {
-      try {
-        music = await getMusicKit();
-        if (disposed) return;
-        music.addEventListener(
-          "playbackStateDidChange",
-          handlePlaybackStateChange,
-        );
-        setAvailable(true);
-
-        if (music.isAuthorized) {
-          const [latest] = await fetchRecentlyPlayedTracks(music, 1);
-          if (!disposed && latest) setTrack(toRecentTrack(latest));
-        }
-      } catch {
-        if (!disposed) setAvailable(false);
-      }
-    })();
+    let cancelProbe: () => void;
+    if (typeof window.requestIdleCallback === "function") {
+      const idleId = window.requestIdleCallback(runIdle, { timeout: 4000 });
+      cancelProbe = () => window.cancelIdleCallback(idleId);
+    } else {
+      const timerId = window.setTimeout(runIdle, 2500);
+      cancelProbe = () => window.clearTimeout(timerId);
+    }
 
     return () => {
       disposed = true;
-      music?.removeEventListener(
-        "playbackStateDidChange",
-        handlePlaybackStateChange,
-      );
+      cancelProbe();
+      teardownRef.current?.();
+      teardownRef.current = null;
     };
-  }, []);
+  }, [initMusicKit]);
 
   const playTrack = useCallback(async (target: RecentTrack) => {
     const music = await getMusicKit();
@@ -153,6 +180,8 @@ export default function MusicPlayer() {
             type="button"
             aria-label={t("ariaLabel")}
             onClick={handleClick}
+            onMouseEnter={() => initMusicKit()}
+            onFocus={() => initMusicKit()}
             className={cn(
               "group relative block h-9 w-9 cursor-pointer rounded-full p-1 transition-opacity",
               busy && "opacity-60",
