@@ -296,6 +296,7 @@ function GroupPanel({
 }) {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
+  const listContainerRef = useRef<HTMLDivElement | null>(null);
   const stickyRef = useRef<HTMLDivElement | null>(null);
 
   const { scrollYProgress } = useScroll({
@@ -310,18 +311,26 @@ function GroupPanel({
   const [dimensions, setDimensions] = useState({
     listHeight: 0,
     viewportHeight: 0,
+    containerHeight: 0,
+    isMobile: false,
   });
 
   useEffect(() => {
     if (reduced) return;
     const listEl = listRef.current;
     const stickyEl = stickyRef.current;
+    const listContainerEl = listContainerRef.current;
     if (!listEl || !stickyEl) return;
 
     const updateDimensions = () => {
+      const isMob = window.innerWidth < 768;
       setDimensions({
         listHeight: listEl.offsetHeight,
         viewportHeight: stickyEl.offsetHeight,
+        containerHeight: listContainerEl
+          ? listContainerEl.offsetHeight
+          : stickyEl.offsetHeight,
+        isMobile: isMob,
       });
     };
 
@@ -333,6 +342,9 @@ function GroupPanel({
 
     observer.observe(listEl);
     observer.observe(stickyEl);
+    if (listContainerEl) {
+      observer.observe(listContainerEl);
+    }
 
     window.addEventListener("resize", updateDimensions);
 
@@ -342,19 +354,33 @@ function GroupPanel({
     };
   }, [reduced]);
 
-  const { listHeight, viewportHeight } = dimensions;
-  const topLimit = 120;
-  const bottomLimit = 100;
-  const availableHeight = viewportHeight - topLimit - bottomLimit;
-  const hasOverflow = listHeight > availableHeight;
+  const { listHeight, viewportHeight, containerHeight, isMobile } = dimensions;
 
-  const startY = hasOverflow
-    ? topLimit - (viewportHeight / 2 - listHeight / 2)
-    : 0;
+  let startY = 0;
+  let endY = 0;
 
-  const endY = hasOverflow
-    ? viewportHeight - bottomLimit - (viewportHeight / 2 + listHeight / 2)
-    : 0;
+  if (isMobile) {
+    // 手機端：標題置頂，列表在 listContainer 內部平滑滾動，避免整塊 grid 垂直置中導致標題被向上推擠截斷
+    const availableHeight =
+      containerHeight || (viewportHeight > 0 ? viewportHeight - 160 : 400);
+    const hasOverflow = listHeight > availableHeight;
+    startY = 0;
+    endY = hasOverflow ? -(listHeight - availableHeight) : 0;
+  } else {
+    // 桌機端：兩欄佈局，列表於 viewport 垂直置中並依上下限滾動
+    const topLimit = 120;
+    const bottomLimit = 100;
+    const availableHeight = viewportHeight - topLimit - bottomLimit;
+    const hasOverflow = listHeight > availableHeight;
+
+    startY = hasOverflow
+      ? topLimit - (viewportHeight / 2 - listHeight / 2)
+      : 0;
+
+    endY = hasOverflow
+      ? viewportHeight - bottomLimit - (viewportHeight / 2 + listHeight / 2)
+      : 0;
+  }
 
   const listY = useTransform(scrollYProgress, [0, 1], [startY, endY]);
 
@@ -373,49 +399,68 @@ function GroupPanel({
         className={cn(
           reduced
             ? "py-12"
-            : "sticky top-0 h-screen flex items-center overflow-hidden",
+            : "sticky top-0 h-screen h-dvh flex md:items-center overflow-hidden",
         )}
       >
         <div
           className={cn(
-            "grid grid-cols-1 gap-6 md:gap-16 items-center w-11/12 max-w-6xl mx-auto",
+            "w-11/12 max-w-6xl mx-auto flex flex-col md:grid md:gap-16 md:items-center",
+            reduced ? "h-auto" : "h-full md:h-auto",
             isEven ? "md:grid-cols-[1fr_1.8fr]" : "md:grid-cols-[1.8fr_1fr]",
           )}
         >
-          {/* 桌機左欄交給跨群滾筒（rail），這格只當佔位；手機與 reduced-motion 顯示靜態群名 */}
-          <div className={cn(!isEven && "md:order-2")}>
+          {/* 桌機左欄交給跨群滾筒（rail），這格只當佔位；手機與 reduced-motion 顯示群名 */}
+          <div
+            className={cn(
+              "shrink-0 pt-20 sm:pt-24 pb-3 md:pt-0 md:pb-0 z-10",
+              !isEven && "md:order-2",
+            )}
+          >
             <div
               className={cn(
                 reduced ? "flex flex-col gap-2" : "md:hidden",
                 !isEven && "md:items-end md:text-end",
               )}
             >
-              <p className="text-sm text-muted-foreground tabular-nums">
+              <p className="text-xs sm:text-sm text-muted-foreground tabular-nums">
                 {`${index + 1}`.padStart(2, "0")} /{" "}
                 {`${total}`.padStart(2, "0")}
               </p>
-              <h2 className="font-inter text-5xl font-semibold uppercase">
+              <h2 className="font-inter text-3xl sm:text-4xl md:text-5xl font-semibold uppercase tracking-tight">
                 {group.name}
               </h2>
             </div>
           </div>
-          <motion.div
-            ref={listRef}
-            style={reduced ? undefined : { y: listY }}
-            className={cn("flex flex-col w-full", !isEven && "md:order-1")}
+
+          {/* 列表容器：手機端設定為 flex-1 填滿高度並裁切上方滾出內容；桌機端由 y transform 控制位置 */}
+          <div
+            ref={listContainerRef}
+            className={cn(
+              "relative flex-1 w-full pb-6 md:pb-0 min-h-0",
+              reduced
+                ? "h-auto overflow-visible"
+                : "overflow-hidden md:overflow-visible md:h-auto",
+              !isEven && "md:order-1",
+            )}
           >
-            {entries.map((entry, i) => (
-              <EntryRow
-                key={entry.id}
-                entry={entry}
-                range={[i / slots, (i + 1) / slots]}
-                progress={scrollYProgress}
-                reduced={reduced}
-                onPoint={onPoint}
-                isEven={isEven}
-              />
-            ))}
-          </motion.div>
+            <motion.div
+              ref={listRef}
+              style={reduced ? undefined : { y: listY }}
+              className="flex flex-col w-full"
+            >
+              {entries.map((entry, i) => (
+                <EntryRow
+                  key={entry.id}
+                  entry={entry}
+                  range={[i / slots, (i + 1) / slots]}
+                  progress={scrollYProgress}
+                  reduced={reduced}
+                  onPoint={onPoint}
+                  isEven={isEven}
+                />
+              ))}
+            </motion.div>
+          </div>
         </div>
       </div>
     </div>
