@@ -111,9 +111,9 @@ export default function ProjectCard({
         </motion.p>
         <motion.div
           style={{ scale: scale }}
-          className="text-7xl font-inter font-bold  pointer-events-none  group-hover:text-muted-foreground/50 transition-colors absolute bottom-0 right-6 z-0 text-muted-foreground/30 "
+          className="text-5xl sm:text-6xl lg:text-7xl font-inter font-bold tracking-tight tabular-nums pointer-events-none group-hover:text-muted-foreground/50 transition-colors absolute bottom-0 right-6 z-0 text-muted-foreground/20 select-none"
         >
-          {`${index}`.padStart(2, "0")}
+          {project.datetime}
         </motion.div>
       </motion.span>
     </Link>
