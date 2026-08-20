@@ -5,7 +5,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { ProfileBase, SocialBase } from "@/shared/content/base";
 import Marquee from "@/feature/home/components/marquee";
 import {
-	AnimatePresence,
 	motion,
 	useMotionTemplate,
 	useScroll,
@@ -15,15 +14,17 @@ import {
 } from "framer-motion";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 
 import { cn } from "@/shared/lib/utils";
-import SplitText from "@/shared/components/split-text";
 import Magnetic from "@/shared/components/magnetic";
+import { useIntro } from "@/shared/components/intro-provider";
+import { INTRO_MORPH_DURATION } from "@/shared/components/intro-overlay";
 import { ChevronDown } from "lucide-react";
 export default function Hero() {
 	const imageRef = useRef(null);
-	const [showRotatingText, setShowRotatingText] = useState(false);
+	// 進場時機交給全域開場狀態，不再各自寫死 setTimeout / delay
+	const { isPlaying } = useIntro();
 
 	const { scrollYProgress: imageScrollYProgress } = useScroll({
 		target: imageRef,
@@ -63,37 +64,11 @@ export default function Hero() {
 		},
 	};
 
-	useEffect(() => {
-		const timeoutId = window.setTimeout(() => {
-			setShowRotatingText(true);
-		}, 2400);
-
-		return () => window.clearTimeout(timeoutId);
-	}, []);
-
-	useEffect(() => {
-		if (showRotatingText) {
-			return;
-		}
-
-		const { body, documentElement } = document;
-		const prevBodyOverflow = body.style.overflow;
-		const prevHtmlOverflow = documentElement.style.overflow;
-
-		body.style.overflow = "hidden";
-		documentElement.style.overflow = "hidden";
-
-		return () => {
-			body.style.overflow = prevBodyOverflow;
-			documentElement.style.overflow = prevHtmlOverflow;
-		};
-	}, [showRotatingText]);
-
 	const revealDelayed: Variants = {
 		...reveal,
 		animate: {
 			...reveal.animate,
-			transition: { delay: 2.5 },
+			transition: { duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.1 },
 		},
 	};
 
@@ -101,7 +76,7 @@ export default function Hero() {
 		initial: {},
 		animate: {
 			transition: {
-				delayChildren: 2.5,
+				delayChildren: 0.15,
 				staggerChildren: 0.08,
 			},
 		},
@@ -111,7 +86,7 @@ export default function Hero() {
 		initial: {},
 		animate: {
 			transition: {
-				delayChildren: 2.5,
+				delayChildren: 0.2,
 				staggerChildren: 0.1,
 			},
 		},
@@ -120,7 +95,7 @@ export default function Hero() {
 	return (
 		<motion.section
 			initial="initial"
-			animate="animate"
+			animate={isPlaying ? "initial" : "animate"}
 			className=" flex flex-col font-inter space-y-3 mt-10 max-w-dvw  min-h-dvh overflow-hidden relative"
 		>
 			<div className=" w-11/12 max-w-6xl  mx-auto  space-y-3">
@@ -134,54 +109,31 @@ export default function Hero() {
 						</motion.h1>
 
 						<motion.div className="flex flex-col  space-y-2 w-fit" variants={below}>
-							<AnimatePresence mode="wait">
-								{!showRotatingText ? (
-									<motion.div
-										key="hero-intro-overlay"
-										className="w-full min-h-dvh z-50  fixed bg-background flex items-center justify-center top-0 left-0 "
-									>
-										<motion.h1
-											initial={{ y: -120, opacity: 0, scale: 2 }}
-											animate={{ y: 0, opacity: 1 }}
-											transition={{
-												duration: 1,
+							{/* 開場遮罩在 layout 最上層（intro-overlay.tsx）。
+							    等開場結束才掛載，由 layoutId 從遮罩標題 morph 過來。
+							    這層刻意用純 div、不加淡入 variants：morph 過程中再疊一層
+							    opacity 動畫就會看起來像殘影。 */}
+							{!isPlaying && (
+								<div className="flex flex-col space-y-2 w-fit">
+									<RotatingText
+										key="rotating-title"
+										layoutId="hero-title"
+										transition={{
+											duration: 1.1,
+											ease: [0.22, 1, 0.36, 1],
+											layout: {
+												duration: INTRO_MORPH_DURATION,
 												ease: [0.22, 1, 0.36, 1],
-												layout: {
-													duration: 1.2,
-													ease: [0.22, 1, 0.36, 1],
-												},
-											}}
-											key={"init-title"}
-											layoutId="hero-title"
-										>
-											<SplitText text="Yuzen" delay={0.8} stagger={0.09} />
-										</motion.h1>
-									</motion.div>
-								) : (
-									<motion.div
-										key="hero-rotating-title"
-										className="flex flex-col space-y-2 w-fit"
-									>
-										<RotatingText
-											key="rotating-title"
-											layoutId="hero-title"
-											transition={{
-												duration: 1.1,
-												ease: [0.22, 1, 0.36, 1],
-												layout: {
-													duration: 1.2,
-													ease: [0.22, 1, 0.36, 1],
-												},
-											}}
-											staggerFrom={"last"}
-											staggerDuration={0.05}
-											splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1 "
-											rotationInterval={2500}
-											texts={["Yuzen", "Build.", "Measure.", "Refine."]}
-										/>
-									</motion.div>
-								)}
-							</AnimatePresence>
+											},
+										}}
+										staggerFrom={"last"}
+										staggerDuration={0.05}
+										splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1 "
+										rotationInterval={2500}
+										texts={["Yuzen", "Build.", "Measure.", "Refine."]}
+									/>
+								</div>
+							)}
 							<motion.div
 								key="hero-title-divider"
 								variants={line}

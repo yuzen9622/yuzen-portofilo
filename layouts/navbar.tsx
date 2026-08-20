@@ -15,11 +15,17 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 
 import { NAVIGATION_LINKS, ProfileBase } from "@/shared/content/base";
+import { useIntro } from "@/shared/components/intro-provider";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const MotionLink = motion.create(Link);
   const [isTop, setIsTop] = useState(true);
+  // 開場動畫播放期間讓 navbar 收在畫面上方，結束後與遮罩淡出同步滑入
+  const { isPlaying } = useIntro();
+  const introHidden = isPlaying
+    ? "opacity-0 -translate-y-4 pointer-events-none"
+    : "opacity-100 translate-y-0";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,8 +41,9 @@ export default function Navbar() {
     <>
       <div
         className={cn(
-          "top-2 sticky z-20 flex items-center transition-[width] duration-300 justify-center",
-          isTop && "top-0 w-full transition-all",
+          "top-2 sticky z-20 flex items-center transition-all duration-500 justify-center",
+          isTop && "top-0 w-full",
+          introHidden,
         )}
       >
         <NavigationMenu
@@ -73,7 +80,8 @@ export default function Navbar() {
       {/** RWD navbar */}
       <NavigationMenu
         className={cn(
-          "p-3 w-11/12 max-w-none mx-auto h-fit hidden max-sm:flex rounded-2xl transition-all justify-between flex-none top-2 sticky z-30",
+          "p-3 w-11/12 max-w-none mx-auto h-fit hidden max-sm:flex rounded-2xl transition-all duration-500 justify-between flex-none top-2 sticky z-30",
+          introHidden,
           isOpen
             ? "backdrop-blur-none bg-transparent"
             : isTop
