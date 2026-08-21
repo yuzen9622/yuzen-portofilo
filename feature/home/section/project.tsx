@@ -17,7 +17,10 @@ export default function Project({ all = false }: { all?: boolean }) {
       id="projects"
       leftContent={t("title.leftContent")}
       rightContent={t("title.rightContent")}
-      className="  relative  bg-background "
+      // No opaque background here: the section sits above the fixed ambient
+      // background layer, so bg-background would hide the grain and glow for the
+      // whole /projects page. Every other section leaves it transparent too.
+      className="relative"
     >
       <div className="w-full   mx-auto  flex-1 grid grid-cols-1 md:grid-cols-2">
         {projects.slice(0, all ? projects.length : 4).map((project, index) => (
