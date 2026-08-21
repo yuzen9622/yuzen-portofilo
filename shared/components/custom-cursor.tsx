@@ -130,7 +130,7 @@ export default function CustomCursor() {
                 ? 0.3
                 : 1
               : 0,
-          scale: isClicking ? 0.7 : cursorVariant === "pointer" ? 0.5 : 1,
+          scale: isClicking ? 0.7 : cursorVariant === "pointer" ? 0 : 1,
           transition: "opacity 0.2s ease, transform 0.15s ease",
         }}
       />
