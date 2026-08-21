@@ -68,11 +68,13 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
-  --ambient-glow: oklch(0.25 0.04 250 / 0.06);
-  /* Ambient orb tints — painted as radial gradients (no CSS filter) so iOS
-     WebKit never has to allocate a huge off-screen blur buffer. */
-  --ambient-orb: oklch(0.205 0 0 / 0.05);
-  --ambient-orb-soft: oklch(0.205 0 0 / 0.02);
+  /* Ambient glow/orb peaks — painted as multi-stop radial gradients (no CSS
+     filter) so iOS WebKit never allocates a huge off-screen blur buffer. The
+     alphas are the *post-blur* peaks measured off the original blur-[120px]
+     version, not its authored alphas: a 120px blur spread a 5% fill down to
+     roughly 2%, so reusing 5% here would read as a visible blob. */
+  --ambient-glow: oklch(0.25 0.04 250 / 0.036);
+  --ambient-orb: oklch(0.205 0 0 / 0.021);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -107,9 +109,8 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
-  --ambient-glow: oklch(0.75 0.12 250 / 0.08);
-  --ambient-orb: oklch(0.922 0 0 / 0.1);
-  --ambient-orb-soft: oklch(0.922 0 0 / 0.03);
+  --ambient-glow: oklch(0.75 0.12 250 / 0.048);
+  --ambient-orb: oklch(0.922 0 0 / 0.042);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
