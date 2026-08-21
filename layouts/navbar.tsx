@@ -122,7 +122,11 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className=" fixed z-20  inset-0 bg-background/80  sm:hidden w-dvw h-dvh backdrop-blur-3xl flex justify-center flex-col items-center gap-10 "
+            // A full-viewport backdrop-filter allocates an off-screen buffer the size of
+            // the whole screen, and the opacity fade re-composites it every frame.
+            // Mobile WebKit can run out of GPU memory doing that, so lean on a more
+            // opaque background and a small blur radius instead.
+            className=" fixed z-20  inset-0 bg-background/95  sm:hidden w-dvw h-dvh backdrop-blur-sm flex justify-center flex-col items-center gap-10 "
           >
             <AnimatePresence>
               {isOpen &&
