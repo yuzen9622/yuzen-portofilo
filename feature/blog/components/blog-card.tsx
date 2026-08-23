@@ -67,7 +67,7 @@ export default function BlogCard({
 
           <div className="min-w-0 md:col-span-6 lg:col-span-7">
             <h2 className="text-2xl font-bold leading-tight tracking-tight text-foreground sm:text-3xl lg:text-4xl">
-              <span className="border-b border-transparent pb-1 transition-colors duration-200 group-hover:border-foreground group-hover:text-primary group-focus-visible:border-foreground group-focus-visible:text-primary">
+              <span className="relative inline-block max-w-full pb-1 transition-colors duration-200 group-hover:text-primary group-focus-visible:text-primary after:absolute after:inset-x-0 after:bottom-0 after:h-px after:origin-left after:scale-x-0 after:bg-foreground after:transition-transform after:duration-300 after:ease-out after:content-[''] group-hover:after:scale-x-100 group-focus-visible:after:scale-x-100 motion-reduce:after:transition-none">
                 {post.title}
               </span>
             </h2>

@@ -61,7 +61,7 @@ export default function Article({
       : null;
 
   return (
-    <div className="w-11/12 max-w-7xl mx-auto border-x border-b font-inter pt-20 md:pt-24 pb-16">
+    <div className="w-11/12 max-w-7xl mx-auto border-x border-b font-inter pt-8 md:pt-12 pb-28 md:pb-32">
       <article className="px-4 sm:px-6 md:px-10">
         {/* Editorial Header */}
         <header className="max-w-4xl space-y-6 pb-10 md:pb-14">

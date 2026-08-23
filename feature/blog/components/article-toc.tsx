@@ -3,17 +3,17 @@
 import { useEffect, useState } from "react";
 import { TocItem } from "../types/blog";
 import { cn } from "@/shared/lib/utils";
-import { AlignLeft, ArrowUp, ListCollapse, Share2 } from "lucide-react";
+import { AlignLeft, ArrowUp, Share2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { motion, useScroll } from "framer-motion";
+import { useScroll } from "framer-motion";
 import { toast } from "sonner";
+import { useArticleNavigation } from "../context/article-navigation-context";
 import { shareArticle } from "../service/util";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 
 interface ArticleTocProps {
@@ -22,9 +22,9 @@ interface ArticleTocProps {
 
 export default function ArticleToc({ headings }: ArticleTocProps) {
   const [activeId, setActiveId] = useState<string>("");
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [progressPercent, setProgressPercent] = useState(0);
   const t = useTranslations("BlogPage");
+  const { mobileTocOpen, setMobileTocOpen } = useArticleNavigation();
 
   const { scrollYProgress } = useScroll();
 
@@ -64,7 +64,7 @@ export default function ArticleToc({ headings }: ArticleTocProps) {
   }, [headings]);
 
   const scrollToHeading = (id: string) => {
-    setMobileOpen(false);
+    setMobileTocOpen(false);
     const el = document.getElementById(id);
     if (el) {
       const yOffset = -90;
@@ -74,7 +74,7 @@ export default function ArticleToc({ headings }: ArticleTocProps) {
   };
 
   const scrollToTop = () => {
-    setMobileOpen(false);
+    setMobileTocOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -86,10 +86,6 @@ export default function ArticleToc({ headings }: ArticleTocProps) {
   };
 
   if (!headings.length) return null;
-
-  const radius = 20;
-  const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference - (progressPercent / 100) * circumference;
 
   return (
     <>
@@ -131,134 +127,72 @@ export default function ArticleToc({ headings }: ArticleTocProps) {
             })}
           </nav>
         </div>
-
-        {/* Desktop Quick Actions */}
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={scrollToTop}
-            className="flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl border border-border/80 bg-background/50 hover:bg-muted/50 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-          >
-            <ArrowUp size={13} />
-            <span>{t("backToTop")}</span>
-          </button>
-          <button
-            type="button"
-            onClick={handleShare}
-            className="size-10 flex items-center justify-center rounded-xl border border-border/80 bg-background/50 hover:bg-muted/50 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-            aria-label={t("shareArticle")}
-          >
-            <Share2 size={14} />
-          </button>
-        </div>
       </aside>
 
-      {/* Mobile Floating Bubble with shadcn Sheet */}
-      <div className="fixed bottom-6 right-6 z-40 lg:hidden font-inter">
-        <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-          <SheetTrigger asChild>
-            <motion.button
+      <Sheet open={mobileTocOpen} onOpenChange={setMobileTocOpen}>
+        <SheetContent
+          side="bottom"
+          className="rounded-t-3xl max-h-[82vh] border-t border-border bg-background/95 backdrop-blur-2xl p-6 font-inter z-50 flex flex-col"
+        >
+          {/* Drawer Drag Bar */}
+          <div className="w-12 h-1 rounded-full bg-muted-foreground/30 mx-auto -mt-2 mb-2" />
+
+          <SheetHeader className="p-0 pb-3 border-b border-border/70 flex flex-row items-center justify-between">
+            <SheetTitle className="flex items-center gap-2 text-base font-semibold">
+              <AlignLeft size={16} className="text-primary" />
+              <span>{t("tableOfContents")}</span>
+              <span className="text-xs font-mono text-muted-foreground bg-muted px-2 py-0.5 rounded-full tabular-nums font-normal">
+                {progressPercent}%
+              </span>
+            </SheetTitle>
+          </SheetHeader>
+
+          {/* Headings List */}
+          <div className="overflow-y-auto py-3 space-y-1.5 flex-1 pr-1">
+            {headings.map((item) => {
+              const isActive = activeId === item.id;
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  onClick={() => scrollToHeading(item.id)}
+                  className={cn(
+                    "block w-full text-left py-2.5 px-3 rounded-lg text-sm transition-all truncate cursor-pointer",
+                    item.level === 1 && "font-medium",
+                    item.level === 2 && "pl-5 text-[13px]",
+                    item.level === 3 && "pl-7 text-xs text-muted-foreground",
+                    isActive
+                      ? "bg-primary text-primary-foreground font-semibold"
+                      : "text-foreground hover:bg-muted/50",
+                  )}
+                >
+                  {item.text}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Footer Actions */}
+          <div className="pt-3 border-t border-border/70 flex items-center gap-3">
+            <button
               type="button"
-              whileTap={{ scale: 0.92 }}
-              className="relative size-13 rounded-full bg-background/90 backdrop-blur-xl border border-border shadow-xl flex items-center justify-center cursor-pointer text-foreground focus:outline-none"
-              aria-label={t("tableOfContents")}
+              onClick={scrollToTop}
+              className="flex-1 py-2.5 rounded-xl border border-border bg-muted/30 text-xs font-medium text-foreground flex items-center justify-center gap-1.5 hover:bg-muted transition-colors cursor-pointer"
             >
-              {/* Circular Progress SVG */}
-              <svg className="absolute inset-0 size-full -rotate-90 pointer-events-none" viewBox="0 0 48 48">
-                <circle
-                  cx="24"
-                  cy="24"
-                  r={radius}
-                  className="text-muted/40 stroke-current"
-                  strokeWidth="2.5"
-                  fill="transparent"
-                />
-                <circle
-                  cx="24"
-                  cy="24"
-                  r={radius}
-                  className="text-primary stroke-current transition-all duration-150"
-                  strokeWidth="2.5"
-                  strokeDasharray={circumference}
-                  strokeDashoffset={strokeDashoffset}
-                  strokeLinecap="round"
-                  fill="transparent"
-                />
-              </svg>
-
-              {/* Icon inside bubble */}
-              <div className="flex flex-col items-center justify-center">
-                <ListCollapse size={18} className="text-foreground" />
-              </div>
-            </motion.button>
-          </SheetTrigger>
-
-          <SheetContent
-            side="bottom"
-            className="rounded-t-3xl max-h-[82vh] border-t border-border bg-background/95 backdrop-blur-2xl p-6 font-inter z-50 flex flex-col"
-          >
-            {/* Drawer Drag Bar */}
-            <div className="w-12 h-1 rounded-full bg-muted-foreground/30 mx-auto -mt-2 mb-2" />
-
-            <SheetHeader className="p-0 pb-3 border-b border-border/70 flex flex-row items-center justify-between">
-              <SheetTitle className="flex items-center gap-2 text-base font-semibold">
-                <AlignLeft size={16} className="text-primary" />
-                <span>{t("tableOfContents")}</span>
-                <span className="text-xs font-mono text-muted-foreground bg-muted px-2 py-0.5 rounded-full tabular-nums font-normal">
-                  {progressPercent}%
-                </span>
-              </SheetTitle>
-            </SheetHeader>
-
-            {/* Headings List */}
-            <div className="overflow-y-auto py-3 space-y-1.5 flex-1 pr-1">
-              {headings.map((item) => {
-                const isActive = activeId === item.id;
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => scrollToHeading(item.id)}
-                    className={cn(
-                      "block w-full text-left py-2.5 px-3 rounded-lg text-sm transition-all truncate cursor-pointer",
-                      item.level === 1 && "font-medium",
-                      item.level === 2 && "pl-5 text-[13px]",
-                      item.level === 3 && "pl-7 text-xs text-muted-foreground",
-                      isActive
-                        ? "bg-primary text-primary-foreground font-semibold"
-                        : "text-foreground hover:bg-muted/50",
-                    )}
-                  >
-                    {item.text}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Footer Actions */}
-            <div className="pt-3 border-t border-border/70 flex items-center gap-3">
-              <button
-                type="button"
-                onClick={scrollToTop}
-                className="flex-1 py-2.5 rounded-xl border border-border bg-muted/30 text-xs font-medium text-foreground flex items-center justify-center gap-1.5 hover:bg-muted transition-colors cursor-pointer"
-              >
-                <ArrowUp size={14} />
-                <span>{t("backToTop")}</span>
-              </button>
-              <button
-                type="button"
-                onClick={handleShare}
-                className="flex-1 py-2.5 rounded-xl border border-border bg-muted/30 text-xs font-medium text-foreground flex items-center justify-center gap-1.5 hover:bg-muted transition-colors cursor-pointer"
-              >
-                <Share2 size={14} />
-                <span>{t("shareArticle")}</span>
-              </button>
-            </div>
-          </SheetContent>
-        </Sheet>
-      </div>
+              <ArrowUp size={14} />
+              <span>{t("backToTop")}</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleShare}
+              className="flex-1 py-2.5 rounded-xl border border-border bg-muted/30 text-xs font-medium text-foreground flex items-center justify-center gap-1.5 hover:bg-muted transition-colors cursor-pointer"
+            >
+              <Share2 size={14} />
+              <span>{t("shareArticle")}</span>
+            </button>
+          </div>
+        </SheetContent>
+      </Sheet>
     </>
   );
 }
-
-
