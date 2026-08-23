@@ -1,44 +1,37 @@
-import React from "react";
-
 export default function BlogLoading() {
   return (
-    <div className="w-11/12 max-w-7xl mx-auto border-x border-b divide-y md:divide-y-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-      {[1, 2, 3, 4, 5, 6].map((i) => (
+    <div className="w-11/12 max-w-7xl mx-auto border-x border-b">
+      {[1, 2, 3, 4, 5, 6].map((item) => (
         <div
-          key={i}
-          className="p-6 md:p-8 flex flex-col justify-between border-b nth-[2n]:border-r-0 lg:nth-[2n]:border-r lg:nth-[3n]:border-r-0 border-r animate-pulse"
+          key={item}
+          className="grid grid-cols-1 gap-5 border-b border-border px-5 py-6 font-inter motion-reduce:animate-none sm:px-7 sm:py-7 md:grid-cols-12 md:items-start md:gap-x-6 md:px-8 md:py-8 lg:gap-x-8 last:border-b-0 animate-pulse"
         >
-          <div className="space-y-4">
-            {/* Image Skeleton */}
-            <div className="w-full aspect-video rounded-2xl bg-muted/60" />
-
-            {/* Meta Row Skeleton */}
-            <div className="flex items-center gap-2 pt-2">
-              <div className="h-5 w-16 rounded-full bg-muted/70" />
-              <div className="h-4 w-24 rounded bg-muted/50" />
-            </div>
-
-            {/* Title Skeleton */}
+          <div className="flex items-start gap-4 md:col-span-3 md:flex-col md:gap-3 lg:col-span-2">
+            <div className="h-8 w-10 rounded bg-muted/80" />
             <div className="space-y-2">
-              <div className="h-6 w-5/6 rounded bg-muted/80" />
-              <div className="h-6 w-3/5 rounded bg-muted/80" />
+              <div className="h-3 w-24 rounded bg-muted/50" />
+              <div className="h-3 w-16 rounded bg-muted/60" />
             </div>
+          </div>
 
-            {/* Description Skeleton */}
-            <div className="space-y-1.5 pt-1">
+          <div className="space-y-3 md:col-span-6 lg:col-span-7">
+            <div className="h-7 w-11/12 rounded bg-muted/80 sm:h-8" />
+            <div className="h-7 w-3/4 rounded bg-muted/80 sm:h-8" />
+            <div className="space-y-2 pt-1">
               <div className="h-4 w-full rounded bg-muted/40" />
               <div className="h-4 w-4/5 rounded bg-muted/40" />
             </div>
           </div>
 
-          {/* Bottom Bar Skeleton */}
-          <div className="mt-6 pt-4 border-t border-border/40 flex items-center justify-between">
-            <div className="h-4 w-20 rounded bg-muted/50" />
-            <div className="h-4 w-16 rounded bg-muted/50" />
+          <div className="flex items-center justify-between gap-4 border-t border-border/60 pt-4 md:col-span-3 md:min-h-full md:flex-col md:items-end md:justify-between md:border-t-0 md:pt-0 lg:col-span-3">
+            <div className="space-y-2 md:flex md:flex-col md:items-end">
+              <div className="h-3 w-20 rounded bg-muted/50" />
+              <div className="h-3 w-16 rounded bg-muted/60" />
+            </div>
+            <div className="h-4 w-20 rounded bg-muted/70" />
           </div>
         </div>
       ))}
     </div>
   );
 }
-

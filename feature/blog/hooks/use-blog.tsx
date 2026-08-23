@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useBlogStore } from "../store/blog-store";
-import type { Article, BlogAPIResponse, ImgResponse } from "../types/blog";
+import type { Article, BlogAPIResponse } from "../types/blog";
 
 import useSWR from "swr";
 
@@ -16,16 +16,9 @@ export const useBlogLoader = (locale: string) => {
   const { data, isLoading, error } = useArticles(locale);
   const { setPosts } = useBlogStore();
 
-  function getFallbackSrc(data?: ImgResponse): string {
-    if (data?.large) return data.large.url;
-    if (data?.medium) return data.medium.url;
-    if (data?.small) return data.small.url;
-    if (data?.thumbnail) return data.thumbnail.url;
-    return "/blog/default-placeholder.webp";
-  }
   useEffect(() => {
     setPosts(data?.data ?? []);
   }, [data, setPosts]);
 
-  return { posts: data?.data ?? [], loading: isLoading, error, getFallbackSrc };
+  return { posts: data?.data ?? [], loading: isLoading, error };
 };

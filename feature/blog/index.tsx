@@ -12,7 +12,7 @@ import { motion, useReducedMotion } from "framer-motion";
 
 export default function BlogHome() {
   const { locale } = useParams<{ locale: string }>();
-  const { posts, loading, error, getFallbackSrc } = useBlogLoader(locale);
+  const { posts, loading, error } = useBlogLoader(locale);
   const [search, setSearch] = useState("");
   const [publishedOnly, setPublishedOnly] = useState(true);
   const [sortOrder, setSortOrder] = useState<"newest" | "oldest">("newest");
@@ -65,7 +65,9 @@ export default function BlogHome() {
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={
+            reduceMotion ? { duration: 0 } : { duration: 0.5, ease: "easeOut" }
+          }
           className="flex flex-col md:flex-row md:items-end justify-between gap-6"
         >
           <div className="space-y-2">
@@ -111,26 +113,14 @@ export default function BlogHome() {
         <BlogEmpty onReset={handleResetFilters} />
       )}
 
-      {/* Articles Grid */}
+      {/* Editorial Article Index */}
       {!loading && filteredPosts && filteredPosts.length > 0 && (
-        <motion.div
-          initial={reduceMotion ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4 }}
-          className="w-11/12 max-w-7xl mx-auto border-x border-b divide-y md:divide-y-0 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-        >
+        <div className="w-11/12 max-w-7xl mx-auto border-x border-b">
           {filteredPosts.map((post, idx) => (
-            <BlogCard
-              post={post}
-              index={idx}
-              getFallbackSrc={getFallbackSrc}
-              locale={locale}
-              key={post.slug}
-            />
+            <BlogCard post={post} index={idx} locale={locale} key={post.slug} />
           ))}
-        </motion.div>
+        </div>
       )}
     </SectionLayout>
   );
 }
-
