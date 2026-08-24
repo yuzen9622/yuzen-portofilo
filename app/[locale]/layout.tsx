@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter, Shippori_Mincho } from "next/font/google";
+import {
+	Geist,
+	Geist_Mono,
+	Inter,
+	LXGW_WenKai_TC,
+	Shippori_Mincho,
+} from "next/font/google";
 
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
@@ -34,6 +40,14 @@ const shipporiMincho = Shippori_Mincho({
 	weight: ["400", "500", "600", "700", "800"],
 	display: "swap",
 });
+
+const lxgwWenKai = LXGW_WenKai_TC({
+	variable: "--font-lxgw-wenkai",
+	subsets: ["latin"],
+	weight: "400",
+	display: "swap",
+});
+
 const SITE_URL = "https://www.yuzen.dev";
 
 export const metadata: Metadata = {
@@ -139,7 +153,7 @@ export default async function RootLayout({
 		<html
 			lang={locale}
 			suppressHydrationWarning
-			className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${shipporiMincho.variable}`}
+			className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${shipporiMincho.variable} ${lxgwWenKai.variable}`}
 		>
 			<body className="antialiased" suppressHydrationWarning>
 				<NextIntlClientProvider>
