@@ -54,7 +54,7 @@ export function CodeBlock({
 
       return (
             <div className=" relative  text-sm   rounded-3xl ">
-                  <div className="absolute  top-1.5 px-3  py-2 rounded-3xl right-2  border  flex gap-3 text-xs items-center">
+                  <div className="absolute  top-1.5 px-3  py-2 backdrop-blur-xs  rounded-3xl right-2  border  flex gap-3 text-xs items-center">
                         {file && (
                               <span className=" bg-transparent transition font-mono">
                                     {file}
