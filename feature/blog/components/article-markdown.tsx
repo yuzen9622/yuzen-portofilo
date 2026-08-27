@@ -105,7 +105,7 @@ export default function ArticleMarkdown({
               alt={alt ?? ""}
               width={800}
               height={600}
-              className="max-w-full h-auto rounded-md"
+              className="max-w-full h-auto rounded-md relative z-1 bg-muted"
             />
           );
         },

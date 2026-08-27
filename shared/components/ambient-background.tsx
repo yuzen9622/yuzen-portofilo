@@ -118,7 +118,7 @@ export default function AmbientBackground() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-0 overflow-hidden select-none"
+      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden select-none"
     >
       {/*
         1. Global Tactile Grain / Film Noise Layer
@@ -136,7 +136,7 @@ export default function AmbientBackground() {
         `feTurbulence`, so no procedural filter runs at paint time.
       */}
       <div
-        className="pointer-events-none fixed inset-0 z-40 opacity-[0.05] dark:opacity-[0.08]"
+        className="pointer-events-none absolute inset-0 opacity-[0.05] dark:opacity-[0.08]"
         style={{
           backgroundImage: 'url("/noise.png")',
           backgroundRepeat: "repeat",

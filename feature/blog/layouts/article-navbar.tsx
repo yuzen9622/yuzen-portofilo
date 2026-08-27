@@ -73,7 +73,14 @@ export default function ArticleNavbar() {
   };
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] font-inter">
+    <motion.header
+      initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={
+        reduceMotion ? { duration: 0 } : { duration: 0.35, ease: "easeOut" }
+      }
+      className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] font-inter"
+    >
       <div className="pointer-events-auto flex max-w-full items-center gap-1 overflow-hidden rounded-full border border-border/50 bg-background/80 p-1 shadow-xs backdrop-blur-xl">
         <Link
           href="/blog"
@@ -170,6 +177,6 @@ export default function ArticleNavbar() {
           </span>
         </button>
       </div>
-    </header>
+    </motion.header>
   );
 }
