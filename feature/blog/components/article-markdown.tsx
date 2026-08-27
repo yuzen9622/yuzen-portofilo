@@ -7,8 +7,8 @@ import rehypeSlug from "rehype-slug";
 import rehypeRaw from "rehype-raw";
 
 import rehypeSanitize from "rehype-sanitize";
-import Image from "next/image";
 import Link from "next/link";
+import ZoomableImage from "./zoomable-image";
 import { CodeBlock } from "./code-block";
 import {
   TypographyBlockquote,
@@ -100,12 +100,11 @@ export default function ArticleMarkdown({
         },
         img: ({ src, alt }) => {
           return (
-            <Image
+            <ZoomableImage
               src={(src as string) ?? ""}
               alt={alt ?? ""}
               width={800}
               height={600}
-              className="max-w-full h-auto rounded-md relative z-1 bg-muted"
             />
           );
         },
