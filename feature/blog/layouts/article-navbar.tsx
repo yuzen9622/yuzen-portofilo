@@ -37,7 +37,7 @@ export default function ArticleNavbar() {
     const delta = latest - previous;
 
     if (latest <= 4) {
-      setIsBackExpanded(false);
+      setIsBackExpanded(true);
     } else if (delta <= -3) {
       setIsBackExpanded(true);
     } else if (delta >= 3) {
