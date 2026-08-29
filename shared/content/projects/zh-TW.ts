@@ -46,7 +46,7 @@ export const Projects_zhTW: Project[] = [
       {
         title: "畢業專題與競賽佳作",
         description:
-          "這項五專畢業專題以無障礙出行為核心，獲得 2026 AI Innovation Project Competition 佳作。",
+          "這項五專畢業專題以無障礙出行為核心，獲得 2026 全國專題創意競賽 佳作。",
       },
     ],
   },

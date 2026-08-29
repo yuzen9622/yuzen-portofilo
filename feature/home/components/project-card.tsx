@@ -5,17 +5,28 @@ import type { Project } from "@/shared/content/types";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
-export default function ProjectCard({ project }: { project: Project }) {
+export default function ProjectCard({
+  project,
+  index,
+}: {
+  project: Project;
+  index: number;
+}) {
   const reducedMotion = useReducedMotion() ?? false;
+  const isRightAligned = index % 2 === 1;
 
   return (
     <motion.div
-      initial={reducedMotion ? false : { opacity: 0 }}
-      animate={{ opacity: 1 }}
+      initial={
+        reducedMotion ? false : { opacity: 0, x: isRightAligned ? 12 : -12 }
+      }
+      animate={reducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
       transition={
         reducedMotion ? { duration: 0 } : { duration: 0.28, ease: "easeOut" }
       }
-      className="border-b border-border"
+      className={`w-full border-b border-border md:w-[87%] ${
+        isRightAligned ? "md:ml-auto" : "md:mr-auto"
+      }`}
     >
       <Link
         href={`/projects/${project.slug}`}

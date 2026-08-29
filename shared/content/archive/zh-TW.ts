@@ -1,41 +1,7 @@
-import type { ArchiveContent, ArchiveItem } from "../types";
-import { Projects_zhTW } from "../projects/zh-TW";
-
-const projectItem = (slug: string): ArchiveItem => {
-	const project = Projects_zhTW.find((item) => item.slug === slug)!;
-	return {
-		id: `project-${slug}`,
-		title: project.title,
-		description: project.tech?.slice(0, 3).join(" · "),
-		date: project.datetime,
-		image: project.picture,
-		link: `/projects/${slug}`,
-	};
-};
+import type { ArchiveContent } from "../types";
 
 export const Archive_zhTW: ArchiveContent = {
 	groups: [
-		{
-			id: "projects",
-			name: "專案",
-			categories: [
-				{
-					id: "frontend",
-					name: "前端",
-					items: ["termexpander-ai", "yuzen-portofilo"].map(projectItem),
-				},
-				{
-					id: "backend",
-					name: "後端",
-					items: ["accessible-smart-map", "cite-for-all"].map(projectItem),
-				},
-				{
-					id: "ai",
-					name: "AI",
-					items: ["graph-patent-analysis", "makentu2026"].map(projectItem),
-				},
-			],
-		},
 		{
 			id: "academic",
 			name: "學術",

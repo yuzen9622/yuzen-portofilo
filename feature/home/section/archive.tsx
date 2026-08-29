@@ -91,47 +91,6 @@ function CategoryLabel({
   );
 }
 
-/** 編號滾動數字：直欄 1..total，隨 wheel 值連續上滾（odometer） */
-function NumberOdometer({
-  wheel,
-  total,
-  reduced,
-  align = "left",
-}: {
-  wheel: MotionValue<number>;
-  total: number;
-  reduced: boolean;
-  align?: "left" | "right";
-}) {
-  const y = useTransform(wheel, (w) => `${-w}em`);
-  return (
-    <div
-      className={cn(
-        "flex items-center gap-1.5 w-full",
-        align === "left" ? "justify-start" : "justify-end",
-      )}
-    >
-      <p className="flex items-center leading-none text-sm md:text-base text-muted-foreground tabular-nums">
-        <span>0</span>
-        {reduced ? (
-          <span>1</span>
-        ) : (
-          <span className="relative block h-[1em] overflow-hidden">
-            <motion.span style={{ y }} className="flex flex-col">
-              {Array.from({ length: total }, (_, i) => (
-                <span key={i} className="flex h-[1em] items-center">
-                  {i + 1}
-                </span>
-              ))}
-            </motion.span>
-          </span>
-        )}
-        <span className="ml-1">/ {`${total}`.padStart(2, "0")}</span>
-      </p>
-    </div>
-  );
-}
-
 /** 滾筒上的一塊：群名 + 分類清單，依 wheel 距離做 picker 式旋轉位移 */
 function WheelBlock({
   group,
@@ -284,13 +243,11 @@ function EntryRow({
 function GroupPanel({
   group,
   index,
-  total,
   reduced,
   onPoint,
 }: {
   group: ArchiveGroup;
   index: number;
-  total: number;
   reduced: boolean;
   onPoint: (image: string | null) => void;
 }) {
@@ -420,10 +377,6 @@ function GroupPanel({
                 !isEven && "md:items-end md:text-end",
               )}
             >
-              <p className="text-xs sm:text-sm text-muted-foreground tabular-nums">
-                {`${index + 1}`.padStart(2, "0")} /{" "}
-                {`${total}`.padStart(2, "0")}
-              </p>
               <h2 className="font-inter text-3xl sm:text-4xl md:text-5xl font-semibold uppercase tracking-tight">
                 {group.name}
               </h2>
@@ -492,8 +445,6 @@ export default function Archive() {
     mass: 0.15,
   });
 
-  const [activeIdx, setActiveIdx] = useState(0);
-
   // 群的滾動幾何（vh 單位），供滾筒與點擊跳轉換算
   const geometry = useMemo(() => {
     const entriesPerGroup = archive.groups.map((group) => flattenGroup(group));
@@ -528,12 +479,6 @@ export default function Archive() {
     }
     return w;
   });
-
-  useEffect(() => {
-    return wheel.on("change", (latest) => {
-      setActiveIdx(Math.round(latest));
-    });
-  }, [wheel]);
 
   const { xInput, xOutput } = useMemo(() => {
     const input: number[] = [];
@@ -604,13 +549,12 @@ export default function Archive() {
             key={group.id}
             group={group}
             index={index}
-            total={archive.groups.length}
             reduced={reducedMotion}
             onPoint={handlePoint}
           />
         ))}
 
-        {/* 跨群左欄滾筒（桌機）：時間選擇器式轉盤 + 編號 odometer */}
+        {/* 跨群左欄滾筒（桌機）：時間選擇器式轉盤 */}
         {!reducedMotion && (
           <div className="pointer-events-none absolute inset-0 hidden md:block">
             <div className="sticky top-0 h-screen flex items-center">
@@ -619,12 +563,6 @@ export default function Archive() {
                   style={{ x: xShift }}
                   className="pointer-events-auto flex flex-col gap-5 w-full"
                 >
-                  <NumberOdometer
-                    wheel={wheel}
-                    total={archive.groups.length}
-                    reduced={reducedMotion}
-                    align={activeIdx % 2 === 0 ? "left" : "right"}
-                  />
                   <div
                     className="relative h-[340px]"
                     style={{ perspective: 900 }}

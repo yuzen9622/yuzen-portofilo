@@ -25,8 +25,8 @@ export default function Project({ all = false }: { all?: boolean }) {
       className="relative"
     >
       <div className="w-11/12 mx-auto border-t border-border">
-        {visibleProjects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+        {visibleProjects.map((project, index) => (
+          <ProjectCard key={project.slug} project={project} index={index} />
         ))}
         {!all && (
           <Link

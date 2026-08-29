@@ -1,41 +1,7 @@
-import type { ArchiveContent, ArchiveItem } from "../types";
-import { Projects_en } from "../projects/en";
-
-const projectItem = (slug: string): ArchiveItem => {
-	const project = Projects_en.find((item) => item.slug === slug)!;
-	return {
-		id: `project-${slug}`,
-		title: project.title,
-		description: project.tech?.slice(0, 3).join(" · "),
-		date: project.datetime,
-		image: project.picture,
-		link: `/projects/${slug}`,
-	};
-};
+import type { ArchiveContent } from "../types";
 
 export const Archive_en: ArchiveContent = {
 	groups: [
-		{
-			id: "projects",
-			name: "Projects",
-			categories: [
-				{
-					id: "frontend",
-					name: "Frontend",
-					items: ["termexpander-ai", "yuzen-portofilo"].map(projectItem),
-				},
-				{
-					id: "backend",
-					name: "Backend",
-					items: ["accessible-smart-map", "cite-for-all"].map(projectItem),
-				},
-				{
-					id: "ai",
-					name: "AI",
-					items: ["graph-patent-analysis", "makentu2026"].map(projectItem),
-				},
-			],
-		},
 		{
 			id: "academic",
 			name: "Academic",

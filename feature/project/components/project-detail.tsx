@@ -36,7 +36,7 @@ export default function ProjectDetail({
 	return (
 		<div
 			data-project-detail=""
-			className="w-11/12 max-w-7xl mx-auto pt-28 pb-24 font-inter"
+			className="w-11/12 max-w-7xl mx-auto pt-12 pb-24 font-inter"
 		>
 			<motion.div
 				variants={reducedMotion ? undefined : textContainerVariants}
@@ -154,7 +154,7 @@ export default function ProjectDetail({
 							{project.highlights.map((highlight, index) => (
 								<article
 									key={highlight.title}
-									className="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 gap-y-2 border-b border-border py-5 sm:grid-cols-[3rem_minmax(0,1fr)] sm:py-6 lg:grid-cols-[minmax(0,0.3fr)_minmax(0,1fr)_minmax(0,1.6fr)] lg:items-start lg:gap-x-8 lg:py-8"
+									className="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 gap-y-2 border-b border-border  sm:grid-cols-[3rem_minmax(0,1fr)] sm:py-6 lg:grid-cols-[minmax(0,0.3fr)_minmax(0,1fr)_minmax(0,1.6fr)] lg:items-start lg:gap-x-8 lg:py-4"
 								>
 									<span className="text-sm font-medium tabular-nums text-muted-foreground">
 										{`${index + 1}`.padStart(2, "0")}

@@ -46,7 +46,7 @@ export const Projects_en: Project[] = [
       {
         title: "Capstone recognition",
         description:
-          "Built as my five-year junior college capstone, the project centers accessibility and received an Honorable Mention in the 2026 AI Innovation Project Competition.",
+          "Built as my five-year junior college capstone, the project centers accessibility and received an Honorable Mention in the 2026 AI C Project Competition.",
       },
     ],
   },
