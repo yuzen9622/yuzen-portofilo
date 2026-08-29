@@ -129,12 +129,7 @@ export default function Article({
                   <span>{formattedDate}</span>
                 </div>
               )}
-              <div className="flex items-center gap-1.5 font-mono tabular-nums">
-                <Clock size={13} aria-hidden="true" className="opacity-70" />
-                <span>
-                  {readingTime} {t("minRead")}
-                </span>
-              </div>
+             
             </motion.div>
           </header>
 

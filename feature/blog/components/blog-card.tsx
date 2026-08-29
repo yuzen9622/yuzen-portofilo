@@ -80,10 +80,7 @@ export default function BlogCard({
 
           <div className="flex min-w-0 items-center justify-between gap-4 border-t border-border/60 pt-4 text-xs md:col-span-3 md:min-h-full md:flex-col md:items-end md:justify-between md:border-t-0 md:pt-0 lg:col-span-3">
             <div className="space-y-1.5 text-muted-foreground md:text-right">
-              <span className="flex items-center gap-1.5 font-mono tabular-nums md:justify-end">
-                <Clock size={13} aria-hidden="true" />
-                {readingTime} {t("minRead")}
-              </span>
+             
               <span className="block truncate font-medium text-foreground/80">
                 {post.author?.name || "Yuzen"}
               </span>
