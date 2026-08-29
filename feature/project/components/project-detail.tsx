@@ -36,7 +36,7 @@ export default function ProjectDetail({
 	return (
 		<div
 			data-project-detail=""
-			className="w-11/12 max-w-5xl mx-auto pt-28 pb-24 font-inter"
+			className="w-11/12 max-w-7xl mx-auto pt-28 pb-24 font-inter"
 		>
 			<motion.div
 				variants={reducedMotion ? undefined : textContainerVariants}
@@ -178,7 +178,7 @@ export default function ProjectDetail({
 					<Link
 						href={`/projects/${prev.slug}`}
 						data-cursor-text="VIEW"
-						className="group relative isolate flex min-h-36 flex-col justify-between gap-6 overflow-hidden border-b border-border py-8 pr-6 font-inter focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring before:pointer-events-none before:absolute before:inset-0 before:z-0 before:-translate-x-full before:bg-muted/30 before:transition-transform before:duration-300 before:ease-out before:content-[''] group-hover:before:translate-x-0 group-focus-visible:before:translate-x-0 motion-reduce:before:duration-0 sm:border-b-0 sm:border-r sm:py-10"
+						className="group relative isolate flex min-h-36 flex-col justify-between gap-6 overflow-hidden border-b border-border py-8 pr-6 font-inter focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring before:pointer-events-none before:absolute before:inset-0 before:z-0 before:-translate-x-full before:bg-muted/30 before:transition-transform before:duration-300 before:ease-out before:content-[''] hover:before:translate-x-0 focus-visible:before:translate-x-0 motion-reduce:before:duration-0 sm:border-b-0 sm:border-r sm:py-10"
 					>
 						<span className="relative z-10 text-xs uppercase tracking-widest text-muted-foreground">
 							{t("prevProject")}
@@ -190,7 +190,7 @@ export default function ProjectDetail({
 					<Link
 						href={`/projects/${next.slug}`}
 						data-cursor-text="VIEW"
-						className="group relative isolate flex min-h-36 flex-col justify-between gap-6 overflow-hidden py-8 pl-6 text-end font-inter focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring before:pointer-events-none before:absolute before:inset-0 before:z-0 before:translate-x-full before:bg-muted/30 before:transition-transform before:duration-300 before:ease-out before:content-[''] group-hover:before:translate-x-0 group-focus-visible:before:translate-x-0 motion-reduce:before:duration-0 sm:py-10"
+						className="group relative isolate flex min-h-36 flex-col justify-between gap-6 overflow-hidden py-8 pl-6 text-end font-inter focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring before:pointer-events-none before:absolute before:inset-0 before:z-0 before:translate-x-full before:bg-muted/30 before:transition-transform before:duration-300 before:ease-out before:content-[''] hover:before:translate-x-0 focus-visible:before:translate-x-0 motion-reduce:before:duration-0 sm:py-10"
 					>
 						<span className="relative z-10 text-xs uppercase tracking-widest text-muted-foreground">
 							{t("nextProject")}

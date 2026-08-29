@@ -5,7 +5,7 @@ export const Projects_en: Project[] = [
     slug: "accessible-smart-map",
     title: "accessible-smart-map",
     description:
-      "An accessibility-focused map for exploring facility layers, planning barrier-aware routes, and viewing live TDX bus and transit information.",
+      "An accessibility-first Taiwan mobility map that combines TDX transit and parking data with multimodal, barrier-aware route planning for more confident travel.",
     picture: "/project/taipei-a11y.webp",
     datetime: "2025 - 2026",
     tech: [
@@ -17,26 +17,36 @@ export const Projects_en: Project[] = [
       "Node.js",
       "Express",
       "TDX API",
+      "GTFS",
+      "OpenTripPlanner",
+      "Valhalla",
+      "LINE Bot",
+      "AI voice",
     ],
     github: "https://github.com/yuzen9622/accessible-smart-map",
     demo: "https://map.yuzen.dev",
     intro:
-      "A web map that brings accessibility facilities, accessible route planning, and live Taiwan TDX bus and transit data together to support more confident travel.",
+      "Created as my five-year junior college capstone, this accessibility-first map brings together Taiwan transit, parking, and facility information to support more confident travel. I was responsible for the backend, which integrates TDX data with routing and conversational services.",
     highlights: [
       {
-        title: "Accessibility facility layers",
+        title: "Multimodal TDX backend",
         description:
-          "Organizes accessibility-related facilities into map layers so people can inspect relevant places before they travel.",
+          "I built the backend integration for TDX bus, conventional rail, high-speed rail, metro, and parking information, making multimodal data available alongside accessibility context.",
       },
       {
-        title: "Barrier-aware route planning",
+        title: "GTFS-driven routing",
         description:
-          "Helps users plan routes with accessibility considerations at the center, making it easier to evaluate travel options.",
+          "TDX GTFS serves as graph input for OpenTripPlanner and Valhalla, while a custom CSR walking-route engine currently covers Taipei City.",
       },
       {
-        title: "Live TDX transit data",
+        title: "SOS and conversational assistance",
         description:
-          "Connects to TDX live bus and transit data so route planning can be considered alongside current public-transport information.",
+          "An SOS LINE Bot, more than 10 callable agent tools, and real-time AI voice interaction extend the map beyond visual route planning.",
+      },
+      {
+        title: "Capstone recognition",
+        description:
+          "Built as my five-year junior college capstone, the project centers accessibility and received an Honorable Mention in the 2026 AI Innovation Project Competition.",
       },
     ],
   },
@@ -44,7 +54,7 @@ export const Projects_en: Project[] = [
     slug: "graph-patent-analysis",
     title: "graph-patent-analysis",
     description:
-      "A patent portfolio analysis tool that turns XLSX data into inspectable concept networks, contextual graphs, comparisons, and exports.",
+      "A research tool for researchers and teachers that turns uploaded patent datasets into explainable applicant, patent, and concept graphs for tracing technology trends over time.",
     picture:
       "https://opengraph.githubassets.com/1/yuzen9622/graph-patent-analysis",
     datetime: "2026",
@@ -62,27 +72,27 @@ export const Projects_en: Project[] = [
     ],
     github: "https://github.com/yuzen9622/graph-patent-analysis",
     intro:
-      "Imports XLSX patent data, uses Gemini to extract concepts, and turns portfolios into inspectable technical and Applicant → Patent → Concept graphs for comparison and reporting.",
+      "Built for researchers and teachers working with patent datasets, it uses an LLM to structure applicants, patents, and each patent's technical concepts. The resulting graphs make changing technology directions and year-by-year trends easier to examine.",
     highlights: [
       {
-        title: "XLSX import and Gemini concept extraction",
+        title: "Patent research workflow",
         description:
-          "Imports patent spreadsheets and uses Gemini to extract the technical concepts that anchor later analysis.",
+          "Researchers and teachers can upload patent datasets and begin analysis from the records they already use.",
       },
       {
-        title: "Concept networks and portfolio context",
+        title: "LLM-assisted structured extraction",
         description:
-          "Builds a technical concept network and an Applicant → Patent → Concept context graph, with side-by-side portfolio comparison.",
+          "An LLM extracts applicants, patents, and the technical concepts associated with each patent, turning source data into analysis-ready structure.",
       },
       {
-        title: "Filters and explainable inspection",
+        title: "Applicant → Patent → Concept trends",
         description:
-          "Supports temporal and IPC filters, then exposes support, Jaccard similarity, and source-patent inspection for traceable findings.",
+          "Interactive concept and context graphs connect applicants, patents, and concepts, with temporal and IPC filters for examining changes across years.",
       },
       {
-        title: "AI reports and portable exports",
+        title: "Explainable comparison and export",
         description:
-          "Generates AI trend reports and exports analysis as CSV, Excel, or standalone HTML.",
+          "Portfolio comparison pairs visual analysis with support, Jaccard similarity, and source-patent inspection; results can be exported.",
       },
     ],
   },
@@ -90,7 +100,7 @@ export const Projects_en: Project[] = [
     slug: "makentu2026",
     title: "MakeNTU2026",
     description:
-      "A MakeNTU 2026 decision assistant combining a deterministic Plum Blossom I Ching and five-elements engine with Agentic RAG, structured LLM reports, and voice interaction.",
+      "A MakeNTU 2026 decision assistant combining deterministic Plum Blossom I Ching and five-elements reasoning with Agentic RAG, structured reports, and voice interaction.",
     picture: "https://opengraph.githubassets.com/1/yuzen9622/MakeNTU2026",
     datetime: "2026",
     tech: [
@@ -107,27 +117,27 @@ export const Projects_en: Project[] = [
     ],
     github: "https://github.com/yuzen9622/MakeNTU2026",
     intro:
-      "It pairs reproducible divination logic with Agentic RAG to produce one-shot structured reports, supports WebSocket STT/TTS voice conversations, relationship analysis, and cache warmup.",
+      "For this MakeNTU 2026 project, I mainly developed the backend TTS, STT, RAG, and agent components. The work paired deterministic divination logic with structured LLM reports and a voice flow, giving me hands-on experience integrating TTS/STT and an Agentic RAG workflow.",
     highlights: [
       {
-        title: "Deterministic Plum Blossom I Ching and five-elements engine",
+        title: "Backend contribution",
         description:
-          "Uses deterministic Meihua Yishu and five-elements reasoning to provide a reproducible foundation for each consultation.",
+          "I mainly developed the TTS, STT, RAG, and agent components behind the experience, working alongside the project's deterministic reasoning engine.",
       },
       {
-        title: "Agentic RAG and one-shot structured reports",
+        title: "TTS/STT voice pipeline",
         description:
-          "Retrieves relevant context with Agentic RAG and produces a structured LLM report in one generation pass.",
+          "A WebSocket flow connects speech-to-text and text-to-speech for voice interaction, giving me practical experience integrating the two services.",
       },
       {
-        title: "WebSocket voice flow and relationship analysis",
+        title: "Agentic RAG and structured flow",
         description:
-          "Connects STT and TTS through a WebSocket voice flow while also supporting relationship-focused analysis.",
+          "I developed the Agentic RAG and agent flow that retrieves context and shapes it into a one-shot structured LLM report; relationship analysis and cache warmup support the broader workflow.",
       },
       {
-        title: "Cache warmup",
+        title: "Hackathon learning",
         description:
-          "Warms caches in advance to make interactive consultations more responsive.",
+          "The project did not receive an award, but it provided substantial practical experience with voice integration and Agentic RAG.",
       },
     ],
   },
@@ -135,7 +145,7 @@ export const Projects_en: Project[] = [
     slug: "termexpander-ai",
     title: "TermExpander-ai",
     description:
-      "A Chrome extension for expanding academic abbreviations, converting selected text, and refining writing into a more academic tone.",
+      "An academic-writing extension that expands or converts specialized abbreviations and full terms in context, reducing ambiguity that ordinary web searches often leave unresolved.",
     picture: "https://opengraph.githubassets.com/1/yuzen9622/TermExpander-ai",
     datetime: "2025",
     tech: [
@@ -149,27 +159,27 @@ export const Projects_en: Project[] = [
     ],
     github: "https://github.com/yuzen9622/TermExpander-ai",
     intro:
-      "A Manifest V3 extension that helps researchers expand academic abbreviations, use selection and popup conversion tools, and refine text for an academic tone.",
+      "Research work often requires switching between specialized abbreviations and full forms, yet a Google search can return an irrelevant meaning. This extension provides contextual terminology conversion for academic writing rather than relying on a generic search result.",
     highlights: [
       {
-        title: "Academic abbreviation expansion",
+        title: "Research-driven motivation",
         description:
-          "Expands academic abbreviations into clearer terminology to help readers understand specialized text.",
+          "It began with a recurring research problem: specialized abbreviations and full forms are hard to resolve accurately through a general Google search.",
       },
       {
-        title: "Selection tooltip and popup conversion",
+        title: "Contextual term expansion",
         description:
-          "Offers a tooltip for selected text and a popup workflow for converting text without leaving the browser.",
+          "Converts technical terms between abbreviations and full names in context, helping academic writing retain the intended meaning.",
       },
       {
-        title: "Academic tone refinement",
+        title: "Focused interaction and privacy",
         description:
-          "Refines wording toward a more formal academic tone for research and professional writing.",
+          "Selection tooltips and a popup provide conversion entry points. Gemini powers the feature, while the API key stays stored locally and browsing history is not collected.",
       },
       {
-        title: "Local API key and privacy",
+        title: "Distribution in progress",
         description:
-          "Stores the user's API key locally with the Chrome Storage API and does not collect browsing history.",
+          "The extension is not yet published; alternative distribution options are being explored.",
       },
     ],
   },
@@ -177,7 +187,7 @@ export const Projects_en: Project[] = [
     slug: "cite-for-all",
     title: "cite-for-all",
     description:
-      "A citation converter for exact DOI or title lookup, seven styles, resilient batches, and copy or file export.",
+      "A research workflow that pairs provider-backed literature lookup with citation-format conversion, reducing verification risk and repetitive reformatting across journal requirements.",
     picture: "https://opengraph.githubassets.com/1/yuzen9622/cite-for-all",
     datetime: "2026",
     tech: [
@@ -195,27 +205,27 @@ export const Projects_en: Project[] = [
     github: "https://github.com/yuzen9622/cite-for-all",
     demo: "https://citation.yuzen.dev",
     intro:
-      "Looks up references by DOI or title through DOI.org, Crossref, and DataCite; converts up to 30 items in seven styles; and supports anonymous conversion or optional authenticated private projects.",
+      "While organizing literature, I wanted a workflow that could reduce the risk of fabricated or nonexistent references in AI-rich research and avoid repetitive reformatting for different journals. cite-for-all combines provider-backed exact DOI or title matching with citation conversion; this matching helps reduce risk rather than guaranteeing every reference.",
     highlights: [
       {
-        title: "DOI and title resolution",
+        title: "Research-integrity motivation",
         description:
-          "Finds references by exact DOI or title using DOI.org, Crossref, and DataCite.",
+          "Built from a need to organize literature more safely in an AI-rich workflow, it addresses the risk of fabricated or nonexistent references without claiming to eliminate it.",
       },
       {
-        title: "Seven styles and resilient batches",
+        title: "Provider-backed exact matching",
         description:
-          "Formats references in seven citation styles and processes batches of up to 30 items without discarding successful results when individual items fail.",
+          "Exact DOI or title matching through DOI.org, Crossref, and DataCite helps reduce the risk of incorrect reference data.",
       },
       {
-        title: "Copy and file export",
+        title: "Formats and resilient batches",
         description:
-          "Lets users copy results or download them as TXT or BibTeX files.",
+          "Converts up to 30 items into seven citation formats. Partial failures preserve successful results rather than discarding the whole batch.",
       },
       {
-        title: "Anonymous or private workflows",
+        title: "Export and optional workspaces",
         description:
-          "Keeps conversion available without an account while offering authenticated users optional private projects.",
+          "Results can be copied or exported as TXT or BibTeX; conversion works anonymously, with optional private projects for signed-in users.",
       },
     ],
   },
@@ -223,7 +233,7 @@ export const Projects_en: Project[] = [
     slug: "yuzen-portofilo",
     title: "yuzen-portofilo",
     description:
-      "A multilingual portfolio site with localized home, about, projects, blog, and contact experiences in an animated interface.",
+      "My personal website, designed to showcase frontend layout and scroll-animation work through a multilingual portfolio, editorial content, and contact experience.",
     picture: "https://opengraph.githubassets.com/1/yuzen9622/yuzen-portofilo",
     datetime: "2026",
     tech: [
@@ -242,27 +252,27 @@ export const Projects_en: Project[] = [
     github: "https://github.com/yuzen9622/yuzen-portofilo",
     demo: "https://www.yuzen.dev",
     intro:
-      "A Next.js portfolio that combines localized routing, animated UI, Markdown publishing with syntax highlighting and KaTeX, SEO, a contact form, and an Apple Music navbar integration.",
+      "This personal website showcases my frontend layout design and animation work, using scroll-driven interaction to shape the browsing experience. It also provides multilingual routes, publishing, and contact surfaces around the portfolio.",
     highlights: [
       {
-        title: "Multilingual localized routing",
+        title: "Personal portfolio direction",
         description:
-          "Presents home, about, projects, blog, and contact experiences through localized routes.",
+          "I built this site as a focused showcase for my frontend layout design and animation work.",
       },
       {
-        title: "Animated interface",
+        title: "Portfolio layout and content",
         description:
-          "Uses Motion to add purposeful animation throughout the portfolio experience.",
+          "The home, about, projects, blog, and contact sections form a structured frontend layout for presenting work and content.",
       },
       {
-        title: "Technical Markdown blog",
+        title: "Scroll motion with accessibility",
         description:
-          "Publishes Markdown posts with syntax highlighting and KaTeX support for technical writing.",
+          "Scroll animation creates interaction across the site, with motion accessibility considered in the experience.",
       },
       {
-        title: "SEO, contact, and Apple Music",
+        title: "Multilingual publishing platform",
         description:
-          "Combines SEO support, a contact form powered by Resend, and an Apple Music integration in the navbar.",
+          "Localized routes, Markdown with KaTeX and code highlighting, SEO, a contact form, and an Apple Music navbar integration support the broader site.",
       },
     ],
   },
