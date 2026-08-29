@@ -45,7 +45,7 @@ export default function ProjectCard({
             {project.title}
           </h3>
           <p
-            className={`col-span-2 min-w-0 max-w-2xl break-words text-sm leading-relaxed text-muted-foreground md:col-span-1 md:col-start-2 md:row-start-1 md:text-base ${
+            className={`col-span-2 min-w-0 px-2 max-w-2xl wrap-break-word text-sm leading-relaxed text-muted-foreground md:col-span-1 md:col-start-2 md:row-start-1 md:text-base ${
               isReversed ? "md:justify-self-end md:text-right" : ""
             }`}
           >
