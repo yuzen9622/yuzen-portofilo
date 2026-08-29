@@ -52,8 +52,8 @@ export const Projects_zhTW: Project[] = [
       "https://opengraph.githubassets.com/1/yuzen9622/graph-patent-analysis",
     datetime: "2026",
    tech: [
-      "Next.js 16",
-      "React 19",
+      "Next.js",
+      "React",
       "TypeScript",
       "Tailwind CSS",
       "PostgreSQL",

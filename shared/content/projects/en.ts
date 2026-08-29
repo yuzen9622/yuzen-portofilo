@@ -52,8 +52,8 @@ export const Projects_en: Project[] = [
       "https://opengraph.githubassets.com/1/yuzen9622/graph-patent-analysis",
     datetime: "2026",
     tech: [
-      "Next.js 16",
-      "React 19",
+      "Next.js",
+      "React",
       "TypeScript",
       "Tailwind CSS",
       "PostgreSQL",
@@ -93,7 +93,7 @@ export const Projects_en: Project[] = [
     datetime: "2026",
     tech: [
       "FastAPI",
-      "React 19",
+      "React",
       "Vite",
       "TypeScript",
       "Tailwind CSS",
@@ -174,7 +174,7 @@ export const Projects_en: Project[] = [
     datetime: "2026",
     tech: [
       "Next.js",
-      "React 19",
+      "React",
       "TypeScript",
       "Tailwind CSS",
       "PostgreSQL",
@@ -215,7 +215,7 @@ export const Projects_en: Project[] = [
     datetime: "2026",
     tech: [
       "Next.js",
-      "React 19",
+      "React",
       "TypeScript",
       "Tailwind CSS",
     ],

@@ -187,9 +187,7 @@ export default function TechIcon({
 		if (DARK_MODE_FRIENDLY[name]) {
 			return <Brand size={size} className={className} />;
 		}
-		return (
-			<Brand size={size} color={BRAND_COLORS[name]} className={className} />
-		);
+		return <Brand size={size} color={BRAND_COLORS[name]} className={className} />;
 	}
 
 	const Fallback = FALLBACK_ICONS[name] ?? CodeXml;
