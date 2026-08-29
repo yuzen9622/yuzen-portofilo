@@ -111,7 +111,7 @@ export default function ProjectCard({
         </motion.p>
         <motion.div
           style={{ scale: scale }}
-          className="text-5xl sm:text-6xl lg:text-7xl font-inter font-bold tracking-tight tabular-nums pointer-events-none group-hover:text-muted-foreground/50 transition-colors absolute bottom-0 right-6 z-0 text-muted-foreground/20 select-none"
+          className="text-5xl sm:text-6xl lg:text-7xl font-inter font-bold tracking-tight tabular-nums pointer-events-none group-hover:text-muted-foreground/50 transition-colors absolute bottom-0 right-6 z-0 text-muted-foreground/20 select-none whitespace-nowrap"
         >
           {project.datetime}
         </motion.div>

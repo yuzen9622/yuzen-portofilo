@@ -62,7 +62,7 @@ export default function ProjectDetail({
 					variants={reducedMotion ? undefined : textItemVariants}
 					className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3"
 				>
-					<span className="text-sm text-muted-foreground tabular-nums">
+					<span className="text-sm text-muted-foreground tabular-nums whitespace-nowrap">
 						{project.datetime}
 					</span>
 					{project.tech && (
@@ -193,10 +193,7 @@ export default function ProjectDetail({
 			)}
 
 			<div className="mt-16 grid grid-cols-2 border-t pt-6 gap-4">
-				<Link
-					href={`/projects/${prev.slug}`}
-					className="group flex flex-col gap-1"
-				>
+				<Link href={`/projects/${prev.slug}`} className="group flex flex-col gap-1">
 					<span className="text-xs uppercase tracking-widest text-muted-foreground">
 						{t("prevProject")}
 					</span>
