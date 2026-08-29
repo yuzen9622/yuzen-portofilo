@@ -69,7 +69,7 @@ export default function Home() {
       <Stats />
       <Project />
       <Archive />
-      <Contribution />
+      // <Contribution />
       <Contact />
     </>
   );
