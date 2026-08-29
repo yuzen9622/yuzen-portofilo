@@ -1,20 +1,19 @@
 "use client";
-import type { Project } from "@/shared/content/types";
+
 import { Link } from "@/i18n/navigation";
-import { motion, useReducedMotion, Variants } from "framer-motion";
+import type { Project } from "@/shared/content/types";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
-import Image from "next/image";
-import React from "react";
 import TechIcon from "./tech-icon";
 
 const textContainerVariants: Variants = {
 	hidden: {},
-	show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+	show: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
 };
 
 const textItemVariants: Variants = {
-	hidden: { opacity: 0, y: 24 },
+	hidden: { opacity: 0, y: 16 },
 	show: {
 		opacity: 1,
 		y: 0,
@@ -35,7 +34,10 @@ export default function ProjectDetail({
 	const reducedMotion = useReducedMotion();
 
 	return (
-		<div className="w-11/12 max-w-5xl mx-auto pt-28 pb-16 font-inter">
+		<div
+			data-project-detail=""
+			className="w-11/12 max-w-5xl mx-auto pt-28 pb-24 font-inter"
+		>
 			<motion.div
 				variants={reducedMotion ? undefined : textContainerVariants}
 				initial={reducedMotion ? false : "hidden"}
@@ -44,175 +46,161 @@ export default function ProjectDetail({
 				<motion.div variants={reducedMotion ? undefined : textItemVariants}>
 					<Link
 						href="/projects"
-						className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+						data-cursor-text="BACK"
+						className="group inline-flex min-h-11 items-center gap-2 text-sm text-muted-foreground transition-colors duration-200 hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transition-none"
 					>
-						<ArrowLeft className="size-4" />
+						<ArrowLeft
+							aria-hidden="true"
+							className="size-4 transition-transform duration-200 group-hover:-translate-x-0.5 group-focus-visible:-translate-x-0.5 motion-reduce:transition-none"
+						/>
 						{t("backToProjects")}
 					</Link>
 				</motion.div>
 
-				<motion.h1
+				<motion.header
 					variants={reducedMotion ? undefined : textItemVariants}
-					className="mt-6 text-4xl sm:text-6xl font-semibold uppercase"
+					className="mt-8 border-b border-border pb-8"
 				>
-					{project.title}
-				</motion.h1>
-
-				<motion.div
-					variants={reducedMotion ? undefined : textItemVariants}
-					className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-3"
-				>
-					<span className="text-sm text-muted-foreground tabular-nums whitespace-nowrap">
-						{project.datetime}
-					</span>
-					{project.tech && (
-						<div className="flex flex-wrap gap-2">
-							{project.tech.map((tag) => (
-								<span
-									key={tag}
-									title={tag}
-									className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs text-muted-foreground"
-								>
-									<TechIcon name={tag} size={12} />
-									{tag}
-								</span>
-							))}
-						</div>
-					)}
-				</motion.div>
-
-				<motion.div
-					variants={reducedMotion ? undefined : textItemVariants}
-					className="mt-6 flex flex-wrap gap-3"
-				>
-					{project.github && (
-						<a
-							href={project.github}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-sm hover:bg-primary hover:text-primary-foreground transition-colors"
-						>
-							{t("viewGithub")}
-							<ArrowUpRight className="size-4" />
-						</a>
-					)}
-					{project.demo && (
-						<a
-							href={project.demo}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-sm hover:bg-primary hover:text-primary-foreground transition-colors"
-						>
-							{t("viewDemo")}
-							<ArrowUpRight className="size-4" />
-						</a>
-					)}
-				</motion.div>
-			</motion.div>
-
-			<motion.div
-				initial={
-					reducedMotion ? false : { scale: 1.05, borderRadius: 0, opacity: 0 }
-				}
-				animate={{ scale: 1, borderRadius: 24, opacity: 1 }}
-				transition={{ type: "spring", stiffness: 100, damping: 30, mass: 0.2 }}
-				className="mt-10 overflow-hidden"
-			>
-				<Image
-					src={project.picture}
-					alt={project.title}
-					width={1600}
-					height={900}
-					priority
-					className="w-full object-cover aspect-video"
-					unoptimized={project.picture.startsWith("http")}
-				/>
-			</motion.div>
-
-			{project.intro && (
-				<motion.p
-					initial={reducedMotion ? false : { opacity: 0, y: 24 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					viewport={{ once: true, margin: "-10% 0px" }}
-					transition={{
-						type: "spring",
-						stiffness: 100,
-						damping: 30,
-						mass: 0.2,
-					}}
-					className="mt-12 text-lg sm:text-xl leading-relaxed"
-				>
-					{project.intro}
-				</motion.p>
-			)}
-
-			{!!project.highlights?.length && (
-				<div className="mt-14">
-					<motion.h2
-						initial={reducedMotion ? false : { opacity: 0, y: 24 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						viewport={{ once: true, margin: "-10% 0px" }}
-						transition={{
-							type: "spring",
-							stiffness: 100,
-							damping: 30,
-							mass: 0.2,
-						}}
-						className="text-sm uppercase tracking-widest text-muted-foreground"
-					>
-						{t("highlights")}
-					</motion.h2>
-					<div className="mt-6 flex flex-col divide-y">
-						{project.highlights.map((highlight, index) => (
-							<motion.div
-								key={highlight.title}
-								initial={reducedMotion ? false : { opacity: 0, y: 32 }}
-								whileInView={{ opacity: 1, y: 0 }}
-								viewport={{ once: true, margin: "-10% 0px" }}
-								transition={{
-									type: "spring",
-									stiffness: 100,
-									damping: 30,
-									mass: 0.2,
-								}}
-								className="grid grid-cols-[3rem_1fr] gap-4 py-6"
+					<div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+						<div className="min-w-0">
+							<h1 className="break-words text-5xl font-semibold uppercase leading-[0.9] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
+								{project.title}
+							</h1>
+							<time
+								dateTime={project.datetime}
+								className="mt-5 block text-sm font-medium tabular-nums text-muted-foreground"
 							>
-								<span className="text-2xl font-bold text-muted-foreground/40 tabular-nums">
-									{`${index + 1}`.padStart(2, "0")}
-								</span>
-								<div>
-									<h3 className="font-semibold text-lg">{highlight.title}</h3>
-									<p className="mt-1 text-muted-foreground leading-relaxed">
+								{project.datetime}
+							</time>
+						</div>
+
+						{(project.github || project.demo) && (
+							<div className="flex flex-wrap gap-x-5 gap-y-2">
+								{project.github && (
+									<a
+										href={project.github}
+										target="_blank"
+										rel="noopener noreferrer"
+										data-cursor-text="OPEN"
+										className="group inline-flex min-h-11 items-center gap-1.5 border-b border-border text-sm font-medium text-foreground transition-colors duration-200 hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transition-none"
+									>
+										{t("viewGithub")}
+										<ArrowUpRight
+											aria-hidden="true"
+											className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-focus-visible:translate-x-0.5 group-focus-visible:-translate-y-0.5 motion-reduce:transition-none"
+										/>
+									</a>
+								)}
+								{project.demo && (
+									<a
+										href={project.demo}
+										target="_blank"
+										rel="noopener noreferrer"
+										data-cursor-text="OPEN"
+										className="group inline-flex min-h-11 items-center gap-1.5 border-b border-border text-sm font-medium text-foreground transition-colors duration-200 hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transition-none"
+									>
+										{t("viewDemo")}
+										<ArrowUpRight
+											aria-hidden="true"
+											className="size-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-focus-visible:translate-x-0.5 group-focus-visible:-translate-y-0.5 motion-reduce:transition-none"
+										/>
+									</a>
+								)}
+							</div>
+						)}
+					</div>
+				</motion.header>
+
+				{project.tech && (
+					<motion.div
+						variants={reducedMotion ? undefined : textItemVariants}
+						className="mt-6 flex flex-wrap gap-2"
+					>
+						{project.tech.map((tag) => (
+							<span
+								key={tag}
+								title={tag}
+								className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 text-xs text-muted-foreground"
+							>
+								<TechIcon name={tag} size={12} />
+								{tag}
+							</span>
+						))}
+					</motion.div>
+				)}
+
+				{project.intro && (
+					<motion.p
+						variants={reducedMotion ? undefined : textItemVariants}
+						className="mt-12 max-w-3xl text-lg leading-relaxed text-foreground sm:text-xl"
+					>
+						{project.intro}
+					</motion.p>
+				)}
+
+				{!!project.highlights?.length && (
+					<motion.section
+						variants={reducedMotion ? undefined : textItemVariants}
+						className="mt-16"
+						aria-labelledby="project-highlights"
+					>
+						<h2
+							id="project-highlights"
+							className="text-sm uppercase tracking-widest text-muted-foreground"
+						>
+							{t("highlights")}
+						</h2>
+						<div className="mt-6 border-t border-border">
+							{project.highlights.map((highlight, index) => (
+								<article
+									key={highlight.title}
+									className="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 gap-y-2 border-b border-border py-5 sm:grid-cols-[3rem_minmax(0,1fr)] sm:py-6 lg:grid-cols-[minmax(0,0.3fr)_minmax(0,1fr)_minmax(0,1.6fr)] lg:items-start lg:gap-x-8 lg:py-8"
+								>
+									<span className="text-sm font-medium tabular-nums text-muted-foreground">
+										{`${index + 1}`.padStart(2, "0")}
+									</span>
+									<h3 className="min-w-0 text-lg font-semibold leading-snug text-foreground">
+										{highlight.title}
+									</h3>
+									<p className="col-start-2 min-w-0 text-sm leading-relaxed text-muted-foreground lg:col-start-auto lg:text-base">
 										{highlight.description}
 									</p>
-								</div>
-							</motion.div>
-						))}
-					</div>
-				</div>
-			)}
+								</article>
+							))}
+						</div>
+					</motion.section>
+				)}
 
-			<div className="mt-16 grid grid-cols-2 border-t pt-6 gap-4">
-				<Link href={`/projects/${prev.slug}`} className="group flex flex-col gap-1">
-					<span className="text-xs uppercase tracking-widest text-muted-foreground">
-						{t("prevProject")}
-					</span>
-					<span className="font-semibold group-hover:text-primary transition-colors">
-						{prev.title}
-					</span>
-				</Link>
-				<Link
-					href={`/projects/${next.slug}`}
-					className="group flex flex-col gap-1 text-end"
+				<motion.nav
+					variants={reducedMotion ? undefined : textItemVariants}
+					className="mt-20 grid border-y border-border sm:grid-cols-2"
 				>
-					<span className="text-xs uppercase tracking-widest text-muted-foreground">
-						{t("nextProject")}
-					</span>
-					<span className="font-semibold group-hover:text-primary transition-colors">
-						{next.title}
-					</span>
-				</Link>
-			</div>
+					<Link
+						href={`/projects/${prev.slug}`}
+						data-cursor-text="VIEW"
+						className="group relative isolate flex min-h-36 flex-col justify-between gap-6 overflow-hidden border-b border-border py-8 pr-6 font-inter focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring before:pointer-events-none before:absolute before:inset-0 before:z-0 before:-translate-x-full before:bg-muted/30 before:transition-transform before:duration-300 before:ease-out before:content-[''] group-hover:before:translate-x-0 group-focus-visible:before:translate-x-0 motion-reduce:before:duration-0 sm:border-b-0 sm:border-r sm:py-10"
+					>
+						<span className="relative z-10 text-xs uppercase tracking-widest text-muted-foreground">
+							{t("prevProject")}
+						</span>
+						<span className="relative z-10 text-xl font-semibold text-foreground transition-transform duration-200 group-hover:translate-x-1 group-focus-visible:translate-x-1 motion-reduce:transition-none sm:text-2xl">
+							{prev.title}
+						</span>
+					</Link>
+					<Link
+						href={`/projects/${next.slug}`}
+						data-cursor-text="VIEW"
+						className="group relative isolate flex min-h-36 flex-col justify-between gap-6 overflow-hidden py-8 pl-6 text-end font-inter focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring before:pointer-events-none before:absolute before:inset-0 before:z-0 before:translate-x-full before:bg-muted/30 before:transition-transform before:duration-300 before:ease-out before:content-[''] group-hover:before:translate-x-0 group-focus-visible:before:translate-x-0 motion-reduce:before:duration-0 sm:py-10"
+					>
+						<span className="relative z-10 text-xs uppercase tracking-widest text-muted-foreground">
+							{t("nextProject")}
+						</span>
+						<span className="relative z-10 text-xl font-semibold text-foreground transition-transform duration-200 group-hover:-translate-x-1 group-focus-visible:-translate-x-1 motion-reduce:transition-none sm:text-2xl">
+							{next.title}
+						</span>
+					</Link>
+				</motion.nav>
+			</motion.div>
 		</div>
 	);
 }

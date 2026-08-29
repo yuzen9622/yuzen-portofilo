@@ -22,19 +22,17 @@ export const Archive_en: ArchiveContent = {
 				{
 					id: "frontend",
 					name: "Frontend",
-					items: ["weather-app", "web3", "weast"].map(projectItem),
+					items: ["termexpander-ai", "yuzen-portofilo"].map(projectItem),
 				},
 				{
 					id: "backend",
 					name: "Backend",
-					items: ["chatto", "dcard-clone", "accessible-navigation"].map(
-						projectItem,
-					),
+					items: ["accessible-smart-map", "cite-for-all"].map(projectItem),
 				},
 				{
 					id: "ai",
 					name: "AI",
-					items: ["makentu2026", "termexpander-ai"].map(projectItem),
+					items: ["graph-patent-analysis", "makentu2026"].map(projectItem),
 				},
 			],
 		},

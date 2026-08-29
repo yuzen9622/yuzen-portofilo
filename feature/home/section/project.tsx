@@ -1,17 +1,19 @@
 "use client";
-import React from "react";
-import { SectionLayout } from "../components/section-layout";
+
+import { Link } from "@/i18n/navigation";
 import { getProjectsContent } from "@/shared/lib/content";
+import { ArrowUpRight } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import ProjectCard from "../components/project-card";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { useTranslations } from "next-intl";
+import { SectionLayout } from "../components/section-layout";
 
 export default function Project({ all = false }: { all?: boolean }) {
   const { locale }: { locale: string } = useParams();
   const t = useTranslations("ProjectPage");
   const projects = getProjectsContent(locale);
+  const visibleProjects = projects.slice(0, all ? projects.length : 6);
+
   return (
     <SectionLayout
       id="projects"
@@ -22,34 +24,26 @@ export default function Project({ all = false }: { all?: boolean }) {
       // whole /projects page. Every other section leaves it transparent too.
       className="relative"
     >
-      <div className="w-full   mx-auto  flex-1 grid grid-cols-1 md:grid-cols-2">
-        {projects.slice(0, all ? projects.length : 4).map((project, index) => (
-          <ProjectCard key={project.slug} project={project} index={index + 1} />
+      <div className="w-11/12 mx-auto border-t border-border">
+        {visibleProjects.map((project) => (
+          <ProjectCard key={project.slug} project={project} />
         ))}
-      </div>
-      {!all && (
-        <div className="w-full   mx-auto  flex-1 grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2  ">
-          {projects.slice(4, 6).map((project, index) => (
-            <ProjectCard
-              key={project.slug}
-              project={project}
-              index={index + 5}
-            />
-          ))}
-
+        {!all && (
           <Link
             href="/projects"
             data-cursor-text="ALL"
-            className="relative isolate group flex items-center justify-center md:col-span-2 lg:border-2 lg:border-t-0 lg:border-r-0 lg:col-span-1 p-4 overflow-hidden"
+            className="group relative isolate flex min-h-11 items-center justify-between gap-6 overflow-hidden py-6 font-inter focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring before:pointer-events-none before:absolute before:inset-0 before:z-0 before:-translate-x-full before:bg-muted/30 before:transition-transform before:duration-300 before:ease-out before:content-[''] after:pointer-events-none after:absolute after:inset-y-0 after:left-0 after:z-0 after:w-px after:-translate-y-full after:bg-primary after:transition-transform after:duration-300 after:ease-out after:content-[''] group-hover:before:translate-x-0 group-hover:after:translate-y-0 group-focus-visible:before:translate-x-0 group-focus-visible:after:translate-y-0 motion-reduce:before:duration-0 motion-reduce:after:duration-0 md:py-8"
           >
-            <h1 className="z-10 text-background text-6xl text-center font-semibold uppercase transition-transform duration-500 group-hover:scale-105">
-              All Projects
-            </h1>
-
-            <motion.div className="absolute inset-0 bg-primary group-hover:rounded-none rounded-2xl duration-500 scale-90 group-hover:scale-100 transition-all" />
+            <span className="relative z-10 text-2xl font-semibold uppercase tracking-tight text-foreground transition-transform duration-200 group-hover:translate-x-1 group-focus-visible:translate-x-1 motion-reduce:transition-none sm:text-3xl lg:text-4xl">
+              {t("title.leftContent")}
+            </span>
+            <ArrowUpRight
+              aria-hidden="true"
+              className="relative z-10 size-5 shrink-0 text-foreground transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1 group-focus-visible:translate-x-1 group-focus-visible:-translate-y-1 motion-reduce:transition-none"
+            />
           </Link>
-        </div>
-      )}
+        )}
+      </div>
     </SectionLayout>
   );
 }

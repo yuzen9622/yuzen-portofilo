@@ -1,7 +1,6 @@
 import About from "@/feature/home/section/about";
 import Archive from "@/feature/home/section/archive";
 import Contact from "@/feature/home/section/contact";
-import Contribution from "@/feature/home/section/contribution";
 import Hero from "@/feature/home/section/hero";
 import Project from "@/feature/home/section/project";
 import Stats from "@/feature/home/section/stats";
@@ -69,7 +68,7 @@ export default function Home() {
       <Stats />
       <Project />
       <Archive />
-      // <Contribution />
+      {/* <Contribution /> */}
       <Contact />
     </>
   );

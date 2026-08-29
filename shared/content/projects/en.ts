@@ -2,303 +2,267 @@ import type { Project } from "../types";
 
 export const Projects_en: Project[] = [
   {
-    slug: "chatto",
-    title: "Chat.to",
+    slug: "accessible-smart-map",
+    title: "accessible-smart-map",
     description:
-      "Chat.to is a modern real-time messaging platform combining Next.js, Supabase, Ably, and NextAuth to deliver group chat rooms, voice/video calling, direct media uploads, and markdown rendering.",
-    picture: "/project/chatto.webp",
-    datetime: "2025",
+      "An accessibility-focused map for exploring facility layers, planning barrier-aware routes, and viewing live TDX bus and transit information.",
+    picture: "/project/taipei-a11y.webp",
+    datetime: "2025 - 2026",
     tech: [
       "Next.js",
+      "React",
       "TypeScript",
-      "Tailwind CSS",
-      "Supabase",
-      "Ably",
-      "NextAuth",
-      "Cloudinary",
+      "MapLibre",
+      "react-map-gl",
+      "Node.js",
+      "Express",
+      "TDX API",
     ],
-    github: "https://github.com/yuzen9622/chat.to",
-    demo: "https://chat-to-sage.vercel.app/introduce",
+    github: "https://github.com/yuzen9622/accessible-smart-map",
+    demo: "https://map.yuzen.dev",
     intro:
-      "A full-featured real-time communication platform with friend discovery, group rooms, ephemeral presence indicators, voice/video calls, and direct media uploads, designed for serverless scalability.",
+      "A web map that brings accessibility facilities, accessible route planning, and live Taiwan TDX bus and transit data together to support more confident travel.",
     highlights: [
       {
-        title: "Real-time pub/sub & zero-DB presence via Ably",
+        title: "Accessibility facility layers",
         description:
-          "Eliminates persistent server WebSocket overhead by utilizing Ably's pub/sub and presence architecture, enabling stateless horizontal scaling across Vercel serverless functions while decoupling ephemeral typing indicators completely from database writes.",
+          "Organizes accessibility-related facilities into map layers so people can inspect relevant places before they travel.",
       },
       {
-        title: "NextAuth JWT session integrated channel security",
+        title: "Barrier-aware route planning",
         description:
-          "Binds NextAuth JWT session validation to Ably token auth endpoints, dynamically issuing room-scoped tokens based on database memberships to enforce strict cross-room isolation.",
+          "Helps users plan routes with accessibility considerations at the center, making it easier to evaluate travel options.",
       },
       {
-        title: "Signed direct uploads to Cloudinary CDN",
+        title: "Live TDX transit data",
         description:
-          "Implements signed client-side direct uploads to Cloudinary, bypassing serverless API payload constraints and drastically cutting server bandwidth usage.",
+          "Connects to TDX live bus and transit data so route planning can be considered alongside current public-transport information.",
+      },
+    ],
+  },
+  {
+    slug: "graph-patent-analysis",
+    title: "graph-patent-analysis",
+    description:
+      "A patent portfolio analysis tool that turns XLSX data into inspectable concept networks, contextual graphs, comparisons, and exports.",
+    picture:
+      "https://opengraph.githubassets.com/1/yuzen9622/graph-patent-analysis",
+    datetime: "2026",
+    tech: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS v4",
+      "vis-network",
+      "graphology",
+      "Louvain",
+      "Vercel AI SDK",
+      "Gemini",
+      "PostgreSQL",
+    ],
+    github: "https://github.com/yuzen9622/graph-patent-analysis",
+    intro:
+      "Imports XLSX patent data, uses Gemini to extract concepts, and turns portfolios into inspectable technical and Applicant → Patent → Concept graphs for comparison and reporting.",
+    highlights: [
+      {
+        title: "XLSX import and Gemini concept extraction",
+        description:
+          "Imports patent spreadsheets and uses Gemini to extract the technical concepts that anchor later analysis.",
       },
       {
-        title: "Full social chat suite & Markdown parsing",
+        title: "Concept networks and portfolio context",
         description:
-          "Features friend requests, group administrative roles, threaded message replies, edit/soft-delete workflows, read receipts, and real-time Markdown syntax rendering.",
+          "Builds a technical concept network and an Applicant → Patent → Concept context graph, with side-by-side portfolio comparison.",
+      },
+      {
+        title: "Filters and explainable inspection",
+        description:
+          "Supports temporal and IPC filters, then exposes support, Jaccard similarity, and source-patent inspection for traceable findings.",
+      },
+      {
+        title: "AI reports and portable exports",
+        description:
+          "Generates AI trend reports and exports analysis as CSV, Excel, or standalone HTML.",
       },
     ],
   },
   {
     slug: "makentu2026",
-    title: "MakeNTU 2026 — Yi-Agent",
+    title: "MakeNTU2026",
     description:
-      "A MakeNTU 2026 hackathon project: an AI decision assistant combining a deterministic I-Ching engine, Agentic RAG, and single-pass LLM synthesis with bidirectional voice streaming.",
+      "A MakeNTU 2026 decision assistant combining a deterministic Plum Blossom I Ching and five-elements engine with Agentic RAG, structured LLM reports, and voice interaction.",
     picture: "https://opengraph.githubassets.com/1/yuzen9622/MakeNTU2026",
     datetime: "2026",
     tech: [
-      "React 19",
-      "TypeScript",
       "FastAPI",
-      "Python",
+      "Pydantic",
       "ChromaDB",
-      "Agentic RAG",
-      "faster-whisper",
-      "WebSocket",
+      "sentence-transformers",
+      "React 19",
+      "Vite",
+      "TypeScript",
+      "Tailwind CSS",
+      "Radix UI",
+      "Zustand",
     ],
     github: "https://github.com/yuzen9622/MakeNTU2026",
     intro:
-      "Transforms ancient Plum Blossom I-Ching divination into actionable modern decision advice via a deterministic five-element engine, ChromaDB retrieval, and single-pass LLM synthesis with real-time voice streaming.",
+      "It pairs reproducible divination logic with Agentic RAG to produce one-shot structured reports, supports WebSocket STT/TTS voice conversations, relationship analysis, and cache warmup.",
     highlights: [
       {
-        title: "Deterministic Five-Element engine (0 LLM invocations)",
+        title: "Deterministic Plum Blossom I Ching and five-elements engine",
         description:
-          "Eliminates hallucination in divination logic by computing lunar calendar alignments, hexagram mutations (ben/zhi/hu gua), and body/application elemental interactions through pure deterministic algorithms with zero model calls.",
+          "Uses deterministic Meihua Yishu and five-elements reasoning to provide a reproducible foundation for each consultation.",
       },
       {
-        title: "Agentic RAG & structured four-part decision synthesis",
+        title: "Agentic RAG and one-shot structured reports",
         description:
-          "Queries ChromaDB vector store for historical I-Ching texts, enforcing a structured four-part JSON schema (overview, reading, active-verb actionable steps, optimal timing) in a single LLM pass.",
+          "Retrieves relevant context with Agentic RAG and produces a structured LLM report in one generation pass.",
       },
       {
-        title: "Bidirectional WebSocket voice pipeline (STT + LLM + TTS)",
+        title: "WebSocket voice flow and relationship analysis",
         description:
-          "Coordinates faster-whisper speech-to-text, LLM generation, and localized TTS via an asynchronous audio buffer queue over WebSockets for natural, low-latency spoken consultations.",
+          "Connects STT and TTS through a WebSocket voice flow while also supporting relationship-focused analysis.",
       },
       {
-        title: "Lock Folder KV-Cache pre-warming & streaming UI",
+        title: "Cache warmup",
         description:
-          "Pre-warms KV-Cache on FastAPI startup to minimize time-to-first-token (TTFT), paired with React 19 and Radix UI streaming markdown tokens in real time.",
+          "Warms caches in advance to make interactive consultations more responsive.",
       },
     ],
   },
   {
     slug: "termexpander-ai",
-    title: "TermExpander AI",
+    title: "TermExpander-ai",
     description:
-      "A Chrome extension (Manifest V3) for academic research and writing: highlight any term to instantly expand acronyms, standardize nomenclature, and refine academic phrasing.",
+      "A Chrome extension for expanding academic abbreviations, converting selected text, and refining writing into a more academic tone.",
     picture: "https://opengraph.githubassets.com/1/yuzen9622/TermExpander-ai",
-    datetime: "2026",
+    datetime: "2025",
     tech: [
+      "Chrome Extension MV3",
       "React",
-      "TypeScript",
       "Vite",
+      "TypeScript",
       "Tailwind CSS",
-      "Chrome Extension (MV3)",
       "Gemini API",
+      "Chrome Storage API",
     ],
     github: "https://github.com/yuzen9622/TermExpander-ai",
     intro:
-      "Highlight technical terms across academic papers and webpages to trigger Google Gemini models, transforming colloquial or abbreviated terms into standard academic nomenclature.",
+      "A Manifest V3 extension that helps researchers expand academic abbreviations, use selection and popup conversion tools, and refine text for an academic tone.",
     highlights: [
       {
-        title: "Selection-triggered inline tooltip UX",
+        title: "Academic abbreviation expansion",
         description:
-          "Injects content script listeners on text selection to position a lightweight floating tooltip adjacent to highlighted terms, querying AI and rendering normalized definitions without layout shifts or context switching.",
+          "Expands academic abbreviations into clearer terminology to help readers understand specialized text.",
       },
       {
-        title: "Academic nomenclature normalization & formal tone rewriting",
+        title: "Selection tooltip and popup conversion",
         description:
-          "Employs specialized academic prompt engineering to expand technical abbreviations (e.g., ITS, RAG, LLM) into standard citation formats [Chinese (English, Acronym)] and rewrite informal sentences for journal submissions.",
+          "Offers a tooltip for selected text and a popup workflow for converting text without leaving the browser.",
       },
       {
-        title: "Google Gemini 2.5 multi-model adapter architecture",
+        title: "Academic tone refinement",
         description:
-          "Implements a modular model adapter supporting Gemini 2.5 Flash, Pro, and 2.0 Flash Lite with structured schema enforcement for sub-second semantic recognition.",
+          "Refines wording toward a more formal academic tone for research and professional writing.",
       },
       {
-        title: "BYOK local storage & zero-server privacy",
+        title: "Local API key and privacy",
         description:
-          "Built on a Bring-Your-Own-Key client-only architecture storing encrypted API keys in chrome.storage.local, communicating directly with Google endpoints without telemetry or history collection.",
+          "Stores the user's API key locally with the Chrome Storage API and does not collect browsing history.",
       },
     ],
   },
   {
-    slug: "accessible-navigation",
-    title: "Accessible Smart Navigation",
+    slug: "cite-for-all",
+    title: "cite-for-all",
     description:
-      "A multimodal accessible smart navigation platform integrating TDX transit feeds, indoor GTFS networks, and Gemini Live voice streaming to deliver barrier-free routes for mobility-impaired users.",
-    picture: "/project/taipei-a11y.webp",
-    datetime: "2024 - 2026",
+      "A citation converter for exact DOI or title lookup, seven styles, resilient batches, and copy or file export.",
+    picture: "https://opengraph.githubassets.com/1/yuzen9622/cite-for-all",
+    datetime: "2026",
     tech: [
-      "Next.js",
+      "Next.js 16",
+      "React 19",
       "TypeScript",
-      "Node.js",
-      "Express",
-      "MongoDB",
-      "Redis",
-      "TDX API",
-      "Gemini Live API",
-      "Docker",
+      "Tailwind CSS",
+      "Citation.js",
+      "citeproc",
+      "CSL",
+      "Auth.js",
+      "Prisma",
+      "PostgreSQL",
     ],
-    github: "https://github.com/yuzen9622/accessible-smart-map",
-    demo: "https://map.yuzen.dev/",
+    github: "https://github.com/yuzen9622/cite-for-all",
+    demo: "https://citation.yuzen.dev",
     intro:
-      "An integrated smart navigation platform built for wheelchair users and mobility-impaired individuals, featuring multimodal routing algorithms, crowd-sourced hazard reporting, and Gemini Live voice assistance.",
+      "Looks up references by DOI or title through DOI.org, Crossref, and DataCite; converts up to 30 items in seven styles; and supports anonymous conversion or optional authenticated private projects.",
     highlights: [
       {
-        title: "Multimodal routing engine & GTFS indoor multi-floor graph",
+        title: "DOI and title resolution",
         description:
-          "Integrates real-time TDX transit data with multi-floor GTFS indoor graphs (elevators, ramps, accessible station exits) using OpenTripPlanner/Valhalla to route mobility-impaired users around stairs and barriers.",
+          "Finds references by exact DOI or title using DOI.org, Crossref, and DataCite.",
       },
       {
-        title: "Gemini Live WebSocket bidirectional voice assistant",
+        title: "Seven styles and resilient batches",
         description:
-          "Streams two-way audio over WebSockets with Gemini Live, enabling conversational accessibility inquiries, elevator directions, and natural-language route explanations.",
+          "Formats references in seven citation styles and processes batches of up to 30 items without discarding successful results when individual items fail.",
       },
       {
-        title: "Comprehensive accessibility GIS layers & live CCTV feeds",
+        title: "Copy and file export",
         description:
-          "Aggregates nationwide accessible restrooms, parking spaces, welfare institutions, campus facilities, and tactile paving, enriched with live intersection CCTV video streams and weather warnings.",
+          "Lets users copy results or download them as TXT or BibTeX files.",
       },
       {
-        title: "Crowdsourced hazard reporting & automated lifecycle scheduling",
+        title: "Anonymous or private workflows",
         description:
-          "Enables real-time obstacle and construction reporting with community validation and automated cron expiration jobs to maintain fresh, reliable ground-truth data.",
-      },
-      {
-        title: "Strict architectural linting (lint:arch) & Docker Compose",
-        description:
-          "Enforces unidirectional module boundaries via custom architectural linting, backed by Redis caching, MongoDB persistence, Docker Compose orchestration, and comprehensive Vitest test coverage.",
+          "Keeps conversion available without an account while offering authenticated users optional private projects.",
       },
     ],
   },
   {
-    slug: "dcard-clone",
-    title: "Dcard Clone",
+    slug: "yuzen-portofilo",
+    title: "yuzen-portofilo",
     description:
-      "A community forum platform built with Django, featuring user authentication, article CRUD, hierarchical board categories, pagination, reader comments, and Django Admin content management.",
-    picture: "/project/dcard.webp",
-    datetime: "2024",
-    tech: ["Django", "Python", "Bootstrap", "SQLite", "HTML", "CSS"],
-    github: "https://github.com/yuzen9622/Dcard",
-    intro:
-      "Recreates core Dcard forum features with Django, demonstrating MVC/MTV architectural patterns, relational ORM modeling, and responsive frontend integration.",
-    highlights: [
-      {
-        title: "Full authentication & session management",
-        description:
-          "Implements secure user registration, login, logout, and session lifecycle using Django Auth, ensuring robust permission checks across article authoring and commenting.",
-      },
-      {
-        title: "Relational ORM data modeling & multi-board categories",
-        description:
-          "Models one-to-many relationships across posts, categorical boards, and nested comment threads using Django ORM, supporting full CRUD operations, board filtering, and paginated feeds.",
-      },
-      {
-        title: "Customized Django Admin & responsive Bootstrap layout",
-        description:
-          "Leverages a customized Django Admin suite for rapid content moderation, coupled with a mobile-first Bootstrap 5 grid layout for responsive cross-device experiences.",
-      },
+      "A multilingual portfolio site with localized home, about, projects, blog, and contact experiences in an animated interface.",
+    picture: "https://opengraph.githubassets.com/1/yuzen9622/yuzen-portofilo",
+    datetime: "2026",
+    tech: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "Tailwind CSS",
+      "next-intl",
+      "Motion",
+      "React Markdown",
+      "KaTeX",
+      "Resend",
+      "Zustand",
+      "SWR",
     ],
-  },
-  {
-    slug: "weast",
-    title: "Weast",
-    description:
-      "An intuitive personal finance and expense tracker web app built with React, Material UI, and a Node.js Express MVC backend, featuring multi-account transfers, date filtering, and statistical charts.",
-    picture: "/project/weast.webp",
-    datetime: "2023",
-    tech: ["React", "Material UI", "Node.js", "Express", "MongoDB", "JWT"],
-    github: "https://github.com/yuzen9622/Account-App",
-    demo: "https://account-app-phi.vercel.app/",
+    github: "https://github.com/yuzen9622/yuzen-portofilo",
+    demo: "https://www.yuzen.dev",
     intro:
-      "A personal financial management system designed for daily bookkeeping, featuring multi-account fund tracking, visual expense charts, and JWT data isolation.",
+      "A Next.js portfolio that combines localized routing, animated UI, Markdown publishing with syntax highlighting and KaTeX, SEO, a contact form, and an Apple Music navbar integration.",
     highlights: [
       {
-        title: "Transaction logging & multi-account fund transfers",
+        title: "Multilingual localized routing",
         description:
-          "Enables rapid bookkeeping for income and expenses with customizable tags, notes, and intra-account fund transfers across cash, bank, and credit accounts.",
+          "Presents home, about, projects, blog, and contact experiences through localized routes.",
       },
       {
-        title: "Multi-dimensional date filtering & interactive charts",
+        title: "Animated interface",
         description:
-          "Provides dynamic filtering by day, month, year, or custom date ranges (start/end), visualized through interactive MUI charts to highlight spending habits and monthly balances.",
+          "Uses Motion to add purposeful animation throughout the portfolio experience.",
       },
       {
-        title: "Decoupled Express MVC backend architecture",
+        title: "Technical Markdown blog",
         description:
-          "Connects a React MUI frontend to a standalone Node.js backend (account_api_node) structured around a clean Controller-Model-Router MVC pattern for business logic and MongoDB operations.",
+          "Publishes Markdown posts with syntax highlighting and KaTeX support for technical writing.",
       },
       {
-        title: "JWT Bearer Token authorization & data isolation",
+        title: "SEO, contact, and Apple Music",
         description:
-          "Implements Bearer Token authentication headers across REST endpoints to enforce strict user-level data encryption and account isolation in MongoDB.",
-      },
-    ],
-  },
-  {
-    slug: "web3",
-    title: "Web Technology Introduction",
-    description:
-      "A structured educational and reference platform for modern web technologies, covering core frontend standards, framework comparisons, backend runtimes, database paradigms, and CI/CD pipelines.",
-    picture: "/project/web3.webp",
-    datetime: "2023",
-    tech: ["HTML", "CSS", "JavaScript", "Vercel"],
-    github: "https://github.com/yuzen9622/web3",
-    demo: "https://web3-six-omega.vercel.app",
-    intro:
-      "An educational platform designed to provide beginners and developers with a comprehensive overview of modern web development, from frontend foundations to backend architecture and DevOps.",
-    highlights: [
-      {
-        title: "Structured frontend core standards & framework breakdown",
-        description:
-          "Covers HTML5 semantic elements, modern CSS3 layout engines, and vanilla JavaScript DOM manipulation alongside architectural comparisons of React, Vue, and Angular.",
-      },
-      {
-        title: "Backend ecosystem & database paradigm comparisons",
-        description:
-          "Introduces Laravel (PHP), Spring Boot (Java), and Express (Node.js) runtime environments, contrasting relational ACID databases (MySQL/PostgreSQL) with document-oriented NoSQL (MongoDB).",
-      },
-      {
-        title: "DevOps mindset & CI/CD automation pipelines",
-        description:
-          "Walks through modern software delivery workflows including Git branching strategies, automated testing with GitHub Actions, and continuous deployment to Vercel and cloud platforms.",
-      },
-    ],
-  },
-  {
-    slug: "weather-app",
-    title: "Taiwan Weather App",
-    description:
-      "A real-time weather query web application built with React, integrating Central Weather Administration (CWA) open data for Taiwan's counties and islands with 3-hour forecasts and responsive UI.",
-    picture: "/project/weatherapp.webp",
-    datetime: "2023",
-    tech: ["React", "JavaScript", "CSS", "CWA API"],
-    github: "https://github.com/yuzen9622/weather-app",
-    demo: "http://weather.yuzen.dev/",
-    intro:
-      "A responsive weather application built with React and Central Weather Administration open data, featuring diurnal state detection, live readings, and 3-hour forecasts.",
-    highlights: [
-      {
-        title: "CWA Open Data API integration",
-        description:
-          "Integrates Taiwan Central Weather Administration open data via Fetch API, parsing real-time observations including temperature, relative humidity, wind speed, and precipitation for 22 counties and outlying islands.",
-      },
-      {
-        title: "3-hour forecasts & horizontal scroll cards",
-        description:
-          "Processes multi-period forecast intervals into horizontal CSS-overflow scrolling cards displaying diurnal trends, high/low extremes, and meteorological icons.",
-      },
-      {
-        title: "Diurnal state detection & mobile-first UI",
-        description:
-          "Calculates time-of-day states (morning, afternoon, night) to dynamically adapt theme aesthetics, optimized for vertical smartphone screens without manual zooming.",
+          "Combines SEO support, a contact form powered by Resend, and an Apple Music integration in the navbar.",
       },
     ],
   },
