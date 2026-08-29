@@ -255,7 +255,7 @@ function EntryRow({
         (item.link || item.image) && "cursor-pointer",
       )}
     >
-      <span className="w-16 md:w-20 shrink-0 text-xs md:text-sm text-muted-foreground tabular-nums">
+      <span className="w-24 md:w-28 shrink-0 text-xs md:text-sm text-muted-foreground tabular-nums whitespace-nowrap">
         {item.date}
       </span>
       <span
@@ -373,9 +373,7 @@ function GroupPanel({
     const availableHeight = viewportHeight - topLimit - bottomLimit;
     const hasOverflow = listHeight > availableHeight;
 
-    startY = hasOverflow
-      ? topLimit - (viewportHeight / 2 - listHeight / 2)
-      : 0;
+    startY = hasOverflow ? topLimit - (viewportHeight / 2 - listHeight / 2) : 0;
 
     endY = hasOverflow
       ? viewportHeight - bottomLimit - (viewportHeight / 2 + listHeight / 2)
