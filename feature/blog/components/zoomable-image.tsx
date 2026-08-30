@@ -163,7 +163,7 @@ export default function ZoomableImage({
           <motion.span
             layoutId={`zoom-capsule-${id}`}
             transition={smoothTransition}
-            className="pointer-events-none absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full bg-background/85 dark:bg-neutral-900/85 px-2.5 py-1 text-[11px] font-medium text-foreground backdrop-blur-md border border-border/50 shadow-sm opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+            className="pointer-events-none absolute bottom-3 right-3 flex items-center gap-1.5 rounded-full  px-2.5 py-1 text-[11px] font-medium text-foreground backdrop-blur-md border border-border/50 shadow-sm opacity-0 transition-opacity duration-200 group-hover:opacity-100"
           >
             <ZoomIn size={12} className="text-primary shrink-0" />
             <span className="max-w-[160px] truncate">{alt || "放大"}</span>
