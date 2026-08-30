@@ -191,7 +191,7 @@ export default function ZoomableImage({
                     duration: reduceMotion ? 0 : 0.35,
                     ease: SMOOTH_EASE,
                   }}
-                  className="fixed inset-0 bg-black/75 dark:bg-black/85 backdrop-blur-md cursor-zoom-out"
+                  className="fixed inset-0  backdrop-blur-md cursor-zoom-out"
                   onClick={handleClose}
                 />
               )}
