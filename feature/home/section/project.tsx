@@ -24,7 +24,7 @@ export default function Project({ all = false }: { all?: boolean }) {
       // whole /projects page. Every other section leaves it transparent too.
       className="relative"
     >
-      <div className="w-11/12 mx-auto border-t border-border">
+      <div className="w-11/12 max-w-6xl mx-auto border-t border-border">
         {visibleProjects.map((project, index) => (
           <ProjectCard key={project.slug} project={project} index={index} />
         ))}

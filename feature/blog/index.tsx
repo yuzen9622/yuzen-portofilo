@@ -61,7 +61,7 @@ export default function BlogHome() {
       rightContent="Write.Thinking."
     >
       {/* Editorial Title Header */}
-      <div className="w-11/12 max-w-7xl mx-auto border-x border-b py-10 md:py-14 px-6 md:px-8 font-inter">
+      <div className="w-11/12 max-w-6xl mx-auto border-x border-b py-10 md:py-14 px-6 md:px-8 font-inter">
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
@@ -103,7 +103,7 @@ export default function BlogHome() {
 
       {/* Error Message */}
       {error && (
-        <div className="w-11/12 max-w-7xl mx-auto border-x border-b py-16 text-center text-destructive">
+        <div className="w-11/12 max-w-6xl mx-auto border-x border-b py-16 text-center text-destructive">
           <p>載入文章時發生錯誤: {error}</p>
         </div>
       )}
@@ -115,7 +115,7 @@ export default function BlogHome() {
 
       {/* Editorial Article Index */}
       {!loading && filteredPosts && filteredPosts.length > 0 && (
-        <div className="w-11/12 max-w-7xl mx-auto border-x border-b">
+        <div className="w-11/12 max-w-6xl mx-auto border-x border-b">
           {filteredPosts.map((post, idx) => (
             <BlogCard post={post} index={idx} locale={locale} key={post.slug} />
           ))}

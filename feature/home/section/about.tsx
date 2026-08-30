@@ -30,7 +30,7 @@ export default function About() {
     >
       <motion.div
         style={{ translateY, opacity }}
-        className="w-full  py-10  mx-auto max-w-7xl flex-1 flex space-y-10 flex-col md:flex-row  justify-between items-center"
+        className="w-11/12  py-10  mx-auto max-w-6xl flex-1 flex space-y-10 flex-col md:flex-row  justify-between items-center"
       >
         <div className="flex-1  w-full">
           {NAVIGATION_LINKS.map((link, index) => (

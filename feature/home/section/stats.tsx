@@ -70,7 +70,7 @@ export default function Stats() {
 
 	return (
 		<section id="stats" className="w-full border-b font-inter">
-			<div className="grid grid-cols-2 lg:grid-cols-4 w-11/12 mx-auto">
+			<div className="grid grid-cols-2 lg:grid-cols-4 w-11/12 max-w-6xl mx-auto">
 				<StatItem value={awards.length} suffix="+" label={t("awards")} />
 				<StatItem value={projects.length} label={t("projects")} />
 				<StatItem value={years} suffix="+" label={t("years")} />

@@ -48,10 +48,11 @@ export default function BlogSearch({
 }: BlogSearchProps) {
   const t = useTranslations("BlogPage");
 
-  const hasActiveFilters = !publishedOnly || sortOrder !== "newest" || !!selectedTag || !!search;
+  const hasActiveFilters =
+    !publishedOnly || sortOrder !== "newest" || !!selectedTag || !!search;
 
   return (
-    <div className="w-11/12 max-w-7xl mx-auto border-x border-b font-inter">
+    <div className="w-11/12 max-w-6xl mx-auto border-x border-b font-inter">
       {/* Search Input & Action Controls */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 p-4 md:px-6">
         <div className="relative flex-1 group">
@@ -115,7 +116,9 @@ export default function BlogSearch({
               </DropdownMenuLabel>
               <DropdownMenuCheckboxItem
                 checked={publishedOnly}
-                onCheckedChange={(checked) => setPublishedOnly(Boolean(checked))}
+                onCheckedChange={(checked) =>
+                  setPublishedOnly(Boolean(checked))
+                }
                 className="text-xs cursor-pointer"
               >
                 {t("search.publishedOnly")}
@@ -133,10 +136,16 @@ export default function BlogSearch({
                   setSortOrder(value === "oldest" ? "oldest" : "newest")
                 }
               >
-                <DropdownMenuRadioItem value="newest" className="text-xs cursor-pointer">
+                <DropdownMenuRadioItem
+                  value="newest"
+                  className="text-xs cursor-pointer"
+                >
                   {t("search.newest")}
                 </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="oldest" className="text-xs cursor-pointer">
+                <DropdownMenuRadioItem
+                  value="oldest"
+                  className="text-xs cursor-pointer"
+                >
                   {t("search.oldest")}
                 </DropdownMenuRadioItem>
               </DropdownMenuRadioGroup>
@@ -184,4 +193,3 @@ export default function BlogSearch({
     </div>
   );
 }
-

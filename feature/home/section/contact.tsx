@@ -99,7 +99,7 @@ export default function Contact() {
         initial="initial"
         whileInView="animate"
         viewport={{ once: true, amount: 0.3 }}
-        className="w-11/12 py-10 gap-4 items-center   flex-col md:flex-row  mx-auto  flex-1 flex "
+        className="w-11/12 max-w-6xl py-10 gap-4 items-center   flex-col md:flex-row  mx-auto  flex-1 flex "
       >
         <div className="flex flex-col  gap-10 flex-1 w-full">
           <motion.div

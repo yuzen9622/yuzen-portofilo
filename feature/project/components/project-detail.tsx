@@ -36,7 +36,7 @@ export default function ProjectDetail({
 	return (
 		<div
 			data-project-detail=""
-			className="w-11/12 max-w-7xl mx-auto pt-12 pb-24 font-inter"
+			className="w-11/12 max-w-6xl mx-auto pt-12 pb-24 font-inter"
 		>
 			<motion.div
 				variants={reducedMotion ? undefined : textContainerVariants}

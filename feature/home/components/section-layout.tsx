@@ -23,7 +23,7 @@ export const SectionLayout = forwardRef<HTMLElement, SectionLayoutProps>(
         )}
       >
         <motion.div
-          className="flex text-muted-foreground uppercase justify-between w-11/12 mx-auto"
+          className="flex text-muted-foreground uppercase justify-between w-11/12 max-w-6xl mx-auto"
           initial={reduceMotion ? false : { opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-10% 0px" }}
@@ -34,7 +34,7 @@ export const SectionLayout = forwardRef<HTMLElement, SectionLayoutProps>(
         </motion.div>
         {/* 底線從 scaleX: 0 向右劃開進場（line draw） */}
         <motion.div
-          className="w-dvw border-b origin-left"
+          className="w-full border-b origin-left"
           initial={reduceMotion ? false : { scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true, margin: "-10% 0px" }}
