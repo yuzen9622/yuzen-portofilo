@@ -3,7 +3,7 @@ import type { Project } from "../types";
 export const Projects_zhTW: Project[] = [
   {
     slug: "accessible-smart-map",
-    title: "accessible-smart-map",
+    title: "accessible smart map",
     description:
       "整合 TDX 大眾運輸與停車資訊，以及多運具無障礙路線規劃的台灣行動地圖，協助使用者更安心地出行。",
     picture: "/project/taipei-a11y.webp",
@@ -45,7 +45,7 @@ export const Projects_zhTW: Project[] = [
   },
   {
     slug: "graph-patent-analysis",
-    title: "graph-patent-analysis",
+    title: "graph patent analysis",
     description:
       "供研究者與教師上傳專利資料集，建立可解釋的申請人、專利與技術概念圖譜，以追蹤技術方向與年度趨勢的研究工具。",
     picture:
@@ -125,7 +125,7 @@ export const Projects_zhTW: Project[] = [
   },
   {
     slug: "termexpander-ai",
-    title: "TermExpander-ai",
+    title: "TermExpander AI",
     description:
       "協助學術寫作在脈絡中展開或轉換專業縮寫與完整名稱，降低一般網路搜尋常無法釐清的術語歧義的擴充功能。",
     picture: "https://opengraph.githubassets.com/1/yuzen9622/TermExpander-ai",
@@ -164,7 +164,7 @@ export const Projects_zhTW: Project[] = [
   },
   {
     slug: "cite-for-all",
-    title: "cite-for-all",
+    title: "cite for all",
     description:
       "結合資料提供者支援的文獻查找與引用格式轉換，協助研究流程降低查核風險及不同期刊格式反覆調整的工具。",
     picture: "https://opengraph.githubassets.com/1/yuzen9622/cite-for-all",
@@ -205,7 +205,7 @@ export const Projects_zhTW: Project[] = [
   },
   {
     slug: "yuzen-portofilo",
-    title: "yuzen-portofilo",
+    title: "yuzen portofilo",
     description:
       "我的個人網站，以多語言作品集、內容與聯絡體驗，呈現前端版面設計及捲動動畫作品。",
     picture: "https://opengraph.githubassets.com/1/yuzen9622/yuzen-portofilo",

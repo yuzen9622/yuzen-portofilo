@@ -3,7 +3,7 @@ import type { Project } from "../types";
 export const Projects_en: Project[] = [
   {
     slug: "accessible-smart-map",
-    title: "accessible-smart-map",
+    title: "accessible smart map",
     description:
       "An accessibility-first Taiwan mobility map that combines TDX transit and parking data with multimodal, barrier-aware route planning for more confident travel.",
     picture: "/project/taipei-a11y.webp",
@@ -45,7 +45,7 @@ export const Projects_en: Project[] = [
   },
   {
     slug: "graph-patent-analysis",
-    title: "graph-patent-analysis",
+    title: "graph patent analysis",
     description:
       "A research tool for researchers and teachers that turns uploaded patent datasets into explainable applicant, patent, and concept graphs for tracing technology trends over time.",
     picture:
@@ -127,7 +127,7 @@ export const Projects_en: Project[] = [
   },
   {
     slug: "termexpander-ai",
-    title: "TermExpander-ai",
+    title: "TermExpander AI",
     description:
       "An academic-writing extension that expands or converts specialized abbreviations and full terms in context, reducing ambiguity that ordinary web searches often leave unresolved.",
     picture: "https://opengraph.githubassets.com/1/yuzen9622/TermExpander-ai",
@@ -167,7 +167,7 @@ export const Projects_en: Project[] = [
   },
   {
     slug: "cite-for-all",
-    title: "cite-for-all",
+    title: "cite for all",
     description:
       "A research workflow that pairs provider-backed literature lookup with citation-format conversion, reducing verification risk and repetitive reformatting across journal requirements.",
     picture: "https://opengraph.githubassets.com/1/yuzen9622/cite-for-all",
@@ -208,7 +208,7 @@ export const Projects_en: Project[] = [
   },
   {
     slug: "yuzen-portofilo",
-    title: "yuzen-portofilo",
+    title: "yuzen portofilo",
     description:
       "My personal website, designed to showcase frontend layout and scroll-animation work through a multilingual portfolio, editorial content, and contact experience.",
     picture: "https://opengraph.githubassets.com/1/yuzen9622/yuzen-portofilo",
