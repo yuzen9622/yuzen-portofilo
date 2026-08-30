@@ -10,6 +10,10 @@ import {
 } from "framer-motion";
 import { useRef } from "react";
 import { ArrowUp } from "lucide-react";
+import { MorphingText } from "@/components/magicui/morphing-text";
+
+const FOOTER_TEXTS = ["YUZEN©2026", "YUZEN@DESIGN", "YUZEN@DEV"];
+
 export default function Footer() {
   const footerRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
@@ -21,7 +25,7 @@ export default function Footer() {
     offset: ["start end", "end end"],
   });
 
-  // 模糊從 18px 聚集成清晰、字距從 0.35em 收縮至 0（減少動態時保持靜態）
+  // 模糊從 18px 聚集成清晰（減少動態時保持靜態）
   const blurPx = useTransform(
     scrollYProgress,
     [0.4, 1],
@@ -31,17 +35,17 @@ export default function Footer() {
   const filter = useMotionTemplate`blur(${blurPx}px)`;
 
   return (
-    <div ref={footerRef} className="w-full  text-center">
+    <div ref={footerRef} className="w-full pb-4 text-center sm:pb-6 md:pb-8">
       <button
         onClick={() => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         }}
-        className="hover:scale-105 transition-all  p-4 bg-primary rounded-full text-background my-10 text-center"
+        className="hover:scale-105 transition-all p-4 bg-primary rounded-full text-background my-10 text-center"
       >
         <ArrowUp size={30} />
       </button>
-      <div className="flex px-4 items-center  justify-between  md:flex-row flex-col">
-        <div className="space-y-2 self-start text-start ">
+      <div className="flex px-4 items-center justify-between md:flex-row flex-col">
+        <div className="space-y-2 self-start text-start">
           <p className="text-lg font-semibold">Quick Links</p>
           <div className="flex gap-2">
             {NAVIGATION_LINKS.map((link) => (
@@ -51,11 +55,11 @@ export default function Footer() {
             ))}
           </div>
         </div>
-        <div className=" text-end self-end space-y-2">
+        <div className="text-end self-end space-y-2">
           <div className="flex gap-2 w-full items-center justify-between">
             {Object.entries(SocialBase).map(([key, value]) => (
-              <motion.div className=" uppercase" key={key}>
-                <Link className=" " href={value.url}>
+              <motion.div className="uppercase" key={key}>
+                <Link className="" href={value.url}>
                   {key}
                 </Link>
               </motion.div>
@@ -64,12 +68,12 @@ export default function Footer() {
           <p className="text-lg font-semibold">Social Links</p>
         </div>
       </div>
-      <motion.h1
+      <motion.div
         style={{ filter }}
-        className="w-full select-none mt-10 text-center font-bold  font-inter leading-[0.9] text-[clamp(3rem,13vw,22rem)] whitespace-nowrap"
+        className="mt-4 flex w-full select-none items-center justify-center text-center font-inter text-[clamp(2.5rem,11.5vw,18rem)] font-bold leading-none md:mt-6"
       >
-        YUZEN©2026
-      </motion.h1>
+        <MorphingText texts={FOOTER_TEXTS} />
+      </motion.div>
     </div>
   );
 }
