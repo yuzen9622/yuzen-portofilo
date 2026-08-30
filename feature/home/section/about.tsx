@@ -4,6 +4,7 @@ import { NAVIGATION_LINKS } from "@/shared/content/base";
 import { SectionLayout } from "../components/section-layout";
 import AboutCard from "../components/about-card";
 import ScrollText from "../components/scroll-text";
+import GitHubContributionCalendar from "../components/github-contribution-calendar";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useTranslations } from "next-intl";
 export default function About() {
@@ -37,8 +38,9 @@ export default function About() {
             <AboutCard key={index} href={link.href} title={link.name} />
           ))}
         </div>
-        <div className="flex-1 w-11/12 mx-auto  ">
+        <div className="flex-1 w-11/12 mx-auto min-w-0  ">
           <ScrollText text={t("about.description")} />
+          <GitHubContributionCalendar />
         </div>
       </motion.div>
     </SectionLayout>
