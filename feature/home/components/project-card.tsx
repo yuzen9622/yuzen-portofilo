@@ -1,6 +1,5 @@
 "use client";
 
-import { BorderBeam } from "@/components/magicui/border-beam";
 import { Link } from "@/i18n/navigation";
 import type { Project } from "@/shared/content/types";
 import {
@@ -61,11 +60,7 @@ export default function ProjectCard({
         data-cursor-text="VIEW"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className={`group relative isolate block min-h-11 overflow-hidden font-inter focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring before:pointer-events-none before:absolute before:inset-0 before:z-0 before:bg-muted/30 before:transition-transform before:duration-300 before:ease-out before:content-[''] after:pointer-events-none after:absolute after:inset-y-0 after:z-0 after:w-px after:bg-primary after:transition-transform after:duration-300 after:ease-out after:content-[''] hover:before:translate-x-0 hover:after:translate-y-0 focus-visible:before:translate-x-0 focus-visible:after:translate-y-0 motion-reduce:before:duration-0 motion-reduce:after:duration-0 ${
-          isReversed
-            ? "before:translate-x-full after:right-0 after:translate-y-full"
-            : "before:-translate-x-full after:left-0 after:-translate-y-full"
-        }`}
+        className="group relative isolate block min-h-11 overflow-hidden font-inter focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
       >
         {/* Magic UI: Interactive Spotlight Glow */}
         {!reducedMotion && (
@@ -77,18 +72,6 @@ export default function ProjectCard({
               `,
               opacity: 0.045,
             }}
-          />
-        )}
-
-        {/* Magic UI: Border Beam on Hover */}
-        {!reducedMotion && (
-          <BorderBeam
-            size={280}
-            duration={10}
-            borderWidth={1.5}
-            colorFrom="var(--primary)"
-            colorTo="transparent"
-            className="opacity-0 transition-opacity duration-500 group-hover:opacity-100 group-focus-visible:opacity-100"
           />
         )}
 
