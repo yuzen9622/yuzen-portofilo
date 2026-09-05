@@ -2,32 +2,75 @@
 
 import { Link } from "@/i18n/navigation";
 import { getProjectsContent } from "@/shared/lib/content";
+import { useReducedMotion, useScroll } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
+import { useRef } from "react";
 import ProjectCard from "../components/project-card";
+import ProjectScrollStage from "../components/project-scroll-stage";
 import { SectionLayout } from "../components/section-layout";
+
+// The pinned viewport plus one scroll leg per transition, so the track grows
+// with the project count instead of being a hard-coded height.
+const PINNED_VH = 100;
+const PER_TRANSITION_VH = 90;
 
 export default function Project({ all = false }: { all?: boolean }) {
   const { locale }: { locale: string } = useParams();
   const t = useTranslations("ProjectPage");
+  const reduced = useReducedMotion() ?? false;
+  const trackRef = useRef<HTMLDivElement | null>(null);
+
   const projects = getProjectsContent(locale);
   const visibleProjects = projects.slice(0, all ? projects.length : 6);
+
+  // start start -> the track top reaches the viewport top (first project).
+  // end end     -> the track bottom reaches the viewport bottom, which is the
+  //                last frame the sticky child is fully pinned (last project).
+  const { scrollYProgress } = useScroll({
+    target: trackRef,
+    offset: ["start start", "end end"],
+  });
 
   return (
     <SectionLayout
       id="projects"
       leftContent={t("title.leftContent")}
       rightContent={t("title.rightContent")}
+      // overflow-visible is required: SectionLayout clips by default and any
+      // clipping ancestor silently disables position: sticky below.
       // No opaque background here: the section sits above the fixed ambient
       // background layer, so bg-background would hide the grain and glow for the
       // whole /projects page. Every other section leaves it transparent too.
-      className="relative"
+      className="relative overflow-visible"
     >
+      <div
+        ref={trackRef}
+        className="relative"
+        style={{
+          height: reduced
+            ? "auto"
+            : `${PINNED_VH + (visibleProjects.length - 1) * PER_TRANSITION_VH}vh`,
+        }}
+      >
+        {reduced ? (
+          <div className="mx-auto w-11/12 max-w-6xl border-t border-border">
+            {visibleProjects.map((project, index) => (
+              <ProjectCard key={project.slug} project={project} index={index} />
+            ))}
+          </div>
+        ) : (
+          <div className="sticky top-0 h-screen h-dvh overflow-hidden">
+            <ProjectScrollStage
+              projects={visibleProjects}
+              progress={scrollYProgress}
+            />
+          </div>
+        )}
+      </div>
+
       <div className="w-11/12 max-w-6xl mx-auto border-t border-border">
-        {visibleProjects.map((project, index) => (
-          <ProjectCard key={project.slug} project={project} index={index} />
-        ))}
         {!all && (
           <Link
             href="/projects"

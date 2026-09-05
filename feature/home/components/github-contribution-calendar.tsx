@@ -1,6 +1,7 @@
 "use client";
 
-import { GitHubCalendar } from "react-github-calendar";
+import { GitHubCalendar, type Year } from "react-github-calendar";
+import { useLocale } from "next-intl";
 import useTheme from "@/shared/hooks/use-theme";
 
 const CALENDAR_THEME = {
@@ -20,16 +21,57 @@ const CALENDAR_THEME = {
   ],
 };
 
-export default function GitHubContributionCalendar() {
+type GitHubContributionCalendarProps = {
+  username?: string;
+  year?: Year;
+};
+
+export default function GitHubContributionCalendar({
+  username = "yuzen9622",
+  year = "last",
+}: GitHubContributionCalendarProps) {
   const { isDark } = useTheme();
+  const locale = useLocale();
+  const isZh = locale.startsWith("zh");
+
+  const totalCountTemplate = isZh
+    ? "今年共 {{count}} 次貢獻"
+    : "{{count}} contributions this year";
+
+  const getTooltipText = (activity: { count: number; date: string }) => {
+    if (isZh) {
+      if (activity.count === 0) return `${activity.date} 無貢獻`;
+      return `${activity.date} 有 ${activity.count} 次貢獻`;
+    }
+    if (activity.count === 0) return `No contributions on ${activity.date}`;
+    if (activity.count === 1) return `1 contribution on ${activity.date}`;
+    return `${activity.count} contributions on ${activity.date}`;
+  };
 
   return (
     <div className="mt-8 w-full min-w-0 max-w-full overflow-x-auto border-y border-border py-4 text-muted-foreground">
       <GitHubCalendar
-        username="yuzen9622"
+        username={username}
+        year={year}
         colorScheme={isDark ? "dark" : "light"}
         theme={CALENDAR_THEME}
-        errorMessage="Unable to load GitHub contributions."
+        errorMessage={
+          isZh
+            ? "無法載入 GitHub 貢獻資料。"
+            : "Unable to load GitHub contributions."
+        }
+        tooltips={{
+          activity: {
+            text: getTooltipText,
+          },
+        }}
+        labels={{
+          totalCount: totalCountTemplate,
+          legend: {
+            less: isZh ? "少" : "Less",
+            more: isZh ? "多" : "More",
+          },
+        }}
       />
     </div>
   );

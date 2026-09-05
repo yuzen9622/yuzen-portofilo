@@ -89,6 +89,9 @@ importers:
       rehype-slug:
         specifier: ^6.0.0
         version: 6.0.0
+      remark-flexible-markers:
+        specifier: ^1.3.6
+        version: 1.3.6(unified@11.0.5)
       remark-gfm:
         specifier: ^4.0.1
         version: 4.0.1(supports-color@7.2.0)
@@ -98,6 +101,9 @@ importers:
       resend:
         specifier: ^6.9.1
         version: 6.9.1(@react-email/render@2.0.4(react-dom@19.2.3(react@19.2.3))(react@19.2.3))
+      rough-notation:
+        specifier: ^0.5.1
+        version: 0.5.1
       simple-icons:
         specifier: ^16.5.0
         version: 16.5.0
@@ -3552,6 +3558,11 @@ packages:
   rehype-slug@6.0.0:
     resolution: {integrity: sha512-lWyvf/jwu+oS5+hL5eClVd3hNdmwM1kAC0BUvEGD19pajQMIzcNUd/k9GsfQ+FfECvX+JE+e9/btsKH0EjJT6A==}
 
+  remark-flexible-markers@1.3.6:
+    resolution: {integrity: sha512-r3xSgOslXpbx8D8Rnqix2VWq0kpiKM885izBc43foPdfR8PLAUDvcM9KqAGUAUysLcvUZVwgTAaYoCpi9R9Nbg==}
+    peerDependencies:
+      unified: ^11
+
   remark-gfm@4.0.1:
     resolution: {integrity: sha512-1quofZ2RQ9EWdeN34S79+KExV1764+wCUGop5CPL1WGdD0ocPpu91lzPGbwWMECpEpd42kJGQwzRfyov9j4yNg==}
 
@@ -3595,6 +3606,9 @@ packages:
   reusify@1.1.0:
     resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
+
+  rough-notation@0.5.1:
+    resolution: {integrity: sha512-ITHofTzm13cWFVfoGsh/4c/k2Mg8geKgBCwex71UZLnNuw403tCRjYPQ68jSAd37DMbZIePXPjDgY0XdZi9HPw==}
 
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
@@ -3856,8 +3870,20 @@ packages:
   unified@11.0.5:
     resolution: {integrity: sha512-xKvGhPWw3k84Qjh8bI3ZeJjqnyadK+GEFtazSfZv/rKeTkTjOJho6mFqh2SM96iIcZokxiOpg78GazTSg8+KHA==}
 
+  unist-builder@4.0.0:
+    resolution: {integrity: sha512-wmRFnH+BLpZnTKpc5L7O67Kac89s9HMrtELpnNaE6TAobq5DTZZs5YaTQfAZBA9bFPECx2uVAPO31c+GVug8mg==}
+
   unist-util-find-after@5.0.0:
     resolution: {integrity: sha512-amQa0Ep2m6hE2g72AugUItjbuM8X8cGQnFoHk0pGfrFeT9GZhzN5SW8nRsiGKK7Aif4CrACPENkA6P/Lw6fHGQ==}
+
+  unist-util-find-all-after@5.0.0:
+    resolution: {integrity: sha512-nGmOYvTSdGcI4RvrUNfe0mOsqqbbJOtqCQsppsY9KZjmv3nwM3YRgNBwFPdZ8Y+iv9Z/2PDjR9u6u+uK62XTTg==}
+
+  unist-util-find-all-before@5.0.0:
+    resolution: {integrity: sha512-zir6a7GsXfdn4YAWR4F3hLNKZjTjLBJurdyquysvmX38xbftS1+qwvEhutxxHLq0Pp1tW5V1TDiuj+qluuOnKw==}
+
+  unist-util-find-between@1.2.3:
+    resolution: {integrity: sha512-hYC0ZwhbhILhk0LybBY5HUAtSimHPVW4SbizSnJ2yd7yFP3oSyLQG9Rx+xjuN25kurERTQATozxsam21qYRi0w==}
 
   unist-util-is@6.0.1:
     resolution: {integrity: sha512-LsiILbtBETkDz8I9p1dQ0uyRUWuaQzd/cuEeS1hoRSyW5E5XGmTzlwY1OrNzzakGowI9Dr/I8HVaw4hTtnxy8g==}
@@ -7798,6 +7824,17 @@ snapshots:
       hast-util-to-string: 3.0.1
       unist-util-visit: 5.1.0
 
+  remark-flexible-markers@1.3.6(unified@11.0.5):
+    dependencies:
+      '@types/mdast': 4.0.4
+      unified: 11.0.5
+      unist-builder: 4.0.0
+      unist-util-find-after: 5.0.0
+      unist-util-find-all-after: 5.0.0
+      unist-util-find-all-before: 5.0.0
+      unist-util-find-between: 1.2.3
+      unist-util-visit: 5.1.0
+
   remark-gfm@4.0.1(supports-color@7.2.0):
     dependencies:
       '@types/mdast': 4.0.4
@@ -7865,6 +7902,8 @@ snapshots:
       supports-preserve-symlinks-flag: 1.0.0
 
   reusify@1.1.0: {}
+
+  rough-notation@0.5.1: {}
 
   run-parallel@1.2.0:
     dependencies:
@@ -8212,7 +8251,26 @@ snapshots:
       trough: 2.2.0
       vfile: 6.0.3
 
+  unist-builder@4.0.0:
+    dependencies:
+      '@types/unist': 3.0.3
+
   unist-util-find-after@5.0.0:
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-is: 6.0.1
+
+  unist-util-find-all-after@5.0.0:
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-is: 6.0.1
+
+  unist-util-find-all-before@5.0.0:
+    dependencies:
+      '@types/unist': 3.0.3
+      unist-util-is: 6.0.1
+
+  unist-util-find-between@1.2.3:
     dependencies:
       '@types/unist': 3.0.3
       unist-util-is: 6.0.1

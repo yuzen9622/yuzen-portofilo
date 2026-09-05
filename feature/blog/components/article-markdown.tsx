@@ -6,10 +6,12 @@ import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
 import rehypeRaw from "rehype-raw";
 
-import rehypeSanitize from "rehype-sanitize";
+import rehypeSanitize, { defaultSchema } from "rehype-sanitize";
+import remarkFlexibleMarkers from "remark-flexible-markers";
 import Link from "next/link";
 import ZoomableImage from "./zoomable-image";
 import { CodeBlock } from "./code-block";
+import { RoughHighlight } from "./rough-highlight";
 import {
   TypographyBlockquote,
   TypographyH1,
@@ -27,6 +29,16 @@ import {
 import { ArrowUpRightIcon } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
+
+const sanitizeSchema = {
+  ...defaultSchema,
+  tagNames: [...(defaultSchema.tagNames || []), "mark"],
+  attributes: {
+    ...defaultSchema.attributes,
+    mark: ["className", "class", "dataColor", "data-color", "style"],
+  },
+};
+
 export default function ArticleMarkdown({
   children,
 }: {
@@ -34,8 +46,30 @@ export default function ArticleMarkdown({
 }) {
   return (
     <ReactMarkdown
-      remarkPlugins={[remarkGfm, remarkMath]}
-      rehypePlugins={[rehypeSanitize, rehypeSlug, rehypeKatex, rehypeRaw]}
+      remarkPlugins={[
+        remarkGfm,
+        remarkMath,
+        [
+          remarkFlexibleMarkers,
+          {
+            dictionary: {
+              y: "yellow",
+              r: "red",
+              g: "green",
+              b: "blue",
+              p: "pink",
+              c: "cyan",
+              o: "orange",
+            },
+          },
+        ],
+      ]}
+      rehypePlugins={[
+        rehypeRaw,
+        [rehypeSanitize, sanitizeSchema],
+        rehypeSlug,
+        rehypeKatex,
+      ]}
       components={{
         h1: ({ ...props }) => {
           return <TypographyH1 {...props} />;
@@ -48,6 +82,9 @@ export default function ArticleMarkdown({
         },
         h4: ({ ...props }) => {
           return <TypographyH4 {...props} />;
+        },
+        mark: ({ children, ...props }) => {
+          return <RoughHighlight {...props}>{children}</RoughHighlight>;
         },
         p: ({ children }) => <TypographyP>{children}</TypographyP>,
         code: ({ className = "", children, ...props }) => {

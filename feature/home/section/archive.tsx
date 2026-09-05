@@ -15,8 +15,8 @@ import {
 } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
-import Image from "next/image";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import MediaFrame from "@/shared/components/media-frame";
 
 const FALLBACK_IMAGE = "/blog/default-placeholder.webp";
 
@@ -594,15 +594,14 @@ export default function Archive() {
 
         <motion.div
           style={{ x: springX, y: springY, opacity: opacitySpring }}
-          className="pointer-events-none hidden md:block fixed left-0 top-0 z-50 h-40 w-56 rotate-3 overflow-hidden rounded-2xl border border-border/60 bg-muted shadow-2xl shadow-black/20"
+          className="pointer-events-none hidden md:block fixed left-0 top-0 z-50 w-56 overflow-hidden rotate-3 rounded-2xl border-2 border-border shadow-2xl shadow-black/20"
         >
           {pointImage !== "" && (
-            <Image
+            <MediaFrame
               src={pointImage === FALLBACK_IMAGE ? FALLBACK_IMAGE : pointImage}
               alt="preview"
-              fill
+              className="rounded-2xl"
               sizes="224px"
-              className="object-cover"
               unoptimized={pointImage.startsWith("http")}
             />
           )}

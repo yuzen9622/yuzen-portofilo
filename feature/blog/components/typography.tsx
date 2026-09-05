@@ -145,7 +145,9 @@ export function TypographyBlockquote({
 export function TypographyTable({ children }: { children: React.ReactNode }) {
   return (
     <div className="my-6 w-full overflow-x-auto rounded-xl border border-border/80">
-      <table className="w-full text-sm text-left border-collapse">{children}</table>
+      <table className="w-full text-sm text-left border-collapse">
+        {children}
+      </table>
     </div>
   );
 }
@@ -196,9 +198,4 @@ export const TypographyTh: React.FC<{ children: React.ReactNode }> = ({
 
 export const TypographyTd: React.FC<{ children: React.ReactNode }> = ({
   children,
-}) => (
-  <td className="px-4 py-3 text-sm text-foreground/90">
-    {children}
-  </td>
-);
-
+}) => <td className="px-4 py-3 text-sm text-foreground/90">{children}</td>;
