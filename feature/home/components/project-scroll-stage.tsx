@@ -210,14 +210,14 @@ function StageCard({
           tabIndex={active ? undefined : -1}
           aria-hidden={active ? undefined : true}
           data-cursor-text="VIEW"
-          className="group flex h-full w-full flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-2xl shadow-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring md:flex-row"
+          className="group flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-2xl shadow-black/20 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-foreground/30 hover:shadow-black/30 focus-visible:-translate-y-1 focus-visible:border-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:focus-visible:translate-y-0 md:flex-row"
         >
           <MediaFrame
             src={project.picture}
             alt=""
             className="grow md:w-[58%] md:shrink-0 md:grow-0"
             sizes="(max-width: 768px) 86vw, 520px"
-            imageClassName="transition-transform duration-500 ease-out group-hover:scale-105"
+            imageClassName="transition-transform duration-500 ease-out group-hover:scale-105 group-focus-visible:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100 motion-reduce:group-focus-visible:scale-100"
           />
 
           <div className="flex shrink-0 flex-col justify-between gap-4 p-5 font-inter md:flex-1 md:p-8">
@@ -228,7 +228,7 @@ function StageCard({
                 </span>
                 <ArrowUpRight
                   aria-hidden="true"
-                  className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-focus-visible:-translate-y-0.5 group-focus-visible:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0 motion-reduce:group-focus-visible:translate-x-0 motion-reduce:group-focus-visible:translate-y-0"
                 />
               </div>
               <h3 className="mt-3 text-xl font-semibold uppercase leading-tight tracking-tight text-card-foreground md:mt-4 md:text-3xl">
