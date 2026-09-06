@@ -13,6 +13,8 @@ import { SectionLayout } from "../components/section-layout";
 
 // The pinned viewport plus one scroll leg per transition, so the track grows
 // with the project count instead of being a hard-coded height.
+// svh, not vh/dvh: dvh changes on every frame a mobile URL bar collapses, which
+// remaps the track and the pinned box mid-scroll; svh holds still.
 const PINNED_VH = 100;
 const PER_TRANSITION_VH = 90;
 
@@ -59,7 +61,7 @@ export default function Project({ all = false }: { all?: boolean }) {
         style={{
           height: reduced
             ? "auto"
-            : `${PINNED_VH + (visibleProjects.length - 1) * PER_TRANSITION_VH}vh`,
+            : `${PINNED_VH + (visibleProjects.length - 1) * PER_TRANSITION_VH}svh`,
         }}
       >
         {reduced ? (
@@ -69,7 +71,12 @@ export default function Project({ all = false }: { all?: boolean }) {
             ))}
           </div>
         ) : (
-          <div className="sticky top-0 h-screen h-dvh overflow-hidden">
+          <div
+            // h-svh, not h-dvh: dvh is re-evaluated on every frame a mobile URL
+            // bar collapses, which resizes the pinned box and re-measures the
+            // whole drum mid-scroll. svh holds still for the entire gesture.
+            className="sticky top-0 h-svh overflow-hidden"
+          >
             <ProjectScrollStage
               projects={visibleProjects}
               progress={scrollYProgress}

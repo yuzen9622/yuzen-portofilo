@@ -46,35 +46,50 @@ export default function ProjectScrollStage({
   // Number of transitions, i.e. how far the drum turns from first to last.
   const lastIndex = Math.max(projects.length - 1, 1);
 
-  const attachStage = useCallback((node: HTMLDivElement | null) => {
-    stageRef.current = node;
-    if (node) {
-      setViewport({ width: node.clientWidth, height: node.clientHeight });
-    }
+  // Mobile browsers resize the visual viewport continuously while the URL bar
+  // collapses. Rounding the measurement means those sub-pixel/one-off pixel
+  // deltas never reach React, so the drum is not rebuilt mid-scroll.
+  const commitViewport = useCallback((width: number, height: number) => {
+    const next = { width: Math.round(width), height: Math.round(height) };
+    setViewport((current) =>
+      current.width === next.width && current.height === next.height
+        ? current
+        : next,
+    );
   }, []);
+
+  const attachStage = useCallback(
+    (node: HTMLDivElement | null) => {
+      stageRef.current = node;
+      if (node) commitViewport(node.clientWidth, node.clientHeight);
+    },
+    [commitViewport],
+  );
 
   useEffect(() => {
     const node = stageRef.current;
     if (!node) return;
     const observer = new ResizeObserver(([entry]) => {
-      setViewport({
-        width: entry.contentRect.width,
-        height: entry.contentRect.height,
-      });
+      commitViewport(entry.contentRect.width, entry.contentRect.height);
     });
     observer.observe(node);
     return () => observer.disconnect();
-  }, []);
+  }, [commitViewport]);
 
   // The only React state driven by scroll. It changes at most once per
   // project, not once per scroll event, and exists so exactly one card is
   // hit-testable and in the accessibility tree.
+  const activeIndexRef = useRef(0);
   const syncActive = useCallback(
     (value: number) => {
       const next = Math.min(
         Math.max(Math.round(value * lastIndex), 0),
         projects.length - 1,
       );
+      // The event fires every scroll frame; the index changes once per project.
+      // Comparing against a ref keeps the other ~59 frames out of React entirely.
+      if (next === activeIndexRef.current) return;
+      activeIndexRef.current = next;
       setActiveIndex(next);
     },
     [lastIndex, projects.length],
@@ -90,7 +105,7 @@ export default function ProjectScrollStage({
     // never cap the card inside it, or the drum spaces cards by a width they
     // no longer have and the gaps blow out.
     const cardWidth = Math.round(
-      Math.min(Math.max(viewport.width * 0.82, 260), 600),
+      Math.min(Math.max(viewport.width * 0.82, 320), 600),
     );
     const cardHeight = Math.round(
       Math.min(Math.max(viewport.height * 0.72, 240), 440),
@@ -213,6 +228,14 @@ function StageCard({
     [-ANGLE_STEP, 0, ANGLE_STEP],
     [0.86, 1, 0.86],
   );
+  // opacity 0 still costs a composited layer, and every card on the drum keeps
+  // one alive for the whole scroll. Flipping visibility at the exact angle the
+  // fade completes drops the far side of the drum out of paint entirely, so a
+  // six-card drum composites three cards instead of six. Driven by the motion
+  // value, so the cull costs no React render.
+  const visibility = useTransform(angle, (value) =>
+    Math.abs(value) > ANGLE_STEP * 1.7 ? "hidden" : "visible",
+  );
 
   return (
     <div
@@ -225,19 +248,19 @@ function StageCard({
     >
       <motion.div
         className="h-full w-full"
-        style={{ rotateX: swivel, y: drift, scale, opacity }}
+        style={{ rotateX: swivel, y: drift, scale, opacity, visibility }}
       >
         <Link
           href={`/projects/${project.slug}`}
           tabIndex={active ? undefined : -1}
           aria-hidden={active ? undefined : true}
           data-cursor-text="VIEW"
-          className="group flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-3xl border border-border bg-card/50 backdrop-blur-md max-w-md shadow-2xl shadow-black/20 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-foreground/30 hover:shadow-black/30 focus-visible:-translate-y-1 focus-visible:border-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:focus-visible:translate-y-0"
+          className="group flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-3xl border border-border bg-card/80 shadow-lg shadow-black/20 max-w-md md:bg-card/50 md:shadow-2xl md:backdrop-blur-md transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-foreground/30 hover:shadow-black/30 focus-visible:-translate-y-1 focus-visible:border-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:focus-visible:translate-y-0"
         >
           <MediaFrame
             src={project.picture}
             alt=""
-            className="min-h-0 grow"
+            className="min-h-0 grow backdrop-blur-none md:backdrop-blur-md"
             imageClassName="transition-transform duration-500  ease-out group-hover:scale-105 group-focus-visible:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100 motion-reduce:group-focus-visible:scale-100"
           />
 
