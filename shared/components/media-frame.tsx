@@ -27,10 +27,9 @@ export default function MediaFrame({
       <img
         src={src}
         alt={alt}
-        className={cn(
-          "block max-h-full max-w-full rounded-md",
-          imageClassName,
-        )}
+        decoding="async"
+        draggable={false}
+        className={cn("block max-h-full max-w-full rounded-md", imageClassName)}
       />
     </div>
   );
