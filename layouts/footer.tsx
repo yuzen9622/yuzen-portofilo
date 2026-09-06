@@ -12,7 +12,7 @@ import { useRef } from "react";
 import { ArrowUp } from "lucide-react";
 import { MorphingText } from "@/components/magicui/morphing-text";
 
-const FOOTER_TEXTS = ["YUZEN©2026", "YUZEN@DESIGN", "YUZEN@DEV"];
+const FOOTER_TEXTS = ["©2026 YUZEN", "YUZEN@DESIGN", "YUZEN@DEV"];
 
 export default function Footer() {
   const footerRef = useRef<HTMLDivElement>(null);

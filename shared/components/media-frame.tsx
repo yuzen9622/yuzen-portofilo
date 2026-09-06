@@ -20,7 +20,7 @@ export default function MediaFrame({
   return (
     <div
       className={cn(
-        "flex h-full w-full items-center justify-center overflow-hidden bg-muted/10 backdrop-blur-md p-8",
+        "flex h-full w-full items-center justify-center overflow-hidden bg-muted/10 backdrop-blur-md p-4 ",
         className,
       )}
     >

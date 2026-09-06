@@ -5,7 +5,7 @@ import type { Project } from "@/shared/content/types";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { useTranslations } from "next-intl";
-import TechIcon from "./tech-icon";
+import TechIcon from "@/shared/components/tech-icon";
 
 const textContainerVariants: Variants = {
 	hidden: {},

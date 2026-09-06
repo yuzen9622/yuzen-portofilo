@@ -11,23 +11,33 @@ import {
 import { ArrowUpRight } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import MediaFrame from "@/shared/components/media-frame";
+import TechIcon from "@/shared/components/tech-icon";
 
 /** Degrees of drum rotation between two consecutive projects. */
 const ANGLE_STEP = 52;
+// The drum turns around the Y axis, so cards travel sideways while the page
+// still scrolls vertically. -1 sends them left -> right as you scroll down;
+// flip to 1 to send them right -> left.
+const TRAVEL = 1;
 // Smallest radius that keeps neighbouring cards from intersecting is
-// cardHeight / (2 * sin(ANGLE_STEP / 2)); a hair above that keeps the drum
-// tight, so a transition reads as rotation rather than vertical travel.
+// cardWidth / (2 * sin(ANGLE_STEP / 2)); a hair above that keeps the drum
+// tight, so a transition reads as rotation rather than sideways travel.
 const RADIUS_RATIO = 1.18;
 const PERSPECTIVE_RATIO = 2.8;
+// How small the drum sits while the section is still approaching the fold.
+const ENTRY_SCALE = 0.88;
 
 const pad = (value: number) => String(value).padStart(2, "0");
 
 export default function ProjectScrollStage({
   projects,
   progress,
+  entry,
 }: {
   projects: Project[];
   progress: MotionValue<number>;
+  /** 0 while the track is still below the fold, 1 once it pins. */
+  entry: MotionValue<number>;
 }) {
   const stageRef = useRef<HTMLDivElement | null>(null);
   const [viewport, setViewport] = useState({ width: 0, height: 0 });
@@ -75,17 +85,23 @@ export default function ProjectScrollStage({
   useMotionValueEvent(progress, "change", syncActive);
 
   const geometry = useMemo(() => {
+    // The card is a portrait column at every breakpoint, so it stays narrow and
+    // takes its height from the stage instead. This wrapper IS the card box —
+    // never cap the card inside it, or the drum spaces cards by a width they
+    // no longer have and the gaps blow out.
     const cardWidth = Math.round(
-      Math.min(Math.max(viewport.width * 0.82, 280), 840),
+      Math.min(Math.max(viewport.width * 0.82, 260), 600),
     );
     const cardHeight = Math.round(
-      Math.min(Math.max(viewport.height * 0.48, 240), 440),
+      Math.min(Math.max(viewport.height * 0.72, 240), 440),
     );
     return {
       cardWidth,
       cardHeight,
-      radius: Math.round(cardHeight * RADIUS_RATIO),
-      perspective: Math.round(cardHeight * PERSPECTIVE_RATIO),
+      // Both derive from the width now: a Y-axis drum is spaced by how wide
+      // the cards are, not how tall.
+      radius: Math.round(cardWidth * RADIUS_RATIO),
+      perspective: Math.round(cardWidth * PERSPECTIVE_RATIO),
     };
   }, [viewport.width, viewport.height]);
 
@@ -94,16 +110,23 @@ export default function ProjectScrollStage({
   const drumRotation = useTransform(
     progress,
     [0, 1],
-    [0, lastIndex * ANGLE_STEP],
+    [0, -TRAVEL * lastIndex * ANGLE_STEP],
   );
+
+  // Scaling the perspective container scales the composited 3D result as a
+  // flat image, so the shrink is exactly uniform. Putting it on the drum
+  // instead would scale the cards' translateZ but not the drum's, pushing the
+  // front plane off z = 0.
+  const entryScale = useTransform(entry, [0, 1], [ENTRY_SCALE, 1]);
 
   return (
     <div ref={attachStage} className="relative h-full w-full">
-      <div
+      <motion.div
         className="absolute inset-0 flex items-center justify-center"
         style={{
           perspective: `${perspective}px`,
           perspectiveOrigin: "50% 50%",
+          scale: entryScale,
         }}
       >
         <motion.div
@@ -114,7 +137,7 @@ export default function ProjectScrollStage({
             transformStyle: "preserve-3d",
             // translateZ first, so the front of the drum lands on the z=0 plane.
             z: -radius,
-            rotateX: drumRotation,
+            rotateY: drumRotation,
           }}
         >
           {projects.map((project, index) => (
@@ -129,7 +152,7 @@ export default function ProjectScrollStage({
             />
           ))}
         </motion.div>
-      </div>
+      </motion.div>
 
       <div className="pointer-events-none absolute inset-x-0 bottom-6 mx-auto flex w-11/12 max-w-6xl items-center gap-4 font-inter md:bottom-10">
         <span className="text-xs tabular-nums text-muted-foreground">
@@ -165,6 +188,7 @@ function StageCard({
   active: boolean;
 }) {
   // Signed angular distance from the front of the drum, in degrees.
+  // Positive means the card has already been scrolled past.
   const angle = useTransform(
     progress,
     (value) => (value * lastIndex - index) * ANGLE_STEP,
@@ -180,12 +204,10 @@ function StageCard({
     ],
     [0, 0.5, 1, 0.5, 0],
   );
-  const swivel = useTransform(
-    angle,
-    [-ANGLE_STEP, 0, ANGLE_STEP],
-    [11, 0, -11],
-  );
-  const drift = useTransform(angle, [-ANGLE_STEP, 0, ANGLE_STEP], [38, 0, -38]);
+  // Secondary motion, mirrored from the vertical drum: the card tips a little
+  // as it swings across and drifts on the axis the drum is not turning on.
+  const swivel = useTransform(angle, [-ANGLE_STEP, 0, ANGLE_STEP], [-7, 0, 7]);
+  const drift = useTransform(angle, [-ANGLE_STEP, 0, ANGLE_STEP], [22, 0, -22]);
   const scale = useTransform(
     angle,
     [-ANGLE_STEP, 0, ANGLE_STEP],
@@ -196,31 +218,30 @@ function StageCard({
     <div
       className={`absolute inset-0 ${active ? "" : "pointer-events-none"}`}
       style={{
-        transform: `rotateX(${-index * ANGLE_STEP}deg) translateZ(${radius}px)`,
+        transform: `rotateY(${TRAVEL * index * ANGLE_STEP}deg) translateZ(${radius}px)`,
         transformStyle: "preserve-3d",
         backfaceVisibility: "hidden",
       }}
     >
       <motion.div
         className="h-full w-full"
-        style={{ rotateY: swivel, x: drift, scale, opacity }}
+        style={{ rotateX: swivel, y: drift, scale, opacity }}
       >
         <Link
           href={`/projects/${project.slug}`}
           tabIndex={active ? undefined : -1}
           aria-hidden={active ? undefined : true}
           data-cursor-text="VIEW"
-          className="group flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-2xl shadow-black/20 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-foreground/30 hover:shadow-black/30 focus-visible:-translate-y-1 focus-visible:border-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:focus-visible:translate-y-0 md:flex-row"
+          className="group flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-3xl border border-border bg-card/50 backdrop-blur-md max-w-md shadow-2xl shadow-black/20 transition-[transform,border-color,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:border-foreground/30 hover:shadow-black/30 focus-visible:-translate-y-1 focus-visible:border-foreground/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-reduce:transition-none motion-reduce:hover:translate-y-0 motion-reduce:focus-visible:translate-y-0"
         >
           <MediaFrame
             src={project.picture}
             alt=""
-            className="grow md:w-[58%] md:shrink-0 md:grow-0"
-            sizes="(max-width: 768px) 86vw, 520px"
-            imageClassName="transition-transform duration-500 ease-out group-hover:scale-105 group-focus-visible:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100 motion-reduce:group-focus-visible:scale-100"
+            className="min-h-0 grow"
+            imageClassName="transition-transform duration-500  ease-out group-hover:scale-105 group-focus-visible:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100 motion-reduce:group-focus-visible:scale-100"
           />
 
-          <div className="flex shrink-0 flex-col justify-between gap-4 p-5 font-inter md:flex-1 md:p-8">
+          <div className="flex shrink-0 flex-col justify-between gap-4 p-5 font-inter md:gap-5 md:p-6">
             <div>
               <div className="flex items-center justify-between gap-4">
                 <span className="font-mono text-xs tabular-nums text-muted-foreground">
@@ -231,21 +252,23 @@ function StageCard({
                   className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-focus-visible:-translate-y-0.5 group-focus-visible:translate-x-0.5 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0 motion-reduce:group-hover:translate-y-0 motion-reduce:group-focus-visible:translate-x-0 motion-reduce:group-focus-visible:translate-y-0"
                 />
               </div>
-              <h3 className="mt-3 text-xl font-semibold uppercase leading-tight tracking-tight text-card-foreground md:mt-4 md:text-3xl">
+              <h3 className="mt-3 text-xl font-semibold uppercase leading-tight tracking-tight text-card-foreground md:mt-4 md:text-2xl">
                 {project.title}
               </h3>
-              <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground md:mt-4 md:line-clamp-5">
+              <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground md:mt-3">
                 {project.description}
               </p>
             </div>
 
             <div className="flex flex-wrap items-center gap-2">
-              {project.tech?.slice(0, 4).map((tech) => (
+              {project.tech?.slice(0, 5).map((tech) => (
                 <span
                   key={tech}
-                  className="rounded-full border border-border px-2.5 py-1 text-[11px] text-muted-foreground"
+                  title={tech}
+                  aria-label={tech}
+                  className="inline-flex size-8 items-center justify-center rounded-full border border-border text-muted-foreground"
                 >
-                  {tech}
+                  <TechIcon name={tech} size={16} />
                 </span>
               ))}
               <time

@@ -33,6 +33,14 @@ export default function Project({ all = false }: { all?: boolean }) {
     offset: ["start start", "end end"],
   });
 
+  // A second pass over the approach leg: 0 while the track is still below the
+  // fold, 1 the moment it pins. The stage rides this to grow back to full size
+  // as the section takes over the viewport.
+  const { scrollYProgress: entryProgress } = useScroll({
+    target: trackRef,
+    offset: ["start end", "start start"],
+  });
+
   return (
     <SectionLayout
       id="projects"
@@ -65,6 +73,7 @@ export default function Project({ all = false }: { all?: boolean }) {
             <ProjectScrollStage
               projects={visibleProjects}
               progress={scrollYProgress}
+              entry={entryProgress}
             />
           </div>
         )}
