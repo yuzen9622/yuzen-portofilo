@@ -1,5 +1,5 @@
 "use client";
-import { NAVIGATION_LINKS } from "@/shared/content/base";
+import { NAVIGATION_LINKS, navKey } from "@/shared/content/base";
 import { SectionLayout } from "../components/section-layout";
 import AboutCard from "../components/about-card";
 import ScrollText from "../components/scroll-text";
@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 
 export default function About() {
   const t = useTranslations("HomePage");
+  const nav = useTranslations("Nav");
   return (
     <SectionLayout
       id="about"
@@ -27,7 +28,7 @@ export default function About() {
                 <AboutCard
                   key={link.href}
                   href={link.href}
-                  title={link.name}
+                  title={nav(navKey(link.href))}
                   index={index}
                 />
               ))}

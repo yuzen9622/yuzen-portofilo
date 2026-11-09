@@ -12,6 +12,8 @@ import {
 	type Variants,
 } from "framer-motion";
 import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { cn } from "@/shared/lib/utils";
 
 import { ProfileBase, SocialBase } from "@/shared/content/base";
 import Marquee from "@/feature/home/components/marquee";
@@ -47,6 +49,9 @@ export default function Hero() {
 	const { isPlaying } = useIntro();
 	const reduceMotion = useReducedMotion() ?? false;
 	const time = useTaipeiTime();
+	const t = useTranslations("HomePage.hero");
+	// CJK glyphs need looser tracking and no uppercase transform
+	const isZh = useLocale().startsWith("zh");
 
 	// Scroll-out: the whole stage recedes as the next section slides over it
 	const { scrollYProgress } = useScroll({
@@ -121,19 +126,34 @@ export default function Hero() {
 				<div className="mx-auto grid w-11/12 max-w-6xl items-center gap-14 md:grid-cols-12 md:gap-10">
 					{/* Left: editorial typography */}
 					<div className="flex flex-col gap-8 md:col-span-7">
-						<h1 className="font-sans text-[clamp(3rem,8.4vw,8rem)] font-semibold uppercase leading-[0.86] tracking-[-0.055em]">
+						<h1
+							className={cn(
+								"font-sans font-semibold",
+								isZh
+									? "text-[clamp(2.75rem,7.2vw,6.75rem)] leading-[1.02] tracking-[-0.02em]"
+									: "text-[clamp(3rem,8.4vw,8rem)] uppercase leading-[0.86] tracking-[-0.055em]",
+							)}
+						>
 							<MaskLines
 								play={!isPlaying}
 								delay={0.1}
 								lines={[
-									"Designing",
-									<>
-										Systems{" "}
-										<span className="font-serif text-[0.92em] font-normal normal-case italic tracking-[-0.02em] text-muted-foreground">
-											not
-										</span>
-									</>,
-									"Just Code",
+									t("line1"),
+									t.rich("line2", {
+										em: (chunks) => (
+											<span
+												className={cn(
+													"font-normal text-muted-foreground",
+													isZh
+														? "mr-[0.15em] font-sans text-[0.9em]"
+														: "font-serif text-[0.92em] normal-case italic tracking-[-0.02em]",
+												)}
+											>
+												{chunks}
+											</span>
+										),
+									}),
+									t("line3"),
 								]}
 							/>
 						</h1>
@@ -141,7 +161,10 @@ export default function Hero() {
 						<motion.div
 							custom={1}
 							variants={fadeUp}
-							className="flex items-center gap-4 font-sans text-4xl font-semibold uppercase tracking-[-0.04em] md:text-6xl"
+							className={cn(
+								"flex items-center gap-4 font-sans text-4xl font-semibold tracking-[-0.04em] md:text-6xl",
+								!isZh && "uppercase",
+							)}
 						>
 							<span className="h-px w-10 bg-foreground/30 md:w-16" aria-hidden />
 							{/* 開場遮罩在 layout 最上層（intro-overlay.tsx）。
@@ -161,7 +184,7 @@ export default function Hero() {
 										staggerDuration={0.05}
 										splitLevelClassName="overflow-hidden pb-0.5 sm:pb-1 md:pb-1"
 										rotationInterval={2500}
-										texts={["Yuzen", "Build.", "Measure.", "Refine."]}
+										texts={t.raw("rotating") as string[]}
 									/>
 								)}
 							</span>
@@ -172,9 +195,9 @@ export default function Hero() {
 							variants={fadeUp}
 							className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg"
 						>
-							Full-stack developer leaning into{" "}
-							<span className="text-foreground">backend &amp; AI systems</span>
-							{" "}— turning messy real-world problems into systems that hold up.
+							{t.rich("bio", {
+								strong: (chunks) => <span className="text-foreground">{chunks}</span>,
+							})}
 						</motion.p>
 
 						<motion.div
@@ -182,11 +205,11 @@ export default function Hero() {
 							variants={fadeUp}
 							className="flex flex-wrap items-center gap-3"
 						>
-							<PillLink href="/projects" cursorText="WORK">
-								Selected work
+							<PillLink href="/projects" cursorText={t("cursorWork")}>
+								{t("work")}
 							</PillLink>
 							<PillLink href="/contact" variant="ghost">
-								Get in touch
+								{t("contact")}
 							</PillLink>
 						</motion.div>
 
@@ -227,7 +250,7 @@ export default function Hero() {
 							<motion.div
 								style={{ rotateX, rotateY }}
 								className="relative [transform-style:preserve-3d]"
-								data-cursor-text="HELLO"
+								data-cursor-text={t("cursorHello")}
 							>
 								<Bezel className="rounded-[2.5rem]" innerClassName="rounded-[calc(2.5rem-0.375rem)] aspect-[4/5]">
 									<motion.div style={{ scale: imageScale }} className="absolute inset-0">
@@ -249,7 +272,7 @@ export default function Hero() {
 									<div className="absolute inset-x-5 bottom-5 flex items-end justify-between text-white">
 										<div>
 											<p className="font-mono text-[10px] uppercase tracking-[0.25em] text-white/60">
-												Portfolio
+												{t("portfolio")}
 											</p>
 											<p className="font-serif text-3xl italic">Yuzen</p>
 										</div>
@@ -272,15 +295,15 @@ export default function Hero() {
 					className="mx-auto mt-16 flex w-11/12 max-w-6xl items-end justify-between font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground md:mt-24"
 				>
 					<span className="hidden sm:block" suppressHydrationWarning>
-						Taichung, TW — {time ?? "--:--:--"}
+						{t("location")} — {time ?? "--:--:--"}
 					</span>
 					<a href="#about" className="group flex flex-col items-center gap-3">
-						<span>Scroll</span>
+						<span>{t("scroll")}</span>
 						<span className="relative h-12 w-px overflow-hidden bg-foreground/15">
 							<span className="absolute inset-x-0 top-0 h-1/2 animate-[scroll-cue_2.2s_cubic-bezier(0.65,0,0.35,1)_infinite] bg-foreground motion-reduce:animate-none" />
 						</span>
 					</a>
-					<span className="hidden sm:block">Est. 2022 — Full stack</span>
+					<span className="hidden sm:block">{t("since")}</span>
 				</motion.div>
 			</motion.div>
 

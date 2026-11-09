@@ -10,6 +10,9 @@ export const NAVIGATION_LINKS: NavLink[] = [
   { name: "Contact", href: "contact" },
 ];
 
+/** Translation key under the `Nav` namespace for a navigation link. */
+export const navKey = (href: string) => (href === "/" ? "home" : href);
+
 export const ProfileBase: Profile = {
   name: "Yuzen",
   email: "oscar48079@gmail.com",

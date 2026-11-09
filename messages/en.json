@@ -6,6 +6,26 @@
                 "rightContent": "Think.Create."
             },
             "description": "I’m currently a fifth-year student in the five-year junior college program at the Department of Information Management, National Taichung University of Science and Technology. I’m about to graduate (time really flies). I enjoy starting with real-world problems, breaking them down, understanding how they work, and then turning them into systems that actually work. To me, programming is not simply about completing a feature—it’s a continuous process of exploring, validating, and solving problems. I tend to follow a problem down to its root cause until I truly understand why it happens.\n\nMy current focus is mainly on Backend and AI Systems. I’m continuously exploring Web development, RAG, Knowledge Graphs, and AI Agents, while also learning how different technologies and systems can work together. I’m still learning, and there are many areas I haven’t explored yet, but I enjoy the process of going from not knowing to understanding, and from an idea to a working implementation. Rather than trying to prove that I know everything, I hope that every time I finish something, I understand a little more than I did before."
+        },
+        "hero": {
+            "line1": "Designing",
+            "line2": "Systems <em>not</em>",
+            "line3": "Just Code",
+            "rotating": [
+                "Yuzen",
+                "Build.",
+                "Measure.",
+                "Refine."
+            ],
+            "bio": "Full-stack developer leaning into <strong>backend & AI systems</strong> — turning messy real-world problems into systems that hold up.",
+            "work": "Selected work",
+            "contact": "Get in touch",
+            "portfolio": "Portfolio",
+            "location": "Taichung, TW",
+            "scroll": "Scroll",
+            "since": "Est. 2022 — Full stack",
+            "cursorWork": "WORK",
+            "cursorHello": "HELLO"
         }
     },
     "ProjectPage": {
@@ -28,7 +48,6 @@
             "clear": "Clear search"
         },
         "backToBlog": "Back to Blog",
-        
         "tableOfContents": "Table of Contents",
         "shareArticle": "Share Article",
         "copyLink": "Copy link",
@@ -43,7 +62,17 @@
             "rightContent": "Collaborate."
         },
         "successMessage": "Hi {name}, got your email! I’ll reply to you soon.",
-        "errorMessage": "Failed to send email. Please try again later."
+        "errorMessage": "Failed to send email. Please try again later.",
+        "line1": "Together.",
+        "line2": "Create.",
+        "line3": "something.",
+        "basedIn": "Based in",
+        "location": "Taichung, Taiwan",
+        "elsewhere": "Elsewhere",
+        "name": "Your name",
+        "email": "Email address",
+        "message": "Tell me about the project",
+        "send": "Send message"
     },
     "StatsPage": {
         "awards": "Awards & Certs",
@@ -73,5 +102,14 @@
         "errors": {
             "playback": "Playback failed. An active Apple Music subscription may be required."
         }
+    },
+    "Nav": {
+        "home": "Yuzen",
+        "about": "About",
+        "projects": "Projects",
+        "blog": "Blog",
+        "contact": "Contact",
+        "openMenu": "Open menu",
+        "closeMenu": "Close menu"
     }
 }

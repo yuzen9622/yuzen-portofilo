@@ -6,6 +6,26 @@
                 "rightContent": "思考.創造."
             },
             "description": "目前就讀於國立台中科技大學資訊管理系五專部五年級，要畢業了（好快），喜歡從真實的問題出發，拆解它、理解它，再想辦法把它做成真正能運作的系統。對我而言，寫程式不只是完成一項功能，而是一個不斷探索、驗證與解決問題的過程。我習慣追著問題的根因走，直到真正理解它為什麼發生。\n\n目前主要專注於 Backend 與 AI Systems，持續探索 Web、RAG、Knowledge Graph 與 AI Agent，也喜歡研究如何讓不同技術與系統彼此協作。我還在學習，也還有許多未知的領域，但我享受從不會到會、從想法到實作的過程。比起證明自己什麼都會，我更希望每一次做完一件事情，都比之前更懂一些。"
+        },
+        "hero": {
+            "line1": "打造的",
+            "line2": "<em>不只是</em>程式",
+            "line3": "而是系統",
+            "rotating": [
+                "Yuzen",
+                "建構。",
+                "驗證。",
+                "打磨。"
+            ],
+            "bio": "全端開發者，目前專注在<strong>後端與 AI 系統</strong>，把雜亂的真實問題，做成經得起考驗的系統。",
+            "work": "精選作品",
+            "contact": "與我聯絡",
+            "portfolio": "作品集",
+            "location": "台灣・台中",
+            "scroll": "向下捲動",
+            "since": "始於 2022 — 全端開發",
+            "cursorWork": "作品",
+            "cursorHello": "你好"
         }
     },
     "ProjectPage": {
@@ -28,7 +48,6 @@
             "clear": "清除搜尋"
         },
         "backToBlog": "回到部落格",
-      
         "tableOfContents": "文章目錄",
         "shareArticle": "分享文章",
         "copyLink": "複製文章連結",
@@ -43,7 +62,17 @@
             "rightContent": "共創.協作."
         },
         "successMessage": "您好! {name}，已收到您的郵件，我會盡快回覆您。",
-        "errorMessage": "發送失敗，請稍後再試。"
+        "errorMessage": "發送失敗，請稍後再試。",
+        "line1": "一起",
+        "line2": "創造",
+        "line3": "點什麼。",
+        "basedIn": "所在地",
+        "location": "台灣・台中",
+        "elsewhere": "其他平台",
+        "name": "你的名字",
+        "email": "電子郵件",
+        "message": "聊聊你的專案",
+        "send": "送出訊息"
     },
     "StatsPage": {
         "awards": "競賽與檢定",
@@ -73,5 +102,14 @@
         "errors": {
             "playback": "播放失敗，可能需要有效的 Apple Music 訂閱。"
         }
+    },
+    "Nav": {
+        "home": "首頁",
+        "about": "關於",
+        "projects": "專案",
+        "blog": "部落格",
+        "contact": "聯絡",
+        "openMenu": "開啟選單",
+        "closeMenu": "關閉選單"
     }
 }

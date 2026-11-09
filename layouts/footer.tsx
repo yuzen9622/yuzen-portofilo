@@ -1,5 +1,6 @@
 "use client";
-import { NAVIGATION_LINKS, SocialBase } from "../shared/content/base";
+import { NAVIGATION_LINKS, SocialBase, navKey } from "../shared/content/base";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import {
   motion,
@@ -16,6 +17,7 @@ const FOOTER_TEXTS = ["©2026 YUZEN", "YUZEN@DESIGN", "YUZEN@DEV"];
 
 export default function Footer() {
   const footerRef = useRef<HTMLDivElement>(null);
+  const nav = useTranslations("Nav");
   const reduceMotion = useReducedMotion();
 
   // 錨定整個 footer（而非標題本身）：滾動距離從 footer 進視窗一路到頁底，
@@ -50,7 +52,7 @@ export default function Footer() {
           <div className="flex gap-2">
             {NAVIGATION_LINKS.map((link) => (
               <Link key={link.href} href={link.href}>
-                {link.name}
+                {nav(navKey(link.href))}
               </Link>
             ))}
           </div>

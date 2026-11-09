@@ -19,7 +19,8 @@ import { cn } from "@/shared/lib/utils";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 
-import { NAVIGATION_LINKS, ProfileBase, SocialBase } from "@/shared/content/base";
+import { NAVIGATION_LINKS, ProfileBase, SocialBase, navKey } from "@/shared/content/base";
+import { useTranslations } from "next-intl";
 import { useIntro } from "@/shared/components/intro-provider";
 import { EASE_EXPO, EASE_FLUID } from "@/shared/lib/motion";
 
@@ -31,6 +32,7 @@ export default function Navbar() {
   const [isHidden, setIsHidden] = useState(false);
   const [hovered, setHovered] = useState<string | null>(null);
   const pathname = usePathname();
+  const t = useTranslations("Nav");
   const reduceMotion = useReducedMotion();
   // 開場動畫播放期間讓 navbar 收在畫面上方，結束後與遮罩淡出同步滑入
   const { isPlaying } = useIntro();
@@ -107,7 +109,7 @@ export default function Navbar() {
                     {isActive(item.href) && (
                       <span className="absolute bottom-1 left-1/2 size-1 -translate-x-1/2 rounded-full bg-current" />
                     )}
-                    <span>{item.name}</span>
+                    <span>{t(navKey(item.href))}</span>
                   </Link>
                 </NavigationMenuItem>
               </li>
@@ -146,7 +148,7 @@ export default function Navbar() {
             <NavigationMenuItem>
               <button
                 type="button"
-                aria-label={isOpen ? "Close menu" : "Open menu"}
+                aria-label={isOpen ? t("closeMenu") : t("openMenu")}
                 aria-expanded={isOpen}
                 onClick={() => setIsOpen((prev) => !prev)}
                 className="relative flex size-10 items-center justify-center rounded-full bg-foreground/[0.05] ring-1 ring-foreground/10 transition-transform duration-500 ease-fluid active:scale-95"
@@ -198,7 +200,7 @@ export default function Navbar() {
                         onClick={() => setIsOpen(false)}
                         className="block py-1 font-sans text-5xl font-semibold uppercase tracking-[-0.05em]"
                       >
-                        {item.name}
+                        {t(navKey(item.href))}
                       </Link>
                     </motion.div>
                   </li>

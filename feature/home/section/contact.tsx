@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { SectionLayout } from "../components/section-layout";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { ArrowUpRight, Loader2 } from "lucide-react";
 import Bezel from "@/shared/components/bezel";
@@ -12,6 +12,7 @@ import { cn } from "@/shared/lib/utils";
 
 export default function Contact() {
   const t = useTranslations("ContactPage");
+  const isZh = useLocale().startsWith("zh");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -43,8 +44,8 @@ export default function Contact() {
     }
   };
   const fields = [
-    { id: "name", label: "Your name", type: "text", set: setName, value: name },
-    { id: "email", label: "Email address", type: "email", set: setEmail, value: email },
+    { id: "name", label: t("name"), type: "text", set: setName, value: name },
+    { id: "email", label: t("email"), type: "email", set: setEmail, value: email },
   ] as const;
 
   return (
@@ -55,13 +56,18 @@ export default function Contact() {
     >
       <div className="mx-auto mt-16 grid w-11/12 max-w-6xl gap-14 md:mt-24 md:grid-cols-12 md:gap-10">
         <div className="flex flex-col justify-between gap-12 md:col-span-6">
-          <h3 className="font-sans text-[clamp(3rem,7vw,6.5rem)] font-semibold uppercase leading-[0.88] tracking-[-0.05em]">
+          <h3
+            className={cn(
+              "font-sans text-[clamp(3rem,7vw,6.5rem)] font-semibold",
+              isZh ? "leading-[1.05] tracking-[-0.02em]" : "uppercase leading-[0.88] tracking-[-0.05em]",
+            )}
+          >
             <MaskLines
               lines={[
-                "Together.",
-                "Create.",
-                <span key="s" className="font-serif font-normal normal-case italic tracking-[-0.02em] text-muted-foreground">
-                  something.
+                t("line1"),
+                t("line2"),
+                <span key="s" className={cn("font-normal text-muted-foreground", !isZh && "font-serif normal-case italic tracking-[-0.02em]")}>
+                  {t("line3")}
                 </span>,
               ]}
             />
@@ -80,11 +86,11 @@ export default function Contact() {
 
             <dl className="grid grid-cols-2 gap-6 border-t border-foreground/10 pt-6 font-mono text-[10px] uppercase tracking-[0.22em]">
               <div className="space-y-2">
-                <dt className="text-muted-foreground">Based in</dt>
-                <dd className="text-foreground">Taichung, Taiwan</dd>
+                <dt className="text-muted-foreground">{t("basedIn")}</dt>
+                <dd className="text-foreground">{t("location")}</dd>
               </div>
               <div className="space-y-2">
-                <dt className="text-muted-foreground">Elsewhere</dt>
+                <dt className="text-muted-foreground">{t("elsewhere")}</dt>
                 <dd className="flex flex-wrap gap-x-4 gap-y-1">
                   {Object.entries(SocialBase).map(([key, value]) => (
                     <a
@@ -144,7 +150,7 @@ export default function Contact() {
                   htmlFor="contact-message"
                   className="pointer-events-none absolute left-5 top-6 text-sm text-muted-foreground transition-all duration-500 ease-fluid peer-focus:top-3.5 peer-focus:text-[10px] peer-focus:uppercase peer-focus:tracking-[0.2em] peer-[:not(:placeholder-shown)]:top-3.5 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-[0.2em]"
                 >
-                  Tell me about the project
+                  {t("message")}
                 </label>
               </div>
               <button
@@ -155,7 +161,7 @@ export default function Contact() {
                   isLoading && "cursor-not-allowed opacity-60",
                 )}
               >
-                Send message
+                {t("send")}
                 <span className="flex size-10 items-center justify-center rounded-full bg-background/15 transition-transform duration-700 ease-fluid group-hover:translate-x-0.5 group-hover:-translate-y-px group-hover:scale-105">
                   {isLoading ? (
                     <Loader2 aria-hidden strokeWidth={1.5} className="size-4 animate-spin" />
