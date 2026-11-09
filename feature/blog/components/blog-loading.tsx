@@ -1,6 +1,6 @@
 export default function BlogLoading() {
   return (
-    <div className="w-11/12 max-w-7xl mx-auto border-x border-b">
+    <div className="w-11/12 max-w-6xl mx-auto border-x border-b">
       {[1, 2, 3, 4, 5, 6].map((item) => (
         <div
           key={item}

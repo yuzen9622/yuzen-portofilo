@@ -118,7 +118,7 @@ export default function Hero() {
 				style={{ y: stageY, scale: stageScale, opacity: stageOpacity }}
 				className="origin-top"
 			>
-				<div className="mx-auto grid w-11/12 max-w-7xl items-center gap-14 md:grid-cols-12 md:gap-10">
+				<div className="mx-auto grid w-11/12 max-w-6xl items-center gap-14 md:grid-cols-12 md:gap-10">
 					{/* Left: editorial typography */}
 					<div className="flex flex-col gap-8 md:col-span-7">
 						<h1 className="font-sans text-[clamp(3rem,8.4vw,8rem)] font-semibold uppercase leading-[0.86] tracking-[-0.055em]">
@@ -269,7 +269,7 @@ export default function Hero() {
 				<motion.div
 					custom={5}
 					variants={fadeUp}
-					className="mx-auto mt-16 flex w-11/12 max-w-7xl items-end justify-between font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground md:mt-24"
+					className="mx-auto mt-16 flex w-11/12 max-w-6xl items-end justify-between font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground md:mt-24"
 				>
 					<span className="hidden sm:block" suppressHydrationWarning>
 						Taichung, TW — {time ?? "--:--:--"}

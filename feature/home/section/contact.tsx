@@ -53,7 +53,7 @@ export default function Contact() {
       rightContent={t("title.rightContent")}
       id="contact"
     >
-      <div className="mx-auto mt-16 grid w-11/12 max-w-7xl gap-14 md:mt-24 md:grid-cols-12 md:gap-10">
+      <div className="mx-auto mt-16 grid w-11/12 max-w-6xl gap-14 md:mt-24 md:grid-cols-12 md:gap-10">
         <div className="flex flex-col justify-between gap-12 md:col-span-6">
           <h3 className="font-sans text-[clamp(3rem,7vw,6.5rem)] font-semibold uppercase leading-[0.88] tracking-[-0.05em]">
             <MaskLines

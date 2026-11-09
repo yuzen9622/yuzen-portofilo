@@ -11,13 +11,11 @@ export default function BlogEmpty({ onReset }: BlogEmptyProps) {
   const t = useTranslations("BlogPage");
 
   return (
-    <div className="w-11/12 max-w-7xl mx-auto border-x border-b py-24 flex flex-col items-center justify-center text-center px-4">
+    <div className="w-11/12 max-w-6xl mx-auto border-x border-b py-24 flex flex-col items-center justify-center text-center px-4">
       <div className="size-16 rounded-full bg-muted/60 flex items-center justify-center mb-5 text-muted-foreground">
         <FolderSearch className="size-8" />
       </div>
-      <h3 className="text-xl font-semibold tracking-tight">
-        {t("noPosts")}
-      </h3>
+      <h3 className="text-xl font-semibold tracking-tight">{t("noPosts")}</h3>
       <p className="mt-2 text-sm text-muted-foreground max-w-md">
         請嘗試更換搜尋關鍵字、切換其他分類標籤，或重設篩選條件以檢視更多文章。
       </p>
@@ -35,4 +33,3 @@ export default function BlogEmpty({ onReset }: BlogEmptyProps) {
     </div>
   );
 }
-

@@ -31,7 +31,7 @@ export default function Project({ all = false }: { all?: boolean }) {
     >
       <div
         ref={listRef}
-        className="mx-auto mt-12 flex w-11/12 max-w-7xl flex-col gap-6 md:mt-0 md:gap-0"
+        className="mx-auto mt-12 flex w-11/12 max-w-6xl flex-col gap-6 md:mt-0 md:gap-0"
       >
         {visibleProjects.map((project, index) => (
           <ProjectCard
@@ -44,7 +44,7 @@ export default function Project({ all = false }: { all?: boolean }) {
         ))}
       </div>
       {!all && (
-        <ScrollReveal className="mx-auto mt-16 flex w-11/12 max-w-7xl justify-center md:mt-24">
+        <ScrollReveal className="mx-auto mt-16 flex w-11/12 max-w-6xl justify-center md:mt-24">
           <PillLink href="/projects" cursorText="ALL">
             {t("title.leftContent")}
           </PillLink>

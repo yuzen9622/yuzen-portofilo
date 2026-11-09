@@ -138,7 +138,7 @@ export default function ContributionSection({
       className={`relative mt-10 w-full ${sectionHeightClass}`}
     >
       <div className="sticky top-0 h-dvh w-full overflow-hidden">
-        <div className="relative mx-auto flex h-full w-full max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto flex h-full w-11/12 max-w-6xl items-center justify-center px-4 sm:px-6 lg:px-8">
           <div className="relative h-dvh w-full overflow-hidden ">
             {cards.map((card) => (
               <ContributionCard

@@ -64,7 +64,7 @@ export default function Article({
   return (
     <>
       <ArticleNavbar />
-      <div className="w-11/12 max-w-7xl mx-auto border-x border-b font-article pt-8 md:pt-12 pb-28 md:pb-32">
+      <div className="w-11/12 max-w-6xl mx-auto border-x border-b font-article pt-8 md:pt-12 pb-28 md:pb-32">
         <article className="px-4 sm:px-6 md:px-10">
           {/* Editorial Header */}
           <header className="max-w-4xl space-y-6 pb-10 md:pb-14">
@@ -129,7 +129,6 @@ export default function Article({
                   <span>{formattedDate}</span>
                 </div>
               )}
-             
             </motion.div>
           </header>
 

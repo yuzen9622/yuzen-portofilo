@@ -26,7 +26,7 @@ export const SectionLayout = forwardRef<HTMLElement, SectionLayoutProps>(
           className,
         )}
       >
-        <header className="mx-auto grid w-11/12 max-w-7xl items-end gap-6 md:grid-cols-12">
+        <header className="mx-auto grid w-11/12 max-w-6xl items-end gap-6 md:grid-cols-12">
           <div className="md:col-span-8">
             {leftContent && (
               <h2 className="font-sans text-[clamp(2.6rem,7vw,6.5rem)] font-semibold uppercase leading-[0.9] tracking-[-0.045em]">
@@ -49,7 +49,7 @@ export const SectionLayout = forwardRef<HTMLElement, SectionLayoutProps>(
         {/* Hairline draws from the left once the header is in view */}
         <motion.div
           aria-hidden
-          className="mx-auto mt-10 h-px w-11/12 max-w-7xl origin-left bg-linear-to-r from-foreground/25 via-foreground/10 to-transparent md:mt-14"
+          className="mx-auto mt-10 h-px w-11/12 max-w-6xl origin-left bg-linear-to-r from-foreground/25 via-foreground/10 to-transparent md:mt-14"
           initial={reduceMotion ? false : { scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true, margin: "-10% 0px" }}

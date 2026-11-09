@@ -13,7 +13,7 @@ export default function About() {
       leftContent={t("about.title.leftContent")}
       rightContent={t("about.title.rightContent")}
     >
-      <div className="mx-auto mt-16 grid w-11/12 max-w-7xl gap-16 md:mt-24 md:grid-cols-12 md:gap-10">
+      <div className="mx-auto mt-16 grid w-11/12 max-w-6xl gap-16 md:mt-24 md:grid-cols-12 md:gap-10">
         <ScrollText
           text={t("about.description")}
           className="space-y-8 text-2xl font-medium leading-[1.35] tracking-[-0.02em] md:col-span-8 md:text-[2.15rem]"

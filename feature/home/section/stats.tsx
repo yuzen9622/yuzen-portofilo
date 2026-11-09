@@ -15,6 +15,7 @@ import Bezel from "@/shared/components/bezel";
 import ScrollReveal from "@/shared/components/scroll-reveal";
 import { cn } from "@/shared/lib/utils";
 import { EASE_EXPO } from "@/shared/lib/motion";
+import GitHubContributionCalendar from "../components/github-contribution-calendar";
 
 const CODING_SINCE = 2022;
 
@@ -94,7 +95,7 @@ export default function Stats() {
 	return (
 		<section id="stats" className="py-16 md:py-24">
 			{/* Asymmetric bento: one hero metric beside a stacked trio */}
-			<div className="mx-auto grid w-11/12 max-w-7xl grid-cols-1 gap-4 md:grid-cols-12 md:grid-rows-2">
+			<div className="mx-auto grid w-11/12 max-w-6xl grid-cols-1 gap-4 md:grid-cols-12 md:grid-rows-2">
 				<StatCard
 					feature
 					value={awards.length}
@@ -106,6 +107,9 @@ export default function Stats() {
 				<StatCard value={projects.length} label={t("projects")} index={1} className="md:col-span-6" />
 				<StatCard value={years} suffix="+" label={t("years")} index={2} className="md:col-span-3" />
 				<StatCard value={papers} label={t("papers")} index={3} className="md:col-span-3" />
+				<ScrollReveal delay={0.1} className="md:col-span-12">
+					<GitHubContributionCalendar />
+				</ScrollReveal>
 			</div>
 		</section>
 	);
