@@ -3,6 +3,7 @@ import {
 	Geist,
 	Geist_Mono,
 	Inter,
+	Instrument_Serif,
 	LXGW_WenKai_TC,
 	Shippori_Mincho,
 } from "next/font/google";
@@ -26,6 +27,15 @@ const inter = Inter({
 	variable: "--font-inter",
 	subsets: ["latin"],
 	weight: ["400", "500", "600", "700", "800", "900"],
+	display: "swap",
+});
+
+// Editorial italic accent for the homepage display type
+const instrumentSerif = Instrument_Serif({
+	variable: "--font-instrument-serif",
+	subsets: ["latin"],
+	weight: "400",
+	style: ["normal", "italic"],
 	display: "swap",
 });
 
@@ -153,7 +163,7 @@ export default async function RootLayout({
 		<html
 			lang={locale}
 			suppressHydrationWarning
-			className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${shipporiMincho.variable} ${lxgwWenKai.variable}`}
+			className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${shipporiMincho.variable} ${lxgwWenKai.variable} ${instrumentSerif.variable}`}
 		>
 			<body className="antialiased" suppressHydrationWarning>
 				<NextIntlClientProvider>
