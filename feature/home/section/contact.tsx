@@ -1,11 +1,13 @@
 "use client";
 import { useState } from "react";
 import { SectionLayout } from "../components/section-layout";
-import { Link } from "@/i18n/navigation";
-import { motion, Variants } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { ArrowUpRight, Loader2 } from "lucide-react";
+import Bezel from "@/shared/components/bezel";
+import PillLink from "@/shared/components/pill-link";
+import ScrollReveal, { MaskLines } from "@/shared/components/scroll-reveal";
+import { ProfileBase, SocialBase } from "@/shared/content/base";
 import { cn } from "@/shared/lib/utils";
 
 export default function Contact() {
@@ -14,55 +16,6 @@ export default function Contact() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const reveal: Variants = {
-    initial: {
-      opacity: 0,
-      y: 18,
-    },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1],
-      },
-    },
-  };
-
-  const titleStagger: Variants = {
-    initial: {},
-    animate: {
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const formStagger: Variants = {
-    initial: {},
-    animate: {
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const slideUp: Variants = {
-    initial: {
-      opacity: 0,
-      y: 30,
-    },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: [0.22, 1, 0.36, 1],
-      },
-    },
-  };
-
   const sendEmail = async () => {
     try {
       setIsLoading(true);
@@ -89,87 +42,132 @@ export default function Contact() {
       setIsLoading(false);
     }
   };
+  const fields = [
+    { id: "name", label: "Your name", type: "text", set: setName, value: name },
+    { id: "email", label: "Email address", type: "email", set: setEmail, value: email },
+  ] as const;
+
   return (
     <SectionLayout
       leftContent={t("title.leftContent")}
       rightContent={t("title.rightContent")}
       id="contact"
     >
-      <motion.div
-        initial="initial"
-        whileInView="animate"
-        viewport={{ once: true, amount: 0.3 }}
-        className="w-11/12 py-10 gap-4 items-center   flex-col md:flex-row  mx-auto  flex-1 flex "
-      >
-        <div className="flex flex-col  gap-10 flex-1 w-full">
-          <motion.div
-            variants={titleStagger}
-            className=" uppercase max-sm:text-5xl text-7xl font-inter  font-semibold space-y-5"
-          >
-            <motion.div variants={reveal} className="overflow-hidden">
-              <h1>Together.</h1>
-            </motion.div>
-            <motion.div variants={reveal} className="overflow-hidden">
-              <h1>Create.</h1>
-            </motion.div>
-            <motion.div variants={reveal} className="overflow-hidden">
-              <h1>Something.</h1>
-            </motion.div>
-          </motion.div>
+      <div className="mx-auto mt-16 grid w-11/12 max-w-7xl gap-14 md:mt-24 md:grid-cols-12 md:gap-10">
+        <div className="flex flex-col justify-between gap-12 md:col-span-6">
+          <h3 className="font-sans text-[clamp(3rem,7vw,6.5rem)] font-semibold uppercase leading-[0.88] tracking-[-0.05em]">
+            <MaskLines
+              lines={[
+                "Together.",
+                "Create.",
+                <span key="s" className="font-serif font-normal normal-case italic tracking-[-0.02em] text-muted-foreground">
+                  something.
+                </span>,
+              ]}
+            />
+          </h3>
 
-          <motion.div variants={slideUp}>
-            <Link
-              href="mailto:oscar48079@gmail.com"
-              className="border-2 flex items-center  transition-all justify-between border-primary hover:bg-background hover:text-primary p-3 py-2 bg-primary text-background text-xl font-inter text-end rounded-3xl"
-            >
-              <span className=" bg-green-300 dark:bg-green-500 rounded-full animate-pulse p-1"></span>
-              oscar48079@gmail.com
-            </Link>
-          </motion.div>
+          <ScrollReveal delay={0.2} className="space-y-8">
+            <PillLink href={`mailto:${ProfileBase.email}`} cursorText="MAIL">
+              <span className="flex items-center gap-3">
+                <span className="relative flex size-2">
+                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-400/70 motion-reduce:animate-none" />
+                  <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
+                </span>
+                {ProfileBase.email}
+              </span>
+            </PillLink>
+
+            <dl className="grid grid-cols-2 gap-6 border-t border-foreground/10 pt-6 font-mono text-[10px] uppercase tracking-[0.22em]">
+              <div className="space-y-2">
+                <dt className="text-muted-foreground">Based in</dt>
+                <dd className="text-foreground">Taichung, Taiwan</dd>
+              </div>
+              <div className="space-y-2">
+                <dt className="text-muted-foreground">Elsewhere</dt>
+                <dd className="flex flex-wrap gap-x-4 gap-y-1">
+                  {Object.entries(SocialBase).map(([key, value]) => (
+                    <a
+                      key={key}
+                      href={value.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative text-foreground after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-full after:origin-right after:scale-x-0 after:bg-current after:transition-transform after:duration-700 after:ease-fluid hover:after:origin-left hover:after:scale-x-100"
+                    >
+                      {key}
+                    </a>
+                  ))}
+                </dd>
+              </div>
+            </dl>
+          </ScrollReveal>
         </div>
-        <motion.div variants={formStagger} className="flex-1 w-full">
-          <form className="flex flex-col gap-6 w-full">
-            <motion.input
-              variants={slideUp}
-              type="text"
-              required
-              placeholder="Your Name"
-              onChange={(e) => setName(e.target.value)}
-              className="p-4 border border-muted-foreground rounded-lg font-inter"
-            />
-            <motion.input
-              variants={slideUp}
-              type="email"
-              required
-              placeholder="Your Email"
-              onChange={(e) => setEmail(e.target.value)}
-              className="p-4 border border-muted-foreground rounded-lg font-inter"
-            />
-            <motion.textarea
-              variants={slideUp}
-              placeholder="Your Message"
-              required
-              onChange={(e) => setMessage(e.target.value)}
-              className="p-4 border border-muted-foreground rounded-lg font-inter h-32"
-            />
-            <motion.button
-              variants={slideUp}
-              type="submit"
-              className={cn(
-                "bg-accent-foreground text-background flex items-center justify-center  gap-2  p-4 rounded-lg font-inter  transition-all",
-                isLoading && "bg-muted  cursor-not-allowed",
-              )}
-              disabled={isLoading}
-              onClick={(e) => {
+
+        <ScrollReveal delay={0.1} y={64} className="md:col-span-6">
+          <Bezel innerClassName="bg-background p-6 md:p-10">
+            <form
+              className="flex flex-col gap-4"
+              onSubmit={(e) => {
                 e.preventDefault();
                 sendEmail();
               }}
             >
-              Send Message {isLoading && <Loader2 className="animate-spin" />}
-            </motion.button>
-          </form>
-        </motion.div>
-      </motion.div>
+              {fields.map((field) => (
+                <div key={field.id} className="relative">
+                  <input
+                    id={`contact-${field.id}`}
+                    type={field.type}
+                    required
+                    placeholder=" "
+                    value={field.value}
+                    onChange={(e) => field.set(e.target.value)}
+                    className="peer h-16 w-full rounded-2xl bg-foreground/[0.03] px-5 pt-5 text-base outline-none ring-1 ring-foreground/[0.08] transition-[box-shadow,background-color] duration-500 ease-fluid focus:bg-transparent focus:ring-2 focus:ring-foreground/60 dark:bg-white/[0.03]"
+                  />
+                  <label
+                    htmlFor={`contact-${field.id}`}
+                    className="pointer-events-none absolute left-5 top-1/2 -translate-y-1/2 text-sm text-muted-foreground transition-all duration-500 ease-fluid peer-focus:top-4 peer-focus:text-[10px] peer-focus:uppercase peer-focus:tracking-[0.2em] peer-[:not(:placeholder-shown)]:top-4 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-[0.2em]"
+                  >
+                    {field.label}
+                  </label>
+                </div>
+              ))}
+              <div className="relative">
+                <textarea
+                  id="contact-message"
+                  required
+                  placeholder=" "
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  className="peer h-40 w-full resize-none rounded-2xl bg-foreground/[0.03] px-5 pt-8 text-base outline-none ring-1 ring-foreground/[0.08] transition-[box-shadow,background-color] duration-500 ease-fluid focus:bg-transparent focus:ring-2 focus:ring-foreground/60 dark:bg-white/[0.03]"
+                />
+                <label
+                  htmlFor="contact-message"
+                  className="pointer-events-none absolute left-5 top-6 text-sm text-muted-foreground transition-all duration-500 ease-fluid peer-focus:top-3.5 peer-focus:text-[10px] peer-focus:uppercase peer-focus:tracking-[0.2em] peer-[:not(:placeholder-shown)]:top-3.5 peer-[:not(:placeholder-shown)]:text-[10px] peer-[:not(:placeholder-shown)]:uppercase peer-[:not(:placeholder-shown)]:tracking-[0.2em]"
+                >
+                  Tell me about the project
+                </label>
+              </div>
+              <button
+                type="submit"
+                disabled={isLoading}
+                className={cn(
+                  "group mt-2 flex min-h-14 items-center justify-between rounded-full bg-foreground py-2 pl-7 pr-2 text-base font-medium text-background transition-[transform,opacity] duration-700 ease-fluid active:scale-[0.98]",
+                  isLoading && "cursor-not-allowed opacity-60",
+                )}
+              >
+                Send message
+                <span className="flex size-10 items-center justify-center rounded-full bg-background/15 transition-transform duration-700 ease-fluid group-hover:translate-x-0.5 group-hover:-translate-y-px group-hover:scale-105">
+                  {isLoading ? (
+                    <Loader2 aria-hidden strokeWidth={1.5} className="size-4 animate-spin" />
+                  ) : (
+                    <ArrowUpRight aria-hidden strokeWidth={1.25} className="size-4 transition-transform duration-700 ease-fluid group-hover:rotate-45" />
+                  )}
+                </span>
+              </button>
+            </form>
+          </Bezel>
+        </ScrollReveal>
+      </div>
     </SectionLayout>
   );
 }

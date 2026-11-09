@@ -1,49 +1,55 @@
 "use client";
 
-import { Link } from "@/i18n/navigation";
 import { getProjectsContent } from "@/shared/lib/content";
-import { ArrowUpRight } from "lucide-react";
+import { useScroll } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
+import { useRef } from "react";
 import ProjectCard from "../components/project-card";
 import { SectionLayout } from "../components/section-layout";
+import PillLink from "@/shared/components/pill-link";
+import ScrollReveal from "@/shared/components/scroll-reveal";
 
 export default function Project({ all = false }: { all?: boolean }) {
   const { locale }: { locale: string } = useParams();
   const t = useTranslations("ProjectPage");
   const projects = getProjectsContent(locale);
   const visibleProjects = projects.slice(0, all ? projects.length : 6);
+  const listRef = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: listRef,
+    offset: ["start start", "end end"],
+  });
 
   return (
     <SectionLayout
       id="projects"
       leftContent={t("title.leftContent")}
       rightContent={t("title.rightContent")}
-      // No opaque background here: the section sits above the fixed ambient
-      // background layer, so bg-background would hide the grain and glow for the
-      // whole /projects page. Every other section leaves it transparent too.
+      // No opaque background: the fixed ambient layer (grain/glow) shows through.
       className="relative"
     >
-      <div className="w-11/12 mx-auto border-t border-border">
+      <div
+        ref={listRef}
+        className="mx-auto mt-12 flex w-11/12 max-w-7xl flex-col gap-6 md:mt-0 md:gap-0"
+      >
         {visibleProjects.map((project, index) => (
-          <ProjectCard key={project.slug} project={project} index={index} />
+          <ProjectCard
+            key={project.slug}
+            project={project}
+            index={index}
+            total={visibleProjects.length}
+            listProgress={scrollYProgress}
+          />
         ))}
-        {!all && (
-          <Link
-            href="/projects"
-            data-cursor-text="ALL"
-            className="group relative isolate flex min-h-11 items-center justify-between gap-6 overflow-hidden py-6 font-inter focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring before:pointer-events-none before:absolute before:inset-0 before:z-0 before:-translate-x-full before:bg-muted/30 before:transition-transform before:duration-300 before:ease-out before:content-[''] after:pointer-events-none after:absolute after:inset-y-0 after:left-0 after:z-0 after:w-px after:-translate-y-full after:bg-primary after:transition-transform after:duration-300 after:ease-out after:content-[''] hover:before:translate-x-0 hover:after:translate-y-0 focus-visible:before:translate-x-0 focus-visible:after:translate-y-0 motion-reduce:before:duration-0 motion-reduce:after:duration-0 md:py-8"
-          >
-            <span className="relative z-10 text-2xl font-semibold uppercase tracking-tight text-foreground transition-transform duration-200 group-hover:translate-x-1 group-focus-visible:translate-x-1 motion-reduce:transition-none sm:text-3xl lg:text-4xl">
-              {t("title.leftContent")}
-            </span>
-            <ArrowUpRight
-              aria-hidden="true"
-              className="relative z-10 size-5 shrink-0 text-foreground transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1 group-focus-visible:translate-x-1 group-focus-visible:-translate-y-1 motion-reduce:transition-none"
-            />
-          </Link>
-        )}
       </div>
+      {!all && (
+        <ScrollReveal className="mx-auto mt-16 flex w-11/12 max-w-7xl justify-center md:mt-24">
+          <PillLink href="/projects" cursorText="ALL">
+            {t("title.leftContent")}
+          </PillLink>
+        </ScrollReveal>
+      )}
     </SectionLayout>
   );
 }

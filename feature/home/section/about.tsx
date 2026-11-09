@@ -1,46 +1,40 @@
 "use client";
-import React, { useRef } from "react";
 import { NAVIGATION_LINKS } from "@/shared/content/base";
 import { SectionLayout } from "../components/section-layout";
 import AboutCard from "../components/about-card";
 import ScrollText from "../components/scroll-text";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useTranslations } from "next-intl";
+
 export default function About() {
-  const containerRef = useRef(null);
   const t = useTranslations("HomePage");
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["end center", "0.7 start"],
-  });
-  const springProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    mass: 0.2,
-  });
-  const translateY = useTransform(springProgress, [0, 1], [0, -100]);
-  const opacity = useTransform(springProgress, [0, 1], [1, 0]);
   return (
     <SectionLayout
-      ref={containerRef}
       id="about"
       leftContent={t("about.title.leftContent")}
       rightContent={t("about.title.rightContent")}
-      className="  justify-between"
     >
-      <motion.div
-        style={{ translateY, opacity }}
-        className="w-full  py-10  mx-auto max-w-7xl flex-1 flex space-y-10 flex-col md:flex-row  justify-between items-center"
-      >
-        <div className="flex-1  w-full">
-          {NAVIGATION_LINKS.map((link, index) => (
-            <AboutCard key={index} href={link.href} title={link.name} />
-          ))}
-        </div>
-        <div className="flex-1 w-11/12 mx-auto  ">
-          <ScrollText text={t("about.description")} />
-        </div>
-      </motion.div>
+      <div className="mx-auto mt-16 grid w-11/12 max-w-7xl gap-16 md:mt-24 md:grid-cols-12 md:gap-10">
+        <ScrollText
+          text={t("about.description")}
+          className="space-y-8 text-2xl font-medium leading-[1.35] tracking-[-0.02em] md:col-span-8 md:text-[2.15rem]"
+        />
+
+        {/* Sticky index rail */}
+        <aside className="md:col-span-4">
+          <div className="md:sticky md:top-32">
+            <ul className="border-t border-foreground/10">
+              {NAVIGATION_LINKS.map((link, index) => (
+                <AboutCard
+                  key={link.href}
+                  href={link.href}
+                  title={link.name}
+                  index={index}
+                />
+              ))}
+            </ul>
+          </div>
+        </aside>
+      </div>
     </SectionLayout>
   );
 }

@@ -2,70 +2,130 @@
 
 import { Link } from "@/i18n/navigation";
 import type { Project } from "@/shared/content/types";
-import { motion, useReducedMotion } from "framer-motion";
+import Bezel from "@/shared/components/bezel";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
+import { useRef } from "react";
+import useMobile from "@/shared/hooks/use-mobile";
 
+/**
+ * One card in the sticky z-axis cascade. While later cards slide over it, the
+ * card recedes (scale + dim) driven by the list's scroll progress.
+ */
 export default function ProjectCard({
   project,
   index,
+  total,
+  listProgress,
 }: {
   project: Project;
   index: number;
+  total: number;
+  listProgress: MotionValue<number>;
 }) {
-  const reducedMotion = useReducedMotion() ?? false;
-  const isReversed = index % 2 === 1;
+  const ref = useRef<HTMLDivElement | null>(null);
+  const isMobile = useMobile();
+  // no stacking choreography on phones: plain vertical list
+  const reduceMotion = (useReducedMotion() ?? false) || isMobile;
+
+  // Image parallax while this card travels through the viewport
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "start start"],
+  });
+  const imageY = useTransform(scrollYProgress, [0, 1], reduceMotion ? ["0%", "0%"] : ["-12%", "0%"]);
+  const entryRotate = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [index % 2 ? 2 : -2, 0]);
+
+  const start = index / total;
+  const targetScale = 1 - (total - 1 - index) * 0.035;
+  const scale = useTransform(listProgress, [start, 1], reduceMotion ? [1, 1] : [1, targetScale]);
+  const dim = useTransform(listProgress, [start, 1], reduceMotion ? [0, 0] : [0, (total - 1 - index) * 0.08]);
 
   return (
-    <motion.div
-      initial={reducedMotion ? false : { opacity: 0, x: isReversed ? 12 : -12 }}
-      animate={reducedMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
-      transition={
-        reducedMotion ? { duration: 0 } : { duration: 0.28, ease: "easeOut" }
-      }
-      className="w-full border-b border-border"
-    >
-      <Link
-        href={`/projects/${project.slug}`}
-        data-project-row=""
-        data-cursor-text="VIEW"
-        className={`group relative isolate block min-h-11 overflow-hidden font-inter focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring before:pointer-events-none before:absolute before:inset-0 before:z-0 before:bg-muted/30 before:transition-transform before:duration-300 before:ease-out before:content-[''] after:pointer-events-none after:absolute after:inset-y-0 after:z-0 after:w-px after:bg-primary after:transition-transform after:duration-300 after:ease-out after:content-[''] hover:before:translate-x-0 hover:after:translate-y-0 focus-visible:before:translate-x-0 focus-visible:after:translate-y-0 motion-reduce:before:duration-0 motion-reduce:after:duration-0 ${
-          isReversed
-            ? "before:translate-x-full after:right-0 after:translate-y-full"
-            : "before:-translate-x-full after:left-0 after:-translate-y-full"
-        }`}
+    <div ref={ref} className="md:sticky md:top-0 md:flex md:h-[100dvh] md:items-center">
+      {/* cascade offset so stacked card edges peek out above each other */}
+      <div
+        className="w-full md:translate-y-[calc(var(--i)*1.25rem)]"
+        style={{ "--i": index } as React.CSSProperties}
       >
-        <div className="relative z-10 grid grid-cols-[minmax(0,1fr)_auto] items-start gap-x-4 gap-y-3 py-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,1fr)] md:items-center md:gap-x-8 md:py-8 lg:gap-x-12">
-          <h3
-            className={`min-w-0 break-normal text-2xl font-semibold uppercase leading-[0.95] tracking-tight text-foreground transition-transform duration-200 group-hover:translate-x-1 group-focus-visible:translate-x-1 motion-reduce:transition-none sm:text-3xl lg:text-4xl ${
-              isReversed
-                ? "md:col-start-3 md:row-start-1 md:justify-self-end md:text-right md:group-hover:-translate-x-1 md:group-focus-visible:-translate-x-1"
-                : "md:col-start-1 md:row-start-1"
-            }`}
+      <motion.div
+        style={{ scale, rotate: entryRotate }}
+        className="w-full origin-top md:will-change-transform"
+      >
+        <Link
+          href={`/projects/${project.slug}`}
+          data-cursor-text="VIEW"
+          className="group block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background rounded-[2rem]"
+        >
+          <Bezel
+            // opaque surfaces: cards stack on top of each other
+            className="bg-[oklch(0.96_0_0)] dark:bg-[oklch(0.19_0_0)]"
+            innerClassName="grid bg-background dark:bg-[oklch(0.165_0_0)] md:grid-cols-12 md:h-[min(68vh,620px)]"
           >
-            {project.title}
-          </h3>
-          <p
-            className={`col-span-2 min-w-0 px-2 max-w-2xl wrap-break-word text-sm leading-relaxed text-muted-foreground md:col-span-1 md:col-start-2 md:row-start-1 md:text-base ${
-              isReversed ? "md:justify-self-end md:text-right" : ""
-            }`}
-          >
-            {project.description}
-          </p>
-          <div
-            className={`col-start-2 row-start-1 flex items-center justify-end gap-3 text-sm font-medium tabular-nums text-muted-foreground ${
-              isReversed
-                ? "md:col-start-1 md:justify-start"
-                : "md:col-start-3 md:justify-end"
-            }`}
-          >
-            <time dateTime={project.datetime}>{project.datetime}</time>
-            <ArrowUpRight
-              aria-hidden="true"
-              className="size-4 shrink-0 transition-transform duration-200 group-hover:-translate-y-0.5 group-focus-visible:-translate-y-0.5 motion-reduce:transition-none"
+            {/* Copy */}
+            <div className="relative flex flex-col justify-between gap-10 p-6 md:col-span-5 md:p-10">
+              <div className="flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+                <time dateTime={project.datetime}>{project.datetime}</time>
+                <span className="ml-4 h-px flex-1 bg-foreground/10" />
+              </div>
+
+              <div className="space-y-5">
+                <h3 className="break-words font-sans text-[clamp(2rem,4vw,3.5rem)] font-semibold uppercase leading-[0.9] tracking-[-0.045em]">
+                  {project.title}
+                </h3>
+                <p className="max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
+                  {project.description}
+                </p>
+                {project.tech && (
+                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                    {project.tech.slice(0, 5).join("  /  ")}
+                  </p>
+                )}
+              </div>
+
+              <span className="inline-flex w-fit items-center gap-3 rounded-full bg-foreground py-1.5 pl-5 pr-1.5 text-sm font-medium text-background transition-transform duration-700 ease-fluid group-active:scale-[0.98]">
+                View case
+                <span className="flex size-8 items-center justify-center rounded-full bg-background/15 transition-transform duration-700 ease-fluid group-hover:translate-x-0.5 group-hover:-translate-y-px group-hover:scale-105">
+                  <ArrowUpRight
+                    aria-hidden
+                    strokeWidth={1.25}
+                    className="size-4 transition-transform duration-700 ease-fluid group-hover:rotate-45"
+                  />
+                </span>
+              </span>
+            </div>
+
+            {/* Visual */}
+            <div className="relative m-1.5 aspect-[16/10] overflow-hidden rounded-[calc(2rem-0.75rem)] bg-muted md:col-span-7 md:m-2 md:aspect-auto">
+              <motion.div style={{ y: imageY }} className="absolute -inset-y-[12%] inset-x-0">
+                <Image
+                  src={project.picture}
+                  alt={project.title}
+                  fill
+                  sizes="(min-width: 768px) 58vw, 92vw"
+                  className="object-cover object-left transition-transform duration-[1.4s] ease-fluid group-hover:scale-[1.04]"
+                />
+              </motion.div>
+              <div className="pointer-events-none absolute inset-0 shadow-[inset_0_0_0_1px_oklch(0_0_0/0.06)] rounded-[inherit]" />
+            </div>
+
+            {/* Dims as the next card covers this one */}
+            <motion.div
+              aria-hidden
+              style={{ opacity: dim }}
+              className="pointer-events-none absolute inset-0 bg-black"
             />
-          </div>
-        </div>
-      </Link>
-    </motion.div>
+          </Bezel>
+        </Link>
+      </motion.div>
+      </div>
+    </div>
   );
 }

@@ -1,46 +1,35 @@
 "use client";
-import { motion, Variants } from "framer-motion";
-import { ArrowRightIcon } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+import { ArrowUpRight } from "lucide-react";
+import ScrollReveal from "@/shared/components/scroll-reveal";
 
 type AboutCardProps = {
   title?: string;
   href: string;
+  index: number;
 };
 
-export default function AboutCard({ title, href }: AboutCardProps) {
-  const card: Variants = {
-    initial: {
-      opacity: 0,
-      y: 20,
-    },
-    animate: {
-      opacity: 1,
-      y: 0,
-    },
-  };
+/** Index row: a fill sweeps up from below and the arrow island slides in. */
+export default function AboutCard({ title, href, index }: AboutCardProps) {
   return (
-    <motion.div
-      variants={card}
-      initial="initial"
-      whileInView="animate"
-      viewport={{ once: true, amount: 0.8 }}
-      transition={{
-        duration: 2.5,
-        ease: [0.22, 1, 0.36, 1],
-      }}
-    >
+    <ScrollReveal as="li" y={24} blur={6} delay={index * 0.06}>
       <Link
-        href={href}
-        className="relative group w-11/12 mx-auto flex overflow-hidden uppercase justify-between items-center hover:text-background duration-300 transition-colors"
+        href={href === "/" ? "/" : `/${href}`}
+        className="group relative isolate flex items-center justify-between gap-4 overflow-hidden border-b border-foreground/10 py-5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
       >
-        <div className=" absolute  h-full inset-0 group-hover:translate-x-0 -z-10 -translate-x-[110%] bg-accent-foreground transition-all  pointer-events-auto"></div>
-        <p className="lg:text-7xl  md:text-6xl text-4xl ">{title}</p>
-        <ArrowRightIcon
-          size={30}
-          className="group-hover:-rotate-20 md:opacity-0 group-hover:opacity-100 lg:translate-x-10 group-hover:-translate-x-2 transition-transform"
+        <span
+          aria-hidden
+          className="absolute inset-0 -z-10 translate-y-full bg-foreground transition-transform duration-700 ease-fluid group-hover:translate-y-0"
         />
+        <span className="flex items-baseline gap-4 pl-1 transition-[color,transform] duration-700 ease-fluid group-hover:translate-x-3 group-hover:text-background">
+          <span className="font-sans text-3xl font-semibold uppercase tracking-[-0.04em] md:text-4xl">
+            {title}
+          </span>
+        </span>
+        <span className="mr-2 flex size-10 items-center justify-center rounded-full ring-1 ring-foreground/10 transition-[transform,background-color,color] duration-700 ease-fluid group-hover:-translate-x-1 group-hover:rotate-45 group-hover:bg-background group-hover:text-foreground">
+          <ArrowUpRight aria-hidden strokeWidth={1.25} className="size-4" />
+        </span>
       </Link>
-    </motion.div>
+    </ScrollReveal>
   );
 }
