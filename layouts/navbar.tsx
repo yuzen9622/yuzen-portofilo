@@ -1,8 +1,13 @@
 "use client";
-import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+} from "framer-motion";
 import { useEffect, useState } from "react";
-import { Link } from "@/i18n/navigation";
+import { Link, usePathname } from "@/i18n/navigation";
 import Tool from "@/layouts/tool";
 import {
   NavigationMenu,
@@ -14,85 +19,119 @@ import { cn } from "@/shared/lib/utils";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { AvatarImage } from "@radix-ui/react-avatar";
 
-import { NAVIGATION_LINKS, ProfileBase } from "@/shared/content/base";
+import { NAVIGATION_LINKS, ProfileBase, SocialBase } from "@/shared/content/base";
 import { useIntro } from "@/shared/components/intro-provider";
+import { EASE_EXPO, EASE_FLUID } from "@/shared/lib/motion";
+
+const linkHref = (href: string) => (href === "/" ? "/" : `/${href}`);
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const MotionLink = motion.create(Link);
   const [isTop, setIsTop] = useState(true);
+  const [isHidden, setIsHidden] = useState(false);
+  const [hovered, setHovered] = useState<string | null>(null);
+  const pathname = usePathname();
+  const reduceMotion = useReducedMotion();
   // 開場動畫播放期間讓 navbar 收在畫面上方，結束後與遮罩淡出同步滑入
   const { isPlaying } = useIntro();
-  const introHidden = isPlaying
-    ? "opacity-0 -translate-y-4 pointer-events-none"
-    : "opacity-100 translate-y-0";
+
+  // Framer's scroll value instead of a raw scroll listener; hide on the way
+  // down, reveal on the way up
+  const { scrollY } = useScroll();
+  useMotionValueEvent(scrollY, "change", (y) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    setIsTop(y < 50);
+    setIsHidden(y > 240 && y > prev + 2 ? true : y < prev - 2 ? false : isHidden);
+  });
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsTop(window.scrollY < 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-
+    document.documentElement.style.overflow = isOpen ? "hidden" : "";
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      document.documentElement.style.overflow = "";
     };
-  }, []);
+  }, [isOpen]);
+
+  const shellState =
+    isPlaying
+      ? "opacity-0 -translate-y-6 pointer-events-none"
+      : isHidden && !isOpen
+        ? "-translate-y-[140%]"
+        : "opacity-100 translate-y-0";
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(`/${href}`);
+
   return (
     <>
       <div
         className={cn(
-          "top-2 sticky z-20 flex items-center transition-all duration-500 justify-center",
-          isTop && "top-0 w-full",
-          introHidden,
+          "sticky top-4 z-20 hidden justify-center transition-[transform,opacity] duration-700 ease-fluid sm:flex",
+          shellState,
         )}
       >
         <NavigationMenu
           className={cn(
-            "p-3 transition-all rounded-full duration-300 h-fit hidden sm:block flex-none",
+            "h-fit flex-none rounded-full p-1.5 transition-[background-color,box-shadow,backdrop-filter] duration-700 ease-fluid",
             isTop
-              ? "bg-transparent backdrop-blur-none outline-none shadow-none"
-              : "bg-background/80 backdrop-blur-md border border-border/40 shadow-xs",
+              ? "bg-transparent shadow-none"
+              : "bg-background/70 shadow-[0_20px_50px_-24px_oklch(0.2_0_0/0.35),inset_0_1px_0_oklch(1_0_0/0.25)] ring-1 ring-foreground/[0.08] backdrop-blur-xl dark:ring-white/10",
           )}
         >
-          <NavigationMenuList className="transition-all">
-            {NAVIGATION_LINKS.map((item, index) => (
+          <NavigationMenuList
+            className="gap-0.5"
+            onMouseLeave={() => setHovered(null)}
+          >
+            {NAVIGATION_LINKS.map((item) => (
               <li key={item.name}>
-                <NavigationMenuItem
-                  asChild
-                  key={index}
-                  className="overflow-hidden  "
-                >
+                <NavigationMenuItem asChild>
                   <Link
+                    href={linkHref(item.href)}
+                    onMouseEnter={() => setHovered(item.name)}
+                    onFocus={() => setHovered(item.name)}
                     className={cn(
-                      "rounded-3xl  px-4  py-2 z-0 transition  hover:text-background relative hover:before:scale-100 before:transition-all before:absolute before:scale-50 before:opacity-0  hover:before:opacity-100 before:rounded-3xl before:inset-0 before:w-full before:h-full  before:-z-20 before:bg-primary ",
+                      "relative block rounded-full px-4 py-2 text-sm font-medium tracking-tight transition-colors duration-500 ease-fluid",
+                      hovered === item.name
+                        ? "text-background"
+                        : isActive(item.href)
+                          ? "text-foreground"
+                          : "text-muted-foreground",
                     )}
-                    href={`/${item.href}`}
                   >
+                    {hovered === item.name && (
+                      <motion.span
+                        layoutId="nav-hover-pill"
+                        className="absolute inset-0 -z-10 rounded-full bg-foreground"
+                        transition={{ type: "spring", stiffness: 380, damping: 32, mass: 0.6 }}
+                      />
+                    )}
+                    {isActive(item.href) && (
+                      <span className="absolute bottom-1 left-1/2 size-1 -translate-x-1/2 rounded-full bg-current" />
+                    )}
                     <span>{item.name}</span>
                   </Link>
                 </NavigationMenuItem>
               </li>
             ))}
+            <span className="mx-1.5 h-5 w-px bg-foreground/10" aria-hidden />
             <Tool />
           </NavigationMenuList>
         </NavigationMenu>
       </div>
-      {/** RWD navbar */}
+
+      {/* Mobile island */}
       <NavigationMenu
         className={cn(
-          "p-3 w-11/12 max-w-none mx-auto h-fit hidden max-sm:flex rounded-2xl transition-all duration-500 justify-between flex-none top-2 sticky z-30",
-          introHidden,
-          isOpen
-            ? "backdrop-blur-none bg-transparent"
-            : isTop
-              ? "bg-transparent backdrop-blur-none"
-              : "backdrop-blur-md bg-background/80 border border-border/40 shadow-xs",
+          "sticky top-3 z-30 mx-auto hidden h-fit w-[calc(100%-2rem)] max-w-none flex-none justify-between rounded-full p-1.5 pr-2 transition-[transform,opacity,background-color] duration-700 ease-fluid max-sm:flex",
+          shellState,
+          isOpen || isTop
+            ? "bg-transparent"
+            : "bg-background/80 shadow-[0_20px_50px_-24px_oklch(0.2_0_0/0.35)] ring-1 ring-foreground/[0.08] backdrop-blur-md",
         )}
       >
-        <Link href={`/`} className="relative font-bold text-xl  text-primary">
-          <Avatar className="  pointer-events-none  w-10 h-10     aspect-square">
+        <Link href="/" aria-label="Home" className="relative">
+          <Avatar className="pointer-events-none aspect-square h-10 w-10">
             <AvatarImage
-              className=" rounded-full"
+              className="rounded-full"
               alt={ProfileBase.name}
               width={48}
               height={48}
@@ -102,53 +141,88 @@ export default function Navbar() {
           </Avatar>
         </Link>
         <NavigationMenuList>
-          <div className="flex gap-2 items-center ">
-            <NavigationMenuItem
-              onClick={() => {
-                setIsOpen((prev) => !prev);
-              }}
-            >
-              {isOpen ? <X /> : <Menu />}
-            </NavigationMenuItem>
+          <div className="flex items-center gap-2">
             <Tool />
+            <NavigationMenuItem>
+              <button
+                type="button"
+                aria-label={isOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isOpen}
+                onClick={() => setIsOpen((prev) => !prev)}
+                className="relative flex size-10 items-center justify-center rounded-full bg-foreground/[0.05] ring-1 ring-foreground/10 transition-transform duration-500 ease-fluid active:scale-95"
+              >
+                {/* Two lines morph into an X */}
+                <span
+                  className={cn(
+                    "absolute h-px w-4 bg-foreground transition-transform duration-500 ease-fluid",
+                    isOpen ? "rotate-45" : "-translate-y-[3px]",
+                  )}
+                />
+                <span
+                  className={cn(
+                    "absolute h-px w-4 bg-foreground transition-transform duration-500 ease-fluid",
+                    isOpen ? "-rotate-45" : "translate-y-[3px]",
+                  )}
+                />
+              </button>
+            </NavigationMenuItem>
           </div>
         </NavigationMenuList>
       </NavigationMenu>
-      <AnimatePresence mode="wait">
+
+      <AnimatePresence>
         {isOpen && (
           <motion.div
             key="menu"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
+            exit={{ opacity: 0, transition: { duration: 0.4, ease: EASE_FLUID, delay: 0.15 } }}
+            transition={{ duration: 0.5, ease: EASE_FLUID }}
             // A full-viewport backdrop-filter allocates an off-screen buffer the size of
-            // the whole screen, and the opacity fade re-composites it every frame.
-            // Mobile WebKit can run out of GPU memory doing that, so lean on a more
-            // opaque background and a small blur radius instead.
-            className=" fixed z-20  inset-0 bg-background/95  sm:hidden w-dvw h-dvh backdrop-blur-sm flex justify-center flex-col items-center gap-10 "
+            // the whole screen; keep the background near-opaque and the blur small so
+            // mobile WebKit doesn't run out of GPU memory.
+            className="fixed inset-0 z-20 flex h-dvh w-dvw flex-col justify-between bg-background/95 px-6 pb-10 pt-28 backdrop-blur-sm sm:hidden"
           >
-            <AnimatePresence>
-              {isOpen &&
-                NAVIGATION_LINKS.map((item, index) => (
-                  <MotionLink
-                    key={item.name}
-                    initial={{ y: 40, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{
-                      duration: 0.3,
-                      delay: index * 0.1,
-                      ease: "easeInOut",
-                    }}
-                    exit={{ y: 40, opacity: 0 }}
-                    href={`/${item.href}`}
-                    onClick={() => setIsOpen(false)}
-                    className={cn(" px-4 py-2 text-4xl inter ")}
-                  >
-                    {item.name}
-                  </MotionLink>
+            <nav>
+              <ul className="space-y-1">
+                {NAVIGATION_LINKS.map((item, index) => (
+                  <li key={item.name} className="overflow-hidden">
+                    <motion.div
+                      initial={reduceMotion ? false : { y: "110%" }}
+                      animate={{ y: 0 }}
+                      exit={{ y: "110%", transition: { duration: 0.35, ease: EASE_FLUID, delay: (NAVIGATION_LINKS.length - index) * 0.03 } }}
+                      transition={{ duration: 0.9, ease: EASE_EXPO, delay: 0.1 + index * 0.06 }}
+                    >
+                      <Link
+                        href={linkHref(item.href)}
+                        onClick={() => setIsOpen(false)}
+                        className="block py-1 font-sans text-5xl font-semibold uppercase tracking-[-0.05em]"
+                      >
+                        {item.name}
+                      </Link>
+                    </motion.div>
+                  </li>
                 ))}
-            </AnimatePresence>
+              </ul>
+            </nav>
+            <motion.div
+              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8, ease: EASE_EXPO, delay: 0.45 }}
+              className="flex items-end justify-between border-t border-foreground/10 pt-6 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground"
+            >
+              <a href={`mailto:${ProfileBase.email}`} className="text-foreground">
+                {ProfileBase.email}
+              </a>
+              <div className="flex gap-4">
+                {Object.entries(SocialBase).map(([key, value]) => (
+                  <a key={key} href={value.url} target="_blank" rel="noopener noreferrer">
+                    {key.slice(0, 2)}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

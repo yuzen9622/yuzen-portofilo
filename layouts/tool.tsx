@@ -20,7 +20,7 @@ import MusicPlayer from "@/shared/components/music-player";
 import Magnetic from "@/shared/components/magnetic";
 
 export default function Tool() {
-  const { toggleTheme, isDark } = useTheme();
+  const { toggleTheme } = useTheme();
 
   const circleRef = useRef<SVGCircleElement>(null);
   const { scrollYProgress } = useScroll();
@@ -50,7 +50,10 @@ export default function Tool() {
         }}
       >
         <Magnetic strength={0.35}>
-          {isDark ? <Sun size={18} /> : <Moon size={18} />}
+          {/* Pick the icon in CSS from the <html> class next-themes sets before
+              hydration; the theme value itself is unknown on the server. */}
+          <Sun size={18} className="hidden dark:block" aria-hidden />
+          <Moon size={18} className="block dark:hidden" aria-hidden />
         </Magnetic>
       </NavigationMenuItem>
       <NavigationMenuItem>
