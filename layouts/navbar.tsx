@@ -71,7 +71,10 @@ export default function Navbar() {
           shellState,
         )}
       >
+        {/* No dropdown content in this menu, so skip the viewport node: it also
+            shifted React's useId tree and broke hydration of the language switch. */}
         <NavigationMenu
+          viewport={false}
           className={cn(
             "h-fit flex-none rounded-full p-1.5 transition-[background-color,box-shadow,backdrop-filter] duration-700 ease-fluid",
             isTop
@@ -122,6 +125,7 @@ export default function Navbar() {
 
       {/* Mobile island */}
       <NavigationMenu
+        viewport={false}
         className={cn(
           "sticky top-3 z-30 mx-auto hidden h-fit w-[calc(100%-2rem)] max-w-none flex-none justify-between rounded-full p-1.5 pr-2 transition-[transform,opacity,background-color] duration-700 ease-fluid max-sm:flex",
           shellState,
