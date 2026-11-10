@@ -44,7 +44,7 @@ export default function IntroOverlay() {
        *   把 Hero 的 RotatingText 投影過去 → 單一元素 morph，畫面上永遠只有一份「Yuzen」。
        */}
       {isPlaying && (
-        <div className="pointer-events-none fixed inset-0 z-[101] flex items-center justify-center font-inter motion-reduce:hidden">
+        <div className="pointer-events-none fixed inset-0 z-[101] flex items-center justify-center font-sans motion-reduce:hidden">
           <motion.h1
             layoutId="hero-title"
             initial={{ y: -120, opacity: 0 }}
@@ -54,7 +54,7 @@ export default function IntroOverlay() {
               ease: EASE,
               layout: { duration: INTRO_MORPH_DURATION, ease: EASE },
             }}
-            className="text-6xl uppercase md:text-7xl lg:text-8xl"
+            className="text-6xl font-semibold uppercase tracking-[-0.04em] md:text-8xl lg:text-9xl"
           >
             <SplitText text="Yuzen" delay={0.1} stagger={0.09} />
           </motion.h1>

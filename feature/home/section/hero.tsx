@@ -26,6 +26,9 @@ import { INTRO_MORPH_DURATION } from "@/shared/components/intro-overlay";
 import { EASE_EXPO, SCROLL_SPRING } from "@/shared/lib/motion";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
+// The rest of the hero assembles once the intro name has mostly landed, so the
+// flying title never crosses text that is still rising into place.
+const REVEAL_AFTER_MORPH = INTRO_MORPH_DURATION * 0.55;
 
 function useTaipeiTime() {
 	const [time, setTime] = useState<string | null>(null);
@@ -97,7 +100,7 @@ export default function Hero() {
 			opacity: 1,
 			y: 0,
 			filter: "blur(0px)",
-			transition: { duration: 1.1, ease: EASE_EXPO, delay: 0.25 + i * 0.08 },
+			transition: { duration: 1.1, ease: EASE_EXPO, delay: REVEAL_AFTER_MORPH + 0.15 + i * 0.08 },
 		}),
 	};
 
@@ -136,7 +139,7 @@ export default function Hero() {
 						>
 							<MaskLines
 								play={!isPlaying}
-								delay={0.1}
+								delay={REVEAL_AFTER_MORPH}
 								lines={[
 									t("line1"),
 									t.rich("line2", {
@@ -158,15 +161,22 @@ export default function Hero() {
 							/>
 						</h1>
 
-						<motion.div
-							custom={1}
-							variants={fadeUp}
-							className={cn(
-								"flex items-center gap-4 font-sans text-4xl font-semibold tracking-[-0.04em] md:text-6xl",
-								!isZh && "uppercase",
-							)}
-						>
-							<span className="h-px w-10 bg-foreground/30 md:w-16" aria-hidden />
+						{/* Plain div on purpose: any opacity/blur/y on an ancestor hides or
+						    skews the layoutId morph from the intro title while it lands. */}
+						{/* Always uppercase so "Yuzen" matches the intro title letter for letter */}
+						<div className="flex items-center gap-4 font-sans text-4xl font-semibold uppercase tracking-[-0.04em] md:text-6xl">
+							{/* Hairline draws in once the name has landed */}
+							<motion.span
+								aria-hidden
+								variants={{
+									initial: { scaleX: 0 },
+									animate: {
+										scaleX: 1,
+										transition: { duration: 1, ease: EASE_EXPO, delay: INTRO_MORPH_DURATION * 0.7 },
+									},
+								}}
+								className="h-px w-10 origin-left bg-foreground/30 md:w-16"
+							/>
 							{/* 開場遮罩在 layout 最上層（intro-overlay.tsx）。
 							    等開場結束才掛載，由 layoutId 從遮罩標題 morph 過來。
 							    這層刻意不加淡入：morph 過程中再疊一層 opacity 動畫會像殘影。 */}
@@ -188,7 +198,7 @@ export default function Hero() {
 									/>
 								)}
 							</span>
-						</motion.div>
+						</div>
 
 						<motion.p
 							custom={2}
